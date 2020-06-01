@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PA4AL</string>
+    <string name="title_home">Home</string>
+    <string name="title_upload">Upload</string>
+    <string name="title_history">History</string>
+    <string name="categorie__prompt">Choose a categorie</string>
+    <string-array name="country__arrays">
+        <item>Roman</item>
+        <item>Article</item>
+        <item>Commentaires</item>
+        <item>Chanson</item>
+        <item>Poeme</item>
+    </string-array>
+</resources>
