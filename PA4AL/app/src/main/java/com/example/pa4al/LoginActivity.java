@@ -11,7 +11,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pa4al.model.LoginResponse;
+import com.example.pa4al.model.User;
+
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     Button login;
     SharedPreferences sharedPreferences;
+    Api api;
     CheckBox saveLoginCheck;
     Intent activityIntent;
 
@@ -31,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         login = findViewById(R.id.login_validate_button);
 
-        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        username.setText(sharedPreferences.getString("username", null));
     }
 
     public void Login(){
@@ -48,20 +56,41 @@ public class LoginActivity extends AppCompatActivity {
 
         String user = username.getText().toString();
         String psd = password.getText().toString();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(editor != null){
-            editor.putString("username", user);
-            editor.putString("password", psd);
-            editor.putString("uuid", UUID.randomUUID().toString());
-            editor.apply();
-            startActivity(mainActivity);
-            finish();
-
-        } else {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        if(user.isEmpty()){
+            username.setText("username required");
+            username.requestFocus();
+            return;
         }
+        if(psd.isEmpty()){
+            password.setText("password required");
+            password.requestFocus();
+            return;
+        }
+
+        Call<LoginResponse> call = RetrofitClient
+                .getInstance().getApi().userLogin(user,psd);
+
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse loginResponse = response.body();
+                if(!loginResponse.isError()){
+                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        
     }
+
 
 }
 

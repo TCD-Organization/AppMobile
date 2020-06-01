@@ -10,8 +10,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.UUID;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText confirmPassword;
     Button register;
     SharedPreferences sharedPreferences;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    Api api;
 
 
     @Override
@@ -56,31 +61,31 @@ public class RegisterActivity extends AppCompatActivity {
         String psd = password.getText().toString();
         String confirm = confirmPassword.getText().toString();
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://51.178.18.199:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        AddUser addUser = new AddUser();
-        addUser.onAdd(user,mail,psd,jsonPlaceHolderApi);
-        if(editor != null){
-            if(psd==confirm) {
 
-                editor.putString("username", user);
-                editor.putString("password", psd);
-                editor.putString("uuid", UUID.randomUUID().toString());
-                editor.apply();
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createUser(user, mail, psd);
+         call.enqueue(new Callback<ResponseBody>() {
+         @Override
+         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                 try{
+                     String s = response.body().string();
+                     Toast.makeText(RegisterActivity.this, s, Toast.LENGTH_LONG).show();
+                 }catch (IOException e){
+                     e.printStackTrace();
+                 }
+                 ;
+             }
 
-                startActivity(mainActivity);
-                finish();
-            }
-            else {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-            }
+         @Override
+         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+             }
+         });
 
-        } else {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-        }
+
+
     }
 
 }
