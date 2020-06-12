@@ -1,4 +1,4 @@
-package com.example.pa4al;
+package com.example.pa4al.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,18 +11,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.pa4al.model.LoginResponse;
-import com.example.pa4al.model.User;
+import com.example.pa4al.api.Api;
+import com.example.pa4al.MainActivity;
+import com.example.pa4al.R;
+import com.example.pa4al.api.RetrofitClient;
 
-import java.util.UUID;
-
-import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class LoginActivity extends AppCompatActivity {
 

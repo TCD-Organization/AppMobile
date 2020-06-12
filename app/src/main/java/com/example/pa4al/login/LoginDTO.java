@@ -1,4 +1,4 @@
-package com.example.pa4al;
+package com.example.pa4al.login;
 
 public class LoginDTO {
     final String username;

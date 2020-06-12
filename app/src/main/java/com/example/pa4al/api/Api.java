@@ -1,4 +1,6 @@
-package com.example.pa4al;
+package com.example.pa4al.api;
+
+import com.example.pa4al.login.LoginDTO;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

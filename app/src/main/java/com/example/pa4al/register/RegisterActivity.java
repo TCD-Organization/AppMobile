@@ -1,4 +1,4 @@
-package com.example.pa4al;
+package com.example.pa4al.register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,15 +10,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pa4al.MainActivity;
+import com.example.pa4al.R;
+import com.example.pa4al.api.Api;
+import com.example.pa4al.api.RetrofitClient;
+
 import java.io.IOException;
-import java.util.UUID;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText username;

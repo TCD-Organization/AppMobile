@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pa4al.login.LoginActivity;
+
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +17,10 @@ public class StartActivity extends AppCompatActivity {
 
         Intent activityIntent;
 
-        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+        SharedPreferences userPreferences = getSharedPreferences("userdetails", MODE_PRIVATE);
+        if (userPreferences.getString("token", null) != null) {
+
+        }
 
         activityIntent = new Intent(this, LoginActivity.class);
 

@@ -1,4 +1,4 @@
-package com.example.pa4al;
+package com.example.pa4al.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
