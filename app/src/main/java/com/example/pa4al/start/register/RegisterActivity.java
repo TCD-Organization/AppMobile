@@ -1,4 +1,4 @@
-package com.example.pa4al.register;
+package com.example.pa4al.start.register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/textbox_back"
@@ -24,7 +24,7 @@
             tools:ignore="MissingConstraints">
         </EditText>
         <EditText
-            android:id="@+id/mail"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
@@ -38,7 +38,7 @@
             android:drawableStart="@drawable/ic_person_outline_white_24dp">
         </EditText>
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
@@ -54,7 +54,7 @@
         </EditText>
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/btnRegister"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:background="@drawable/login_button_back"

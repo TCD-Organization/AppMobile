@@ -1,4 +1,4 @@
-package com.example.pa4al.login;
+package com.example.pa4al.start.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,26 +12,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
+import com.example.pa4al.start.CallbackFragment;
 
-public class FragmentLogin extends Fragment {
+public class FragmentRegister extends Fragment implements CallbackFragment {
 
     Button btnLogin, btnRegister;
-    EditText etUserName, etPassword;
+    EditText etUserName, etPassword, etEmail;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        View view = inflater.inflate(R.layout.register_fragment, container, false);
         etUserName = view.findViewById(R.id.etUsername);
+        etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
-        btnLogin = view.findViewById(R.id.btnLogin);
         btnRegister = view.findViewById(R.id.btnRegister);
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,5 +34,10 @@ public class FragmentLogin extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void changeFragment() {
+
     }
 }

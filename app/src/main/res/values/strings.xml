@@ -10,7 +10,7 @@
     <string name="subscribe">S\'inscrire</string>
     <string name="password">Mot de passe</string>
     <string name="email">E-mail</string>
-    <string name="username">Nom d'utilisateur</string>
+    <string name="username">Nom d`\'utilisateur</string>
     <string-array name="country__arrays">
         <item>Roman</item>
         <item>Article</item>
