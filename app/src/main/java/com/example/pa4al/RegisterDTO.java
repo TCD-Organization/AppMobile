@@ -1,4 +1,4 @@
-package com.example.pa4al.ui;
+package com.example.pa4al;
 
 public class RegisterDTO {
 

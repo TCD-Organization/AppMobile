@@ -1,20 +1,17 @@
 package com.example.pa4al;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface Api {
     @POST("/register")
-    Call<ResponseBody> createUser ( // TODO : Comme le login ci-dessous, utiliser un @Body
-            @Field("username") String name,
-            @Field("email") String email,
-            @Field("password") String password
-
-    );
+    Call<Void> createUser (@Body RegisterDTO body);
 
     @POST("/login")
     Call<Void> userLogin(@Body LoginDTO body);
+
+    @POST("/document")
+    Call<Void> createDocument(@Header ("Dynamic-Header") token token,@Body DocumentDTO body);
 }
