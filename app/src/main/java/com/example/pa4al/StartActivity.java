@@ -18,9 +18,7 @@ public class StartActivity extends AppCompatActivity {
         Intent activityIntent;
 
         SharedPreferences userPreferences = getSharedPreferences("userdetails", MODE_PRIVATE);
-        if (userPreferences.getString("token", null) != null) {
 
-        }
 
         activityIntent = new Intent(this, LoginActivity.class);
 
