@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PA4AL</string>
+    <string name="title_home">Home</string>
+    <string name="title_upload">Upload</string>
+    <string name="title_history">History</string>
+    <string name="categorie__prompt">Choose a categorie</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+    <string name="username">Username</string>
+    <string-array name="country__arrays">
+        <item>Roman</item>
+        <item>Article</item>
+        <item>Commentaires</item>
+        <item>Chanson</item>
+        <item>Poeme</item>
+    </string-array>
+</resources>

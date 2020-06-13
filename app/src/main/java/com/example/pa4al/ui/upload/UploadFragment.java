@@ -1,8 +1,5 @@
 package com.example.pa4al.ui.upload;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,27 +7,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.example.pa4al.DocumentDTO;
-import com.example.pa4al.LoginActivity;
-import com.example.pa4al.LoginDTO;
-import com.example.pa4al.MainActivity;
 import com.example.pa4al.R;
-import com.example.pa4al.RetrofitClient;
+import com.example.pa4al.api.RetrofitClient;
+import com.example.pa4al.model.DocumentDTO;
+import com.example.pa4al.ui.MainFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UploadFragment extends Fragment {
+public class UploadFragment extends MainFragment {
 
     EditText name;
     EditText genre;
@@ -62,43 +51,50 @@ public class UploadFragment extends Fragment {
         });
         return view;
     }
-        public void Upload(){
-            String fileName = name.getText().toString();
-            String fileGenre = genre.getText().toString();
-            String fileContent = content.getText().toString();
-            String contentType = "";
-            if(file.isChecked()){
-                 contentType = "file";
-            }
-            else if(link.isChecked()){
-                contentType = "link";
-            }
-            else if(text.isChecked()){
-                contentType = "text";
-            }
-            // TODO: Afficher un Toast si username ou password est vide (puis return;)
-            if(fileName.isEmpty()){
-                name.setText("name required");
-                name.requestFocus();
-                return;
-            }
-            if(fileGenre.isEmpty()){
-                genre.setText("password required");
-                genre.requestFocus();
-                return;
+
+    private void Upload(){
+        String fileName = name.getText().toString();
+        String fileGenre = genre.getText().toString();
+        String fileContent = content.getText().toString();
+        String contentType = "";
+        if(file.isChecked()){
+             contentType = "file";
+        }
+        else if(link.isChecked()){
+            contentType = "link";
+        }
+        else if(text.isChecked()){
+            contentType = "text";
+        }
+        // TODO: Afficher un Toast si username ou password est vide (puis return;)
+        if(fileName.isEmpty()){
+            name.setText("name required");
+            name.requestFocus();
+            return;
+        }
+        if(fileGenre.isEmpty()){
+            genre.setText("password required");
+            genre.requestFocus();
+            return;
+        }
+
+        Call<Void> call = RetrofitClient
+                .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null),
+                        new DocumentDTO(fileName, fileGenre, contentType, fileContent));
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
+                //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
+                //  message d'erreur
+
             }
 
-            Call<Void> call = RetrofitClient
-                    .getInstance().getApi().createDocument(new DocumentDTO(fileName, fileGenre, contentType, fileContent));
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
 
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
-                    //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
-                    //  message d'erreur
-
-                }
             }
-}
+        });
+    }
 }
