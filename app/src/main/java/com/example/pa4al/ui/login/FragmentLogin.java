@@ -1,6 +1,5 @@
-package com.example.pa4al.start.login;
+package com.example.pa4al.ui.login;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,27 +10,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
 import com.example.pa4al.api.RetrofitClient;
-import com.example.pa4al.start.CallbackFragment;
+import com.example.pa4al.model.LoginDTO;
+import com.example.pa4al.activities.StartCallbackFragment;
+import com.example.pa4al.ui.MainFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentLogin extends Fragment {
+public class FragmentLogin extends MainFragment {
 
-    Button btnLogin, btnRegister;
-    EditText etUsername, etPassword;
-    CallbackFragment callbackFragment;
-    String username, password;
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
+    private Button btnLogin, btnRegister;
+    private EditText etUsername, etPassword;
+    private StartCallbackFragment startCallbackFragment;
+    private String username, password;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,8 +49,8 @@ public class FragmentLogin extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (callbackFragment != null) {
-                    callbackFragment.changeFragment();
+                if (startCallbackFragment != null) {
+                    startCallbackFragment.loadRegisterFragment();
                 }
             }
         });
@@ -100,9 +95,8 @@ public class FragmentLogin extends Fragment {
                     Toast.makeText(getActivity(), "Error while logging in",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getActivity(), "Logged-in ! :"+response.headers().get("Authorization"),
-                            Toast.LENGTH_SHORT).show();
-
+                    userPrefsEditor.putString("Token", response.headers().get("Authorization")).apply();
+                    startCallbackFragment.startMainActivity();
                 }
             }
 
@@ -114,7 +108,7 @@ public class FragmentLogin extends Fragment {
 
     }
 
-    public void setCallbackFragment(CallbackFragment callbackFragment) {
-        this.callbackFragment = callbackFragment;
+    public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {
+        this.startCallbackFragment = startCallbackFragment;
     }
 }

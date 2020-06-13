@@ -1,6 +1,6 @@
 package com.example.pa4al.api;
 
-import com.example.pa4al.start.login.LoginDTO;
+import com.example.pa4al.model.LoginDTO;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

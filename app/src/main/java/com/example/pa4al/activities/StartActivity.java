@@ -1,5 +1,6 @@
-package com.example.pa4al.start;
+package com.example.pa4al.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pa4al.R;
-import com.example.pa4al.start.login.FragmentLogin;
-import com.example.pa4al.start.register.FragmentRegister;
+import com.example.pa4al.ui.login.FragmentLogin;
+import com.example.pa4al.ui.register.FragmentRegister;
 
-public class StartActivity extends AppCompatActivity implements CallbackFragment {
+public class StartActivity extends AppCompatActivity implements StartCallbackFragment {
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -20,29 +21,19 @@ public class StartActivity extends AppCompatActivity implements CallbackFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        loginFragment();
-
-        /*
-        Intent activityIntent;
-
-        SharedPreferences userPreferences = getSharedPreferences("userdetails", MODE_PRIVATE);
-        activityIntent = new Intent(this, LoginActivity.class);
-
-        startActivity(activityIntent);
-        finish();
-        */
+        loadLoginFragment();
     }
 
-    public void loginFragment() {
+    public void loadLoginFragment() {
         FragmentLogin fragment = new FragmentLogin();
-        fragment.setCallbackFragment(this);
+        fragment.setStartCallbackFragment(this);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fcStart, fragment);
         fragmentTransaction.commit();
     }
 
-    public void registerFragment() {
+    public void loadRegisterFragment() {
         fragment = new FragmentRegister();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -51,9 +42,10 @@ public class StartActivity extends AppCompatActivity implements CallbackFragment
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void changeFragment() {
-
+    public void startMainActivity() {
+        Intent activityIntent = new Intent(this, MainActivity.class);
+        startActivity(activityIntent);
+        finish();
     }
 }
 

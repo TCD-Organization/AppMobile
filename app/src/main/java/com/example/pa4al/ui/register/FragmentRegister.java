@@ -1,4 +1,4 @@
-package com.example.pa4al.start.register;
+package com.example.pa4al.ui.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
-import com.example.pa4al.start.CallbackFragment;
 
-public class FragmentRegister extends Fragment implements CallbackFragment {
+public class FragmentRegister extends Fragment {
 
     Button btnLogin, btnRegister;
     EditText etUserName, etPassword, etEmail;
@@ -36,8 +35,4 @@ public class FragmentRegister extends Fragment implements CallbackFragment {
         return view;
     }
 
-    @Override
-    public void changeFragment() {
-
-    }
 }
