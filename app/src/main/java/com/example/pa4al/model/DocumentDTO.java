@@ -8,6 +8,6 @@ import lombok.Data;
 public class DocumentDTO {
     final String name;
     final String genre;
-    final String contentType;
+    final String content_type;
     final String content;
 }

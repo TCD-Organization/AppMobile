@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pa4al.R;
+import com.example.pa4al.ui.analysis.AnalysisFragment;
 import com.example.pa4al.ui.login.FragmentLogin;
 import com.example.pa4al.ui.register.FragmentRegister;
 
@@ -35,6 +36,14 @@ public class StartActivity extends AppCompatActivity implements StartCallbackFra
 
     public void loadRegisterFragment() {
         fragment = new FragmentRegister();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fcStart, fragment);
+        fragmentTransaction.commit();
+    }
+    public void loadAnalysisFragment() {
+        fragment = new AnalysisFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);

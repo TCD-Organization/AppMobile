@@ -6,6 +6,7 @@ import com.example.pa4al.model.RegisterDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -17,5 +18,8 @@ public interface Api {
     Call<Void> userLogin(@Body LoginDTO body);
 
     @POST("/document") // TODO: @Header("Authorization") instead ?
-    Call<Void> createDocument(@Header("Dynamic-Header") String token, @Body DocumentDTO body);
+    Call<Void> createDocument(@Header("Authorization") String token, @Body DocumentDTO body);
+
+    @GET("/analysis/all") // TODO: @Header("Authorization") instead ?
+    Call<Void> getAnalysis(@Header("Authorization") String token);
 }

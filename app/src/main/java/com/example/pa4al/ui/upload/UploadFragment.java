@@ -39,7 +39,7 @@ public class UploadFragment extends MainFragment {
         file = view.findViewById(R.id.file);
         link = view.findViewById(R.id.link);
         text = view.findViewById(R.id.text);
-        content = view.findViewById(R.id.content)
+        content = view.findViewById(R.id.content);
         upload = view.findViewById(R.id.upload);
 
         upload.setOnClickListener(new View.OnClickListener() {
