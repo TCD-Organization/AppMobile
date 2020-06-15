@@ -1,8 +1,11 @@
 package com.example.pa4al.api;
 
+import com.example.pa4al.model.Analysis;
 import com.example.pa4al.model.DocumentDTO;
 import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.model.RegisterDTO;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,5 +24,5 @@ public interface Api {
     Call<Void> createDocument(@Header("Authorization") String token, @Body DocumentDTO body);
 
     @GET("/analysis/all") // TODO: @Header("Authorization") instead ?
-    Call<Void> getAnalysis(@Header("Authorization") String token);
+    Call<List<Analysis>> getAnalysis(@Header("Authorization") String token);
 }

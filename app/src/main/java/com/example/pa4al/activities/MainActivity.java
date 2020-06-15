@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pa4al.R;
 import com.example.pa4al.ui.history.HistoryFragment;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fcMain, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment()).commit();
 
     }
 
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fcMain,selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,selectedFragment).commit();
 
             return true;
         }
