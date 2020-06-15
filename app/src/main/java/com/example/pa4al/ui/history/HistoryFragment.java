@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,11 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
-import com.example.pa4al.activities.StartCallbackFragment;
 import com.example.pa4al.api.RetrofitClient;
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.ui.MainFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -28,8 +24,6 @@ import retrofit2.Response;
 
 public class HistoryFragment extends MainFragment {
 
-    ListView listView;
-    private StartCallbackFragment startCallbackFragment;
     private int mColumnCount = 1;
     private static final String ARG_COLUMN_COUNT = "column-count";
 
@@ -60,9 +54,6 @@ public class HistoryFragment extends MainFragment {
                 System.out.println(response.code());
                 System.out.println(response.body());
                 List<Analysis> analyses = response.body();
-                /*ArrayAdapter<Analysis> adapter = new ArrayAdapter<Analysis>(getActivity(),
-                        android.R.layout.simple_list_item_1, analyses);
-                listView.setAdapter(adapter);*/
                 System.out.println(analyses);
                 initAnalysisListAdapter(view, analyses);
             }
@@ -73,7 +64,6 @@ public class HistoryFragment extends MainFragment {
             }
         });
     }
-
 
     private void initAnalysisListAdapter(View view, List<Analysis> analyses) {
         if (view instanceof RecyclerView) {
@@ -86,15 +76,5 @@ public class HistoryFragment extends MainFragment {
             }
             recyclerView.setAdapter(new HistoryAnalysisListAdapter(view.getContext(), analyses));
         }
-    }
-
-
-
-    public void NewAnalysis(){
-        startCallbackFragment.loadAnalysisFragment();
-    }
-
-    public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {
-        this.startCallbackFragment = startCallbackFragment;
     }
 }
