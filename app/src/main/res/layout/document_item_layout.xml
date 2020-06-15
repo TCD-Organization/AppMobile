@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/document_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/basic_margin"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/document_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dummy_name"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/label_document_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/document_name"
+        android:text="Genre : "/>
+
+    <TextView
+        android:id="@+id/document_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@id/document_name"
+        android:layout_toEndOf="@id/label_document_genre"
+        android:layout_toRightOf="@id/label_document_genre"
+        android:text="dummy_genre" />
+
+    <TextView
+        android:id="@+id/label_document_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_document_genre"
+        android:text="Content :"/>
+
+    <TextView
+        android:id="@+id/document_content"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/label_document_content"
+        android:layout_toRightOf="@id/label_document_content"
+        android:layout_below="@id/label_document_genre"
+        android:text="dummy_content"/>
+
+
+
+</RelativeLayout>

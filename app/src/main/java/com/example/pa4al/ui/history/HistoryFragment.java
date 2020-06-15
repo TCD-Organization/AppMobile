@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -22,7 +21,7 @@ public class HistoryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         historyViewModel =
                 ViewModelProviders.of(this).get(HistoryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_history, container, false);
+        View root = inflater.inflate(R.layout.history_fragment, container, false);
 
         historyViewModel.getText().observe(this, new Observer<String>() {
             @Override

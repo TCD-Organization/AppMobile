@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/back_gradient"
     android:layout_height="match_parent">
-
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
@@ -62,5 +60,5 @@
         android:entries="@array/country__arrays"
         android:prompt="@string/categorie__prompt"
         tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="152dp" />/>
+        tools:layout_editor_absoluteY="152dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
