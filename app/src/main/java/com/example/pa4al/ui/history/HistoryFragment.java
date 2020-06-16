@@ -48,7 +48,7 @@ public class HistoryFragment extends MainFragment {
         new_analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewAnalysis();
+                startCallbackFragment.loadAnalysisFragment();
             }
         });
         final ArrayList<Analysis> analyses = new ArrayList<Analysis>();
@@ -69,9 +69,7 @@ public class HistoryFragment extends MainFragment {
         });
         return view;
     }
-    public void NewAnalysis(){
-        startCallbackFragment.loadAnalysisFragment();
-    }
+
     public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {
         this.startCallbackFragment = startCallbackFragment;
     }
