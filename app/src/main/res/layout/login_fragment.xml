@@ -3,19 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back_gradient"
-    android:gravity="center">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="30dp"
         android:orientation="vertical">
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/textbox_back"
             android:padding="10dp"
             android:hint="@string/username"
@@ -28,8 +25,8 @@
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/basic_margin"
             android:padding="10dp"
             android:background="@drawable/textbox_back"
             android:hint="@string/password"
@@ -43,20 +40,20 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button_back"
             android:textColor="@color/colorLogin"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/basic_margin"
             android:textSize="22sp"
             android:text="@string/login">
         </Button>
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button_back"
             android:textColor="@color/colorLogin"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/basic_margin"
             android:textSize="22sp"
             android:text="@string/register">
         </Button>

@@ -33,7 +33,7 @@ public class UploadFragment extends MainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_upload, container, false);
+        View view = inflater.inflate(R.layout.upload_fragment, container, false);
         name = view.findViewById(R.id.name);
         genre = view.findViewById(R.id.genre);
         file = view.findViewById(R.id.file);

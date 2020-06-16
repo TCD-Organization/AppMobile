@@ -1,6 +1,7 @@
 package com.example.pa4al.api;
 
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.Document;
 import com.example.pa4al.model.DocumentDTO;
 import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.model.RegisterDTO;
@@ -20,9 +21,12 @@ public interface Api {
     @POST("/login")
     Call<Void> userLogin(@Body LoginDTO body);
 
-    @POST("/document") // TODO: @Header("Authorization") instead ?
+    @POST("/document")
     Call<Void> createDocument(@Header("Authorization") String token, @Body DocumentDTO body);
 
-    @GET("/analysis/all") // TODO: @Header("Authorization") instead ?
+    @GET("/document/all")
+    Call<List<Document>> getDocuments(@Header("Authorization") String token);
+
+    @GET("/analysis/all")
     Call<List<Analysis>> getAnalysis(@Header("Authorization") String token);
 }
