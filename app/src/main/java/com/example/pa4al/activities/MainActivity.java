@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new DocumentListFragment()).commit();
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.main_container, selectedFragment).commit();
-
             return true;
         }
     };

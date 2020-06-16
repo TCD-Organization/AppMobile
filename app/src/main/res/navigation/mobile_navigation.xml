@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.pa4al.ui.documents.DocumentListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/document_item_layout" />
+        tools:layout="@layout/document_list_fragment" />
 
     <fragment
         android:id="@+id/navigation_upload"
@@ -21,5 +21,5 @@
         android:id="@+id/navigation_history"
         android:name="com.example.pa4al.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/history_fragment" />
+        tools:layout="@layout/analysis_list_fragment" />
 </navigation>

@@ -12,46 +12,49 @@
         tools:layout_editor_absoluteX="347dp"
         tools:layout_editor_absoluteY="16dp" />
 
+
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_account_circle_black_24dp"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="17dp" />
+        app:srcCompat="@drawable/ic_account_circle_black_24dp"/>
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Link"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="223dp" />
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textbox_back"
+            android:padding="5dp"
+            android:textSize="22sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorHint"
+            android:text="My Analysis" />
 
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Text"
-        tools:layout_editor_absoluteX="258dp"
-        tools:layout_editor_absoluteY="223dp" />
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="File"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="223dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="223dp" />
+        <Button
+            android:id="@+id/new_analysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/login_button_back"
+            android:textColor="@color/colorLogin"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textSize="22sp"
+            android:text="New Analysis">
+        </Button>
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/spinner"
@@ -61,4 +64,5 @@
         android:prompt="@string/categorie__prompt"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="152dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

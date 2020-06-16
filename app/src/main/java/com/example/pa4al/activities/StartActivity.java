@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pa4al.R;
+import com.example.pa4al.ui.analysis.AnalysisFragment;
 import com.example.pa4al.ui.login.FragmentLogin;
 import com.example.pa4al.ui.register.FragmentRegister;
 
