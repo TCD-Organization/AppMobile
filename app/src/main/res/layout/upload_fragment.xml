@@ -9,7 +9,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Upload a document"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:padding="@dimen/basic_margin"/>
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
