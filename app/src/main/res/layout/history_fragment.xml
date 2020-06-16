@@ -60,8 +60,8 @@
         android:id="@+id/spinner"
         android:layout_width="298dp"
         android:layout_height="29dp"
-        android:entries="@array/country__arrays"
-        android:prompt="@string/categorie__prompt"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/categorie_prompt"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="152dp" />
 

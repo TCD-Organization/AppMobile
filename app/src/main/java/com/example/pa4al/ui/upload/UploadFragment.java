@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 
@@ -23,9 +24,9 @@ public class UploadFragment extends MainFragment {
 
     EditText name;
     EditText genre;
-    CheckBox file;
-    CheckBox link;
-    CheckBox text;
+    RadioButton file;
+    RadioButton link;
+    RadioButton text;
     EditText content;
     Button upload;
 
