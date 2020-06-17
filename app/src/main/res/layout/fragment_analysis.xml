@@ -22,17 +22,30 @@
             android:textColorHint="@color/colorHint"
             tools:ignore="MissingConstraints">
         </EditText>
-
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:padding="5dp"
+            android:textSize="22sp" />
+        <Spinner
+            android:id="@+id/spinnerDoc"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:padding="5dp"
+            android:textSize="22sp" />
 
         <Button
-            android:id="@+id/upload"
+            android:id="@+id/analysis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorLogin"
             android:layout_marginTop="20dp"
-            android:textSize="22sp"
-            android:text="Analysis">
-        </Button>
+            android:background="@drawable/login_button_back"
+            android:text="Analysis"
+            android:textColor="@color/colorLogin"
+            android:textSize="22sp"></Button>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
