@@ -40,7 +40,7 @@ public class DocumentListFragment extends MainFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.document_list_fragment, container, false);
 
-        loadAnalysisList(view);
+        loadDocumentList(view);
 
         return view;
     }
@@ -55,16 +55,13 @@ public class DocumentListFragment extends MainFragment {
     }
 
 
-    private void loadAnalysisList(final View view) {
+    private void loadDocumentList(final View view) {
         Call<List<Document>> call = RetrofitClient
                 .getInstance().getApi().getDocuments(userSharedPreferences.getString("Token", null));
         call.enqueue(new Callback<List<Document>>() {
             @Override
             public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
-                System.out.println(response.code());
-                System.out.println(response.body());
                 List<Document> documents = response.body();
-                System.out.println(documents);
                 initDocumentsListAdapter(view, documents);
             }
 

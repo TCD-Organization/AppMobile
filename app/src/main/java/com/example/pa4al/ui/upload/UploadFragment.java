@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -35,7 +34,7 @@ public class UploadFragment extends MainFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.upload_fragment, container, false);
-        name = view.findViewById(R.id.name);
+        name = view.findViewById(R.id.etName);
         genre = view.findViewById(R.id.genre);
         file = view.findViewById(R.id.file);
         link = view.findViewById(R.id.link);

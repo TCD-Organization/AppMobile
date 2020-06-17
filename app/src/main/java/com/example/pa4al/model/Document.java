@@ -1,15 +1,17 @@
 package com.example.pa4al.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Document {
-    final String id;
-    final String name;
-    final String hash;
-    final String genre;
-    final String content;
-    final String owner;
+public class Document implements Serializable {
+    public String id;
+    public String name;
+    public String hash;
+    public String genre;
+    public String content;
+    public String owner;
 }

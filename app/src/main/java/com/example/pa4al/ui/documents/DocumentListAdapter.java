@@ -3,6 +3,7 @@ package com.example.pa4al.ui.documents;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pa4al.R;
+import com.example.pa4al.activities.MainActivity;
+import com.example.pa4al.activities.NewAnalysisActivity;
 import com.example.pa4al.model.Document;
 
 import java.util.List;
@@ -44,6 +47,9 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "Click on"+ mDocuments.get(position).toString(), Toast.LENGTH_SHORT).show();
+                Intent newAnalysisIntent = new Intent(view.getContext(), NewAnalysisActivity.class);
+                newAnalysisIntent.putExtra("document", mDocuments.get(position));
+                mContext.startActivity(newAnalysisIntent);
             }
         });
     }

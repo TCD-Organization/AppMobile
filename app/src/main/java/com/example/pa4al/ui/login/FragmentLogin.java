@@ -95,7 +95,7 @@ public class FragmentLogin extends MainFragment {
                     Toast.makeText(getActivity(), "Error while logging in",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    userPrefsEditor.putString("Token", response.headers().get("Authorization")).apply();
+                    userPrefsEditor.putString("Token", response.headers().get("Authorization")).commit();
                     startCallbackFragment.startMainActivity();
                 }
             }

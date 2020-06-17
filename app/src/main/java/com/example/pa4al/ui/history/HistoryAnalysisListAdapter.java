@@ -29,7 +29,6 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
     public AnalysesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.analysis_item_layout, parent, false);
-        System.out.println("Helloooo");
         return new AnalysesViewHolder(view);
     }
 

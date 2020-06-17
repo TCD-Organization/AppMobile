@@ -1,91 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:gravity="center"
+        android:padding="@dimen/basic_margin"
+        android:text="Upload a document"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Upload a document"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:padding="@dimen/basic_margin"/>
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:textColorHint="@color/colorHint"
-            tools:ignore="MissingConstraints">
-        </EditText>
-        <EditText
-            android:id="@+id/genre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:hint="Genre"
-            android:textColorHint="@color/colorHint"
-            android:inputType="textPassword"
-            tools:ignore="MissingConstraints">
-        </EditText>
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:textColor="@color/colorHint"
-            android:orientation="horizontal"
-            >
+        android:hint="Name"
+        android:textColorHint="@color/colorHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:ignore="MissingConstraints" />
 
-            <RadioButton
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:text="Text"
-                android:textColor="@color/colorHint"
-                />
+    <EditText
+        android:id="@+id/genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Genre"
+        android:inputType="textPassword"
+        android:textColorHint="@color/colorHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etName"
+        tools:ignore="MissingConstraints" />
 
-            <RadioButton
-                android:id="@+id/link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:text="Link"
-                android:textColor="@color/colorHint"
-                />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genre">
 
-            <RadioButton
-                android:id="@+id/file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_margin"
-                android:text="File"
-                android:textColor="@color/colorHint"
-                />
-        </RadioGroup>
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
+        <RadioButton
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:hint="Content"
-            android:textColorHint="@color/colorHint"
-            tools:ignore="MissingConstraints">
-        </EditText>
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="match_parent"
+            android:padding="@dimen/small_margin"
+            android:text="Text"
+            android:textColor="@color/colorHint" />
+
+        <RadioButton
+            android:id="@+id/link"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorLogin"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:text="Upload">
-        </Button>
-    </LinearLayout>
+            android:padding="@dimen/small_margin"
+            android:text="Link"
+            android:textColor="@color/colorHint" />
+
+        <RadioButton
+            android:id="@+id/file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_margin"
+            android:text="File"
+            android:textColor="@color/colorHint" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="Content"
+        android:gravity="start|top"
+        android:textColorHint="@color/colorHint"
+        app:layout_constraintBottom_toTopOf="@+id/upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:textColor="@color/colorLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

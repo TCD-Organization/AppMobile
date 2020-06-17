@@ -50,10 +50,7 @@ public class HistoryFragment extends MainFragment {
         call.enqueue(new Callback<List<Analysis>>() {
             @Override
             public void onResponse(Call<List<Analysis>> call, Response<List<Analysis>> response) {
-                System.out.println(response.code());
-                System.out.println(response.body());
                 List<Analysis> analyses = response.body();
-                System.out.println(analyses);
                 initAnalysisListAdapter(view, analyses);
             }
 
