@@ -38,6 +38,7 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         holder.mAnalysisName.setText(mAnalyses.get(position).getName());
         holder.mDocumentType.setText(mAnalyses.get(position).getType());
         holder.mAnalysisDocumentName.setText(mAnalyses.get(position).getDocument_name());
+        holder.mAnalysisStatus.setText(mAnalyses.get(position).getStatus());
 
         holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
 
@@ -58,6 +59,7 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         final TextView mAnalysisName;
         final TextView mDocumentType;
         final TextView mAnalysisDocumentName;
+        final TextView mAnalysisStatus;
         final RelativeLayout analysisLayout;
         public Analysis mAnalysisItem;
 
@@ -67,6 +69,7 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
             mAnalysisName = documentView.findViewById(R.id.analysis_name);
             mDocumentType = documentView.findViewById(R.id.analysis_type);
             mAnalysisDocumentName = documentView.findViewById(R.id.analysis_document_name);
+            mAnalysisStatus = documentView.findViewById(R.id.analysis_status);
             analysisLayout = documentView.findViewById(R.id.analysis_layout);
         }
     }

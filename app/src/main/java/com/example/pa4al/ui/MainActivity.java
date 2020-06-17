@@ -1,4 +1,4 @@
-package com.example.pa4al.activities;
+package com.example.pa4al.ui;
 
 import android.os.Bundle;
 import android.view.Menu;

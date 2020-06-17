@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/label_analysis_type"
-        android:text="Document name :"/>
+        android:text="Document name : "/>
 
     <TextView
         android:id="@+id/analysis_document_name"
@@ -47,6 +47,20 @@
         android:layout_below="@id/label_analysis_type"
         android:text="dummy_doc_name"/>
 
+    <TextView
+        android:id="@+id/label_analysis_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_analysis_document_name"
+        android:text="Analysis Status : "/>
 
+    <TextView
+        android:id="@+id/analysis_status"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/label_analysis_status"
+        android:layout_toRightOf="@id/label_analysis_status"
+        android:layout_below="@id/label_analysis_document_name"
+        android:text="dummy_analysis_status"/>
 
 </RelativeLayout>
