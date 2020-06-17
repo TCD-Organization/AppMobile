@@ -1,6 +1,8 @@
 package com.example.pa4al.api;
 
 import com.example.pa4al.model.AnalysisDTO;
+import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.Document;
 import com.example.pa4al.model.DocumentDTO;
 import com.example.pa4al.model.Document;
 import com.example.pa4al.model.LoginDTO;
@@ -21,17 +23,17 @@ public interface Api {
     @POST("/login")
     Call<Void> userLogin(@Body LoginDTO body);
 
-    @POST("/document") // TODO: @Header("Authorization") instead ?
+    @POST("/document")
     Call<Void> createDocument(@Header("Authorization") String token, @Body DocumentDTO body);
 
-    @GET("/analysis/all") // TODO: @Header("Authorization") instead ?
-    Call<Void> getAnalysis(@Header("Authorization") String token);
+    @GET("/analysis/all")
+    Call<List<Analysis>> getAnalysis(@Header("Authorization") String token);
 
-    @GET("/analysis-types") // TODO: @Header("Authorization") instead ?
+    @GET("/analysis-types/all")
     Call<List<String>> getType(@Header("Authorization") String token);
 
-    @GET("/document/all") // TODO: @Header("Authorization") instead ?
-    Call<List<Document>> getDoc(@Header("Authorization") String token);
+    @GET("/document/all")
+    Call<List<Document>> getDocuments(@Header("Authorization") String token);
 
     @POST("/analysis")
     Call<Void> createAnalysis(@Header("Authorization") String token, @Body AnalysisDTO body);

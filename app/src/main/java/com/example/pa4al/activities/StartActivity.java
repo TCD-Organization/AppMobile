@@ -42,14 +42,6 @@ public class StartActivity extends AppCompatActivity implements StartCallbackFra
         fragmentTransaction.replace(R.id.fcStart, fragment);
         fragmentTransaction.commit();
     }
-    public void loadAnalysisFragment() {
-        fragment = new AnalysisFragment();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.fcStart, fragment);
-        fragmentTransaction.commit();
-    }
 
     public void startMainActivity() {
         Intent activityIntent = new Intent(this, MainActivity.class);

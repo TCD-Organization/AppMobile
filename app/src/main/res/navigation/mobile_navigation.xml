@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.pa4al.ui.home.HomeFragment"
+        android:name="com.example.pa4al.ui.documents.DocumentListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/document_list_fragment" />
 
     <fragment
         android:id="@+id/navigation_upload"
         android:name="com.example.pa4al.ui.upload.UploadFragment"
         android:label="@string/title_upload"
-        tools:layout="@layout/fragment_upload" />
+        tools:layout="@layout/upload_fragment" />
 
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.example.pa4al.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/analysis_list_fragment" />
 </navigation>

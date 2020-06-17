@@ -4,14 +4,14 @@
     <string name="title_home">Accueil</string>
     <string name="title_upload">Téléchargement</string>
     <string name="title_history">Historique</string>
-    <string name="categorie__prompt">Choix de catégorie</string>
+    <string name="categorie_prompt">Choix de catégorie</string>
     <string name="login">S\'authentifier</string>
     <string name="register">S\'inscrire</string>
     <string name="subscribe">S\'inscrire</string>
     <string name="password">Mot de passe</string>
     <string name="email">E-mail</string>
-    <string name="username">Nom d`\'utilisateur</string>
-    <string-array name="country__arrays">
+    <string name="username">Nom d\'utilisateur</string>
+    <string-array name="country_arrays">
         <item>Roman</item>
         <item>Article</item>
         <item>Commentaires</item>

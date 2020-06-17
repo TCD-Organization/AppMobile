@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/analysis_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/basic_margin"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/analysis_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dummy_name"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/label_analysis_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/analysis_name"
+        android:text="Type : "/>
+
+    <TextView
+        android:id="@+id/analysis_type"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@id/analysis_name"
+        android:layout_toEndOf="@id/label_analysis_type"
+        android:layout_toRightOf="@id/label_analysis_type"
+        android:text="dummy_type" />
+
+    <TextView
+        android:id="@+id/label_analysis_document_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_analysis_type"
+        android:text="Document name :"/>
+
+    <TextView
+        android:id="@+id/analysis_document_name"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/label_analysis_document_name"
+        android:layout_toRightOf="@id/label_analysis_document_name"
+        android:layout_below="@id/label_analysis_type"
+        android:text="dummy_doc_name"/>
+
+
+
+</RelativeLayout>

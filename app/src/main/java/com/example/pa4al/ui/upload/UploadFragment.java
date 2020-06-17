@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 
@@ -23,9 +24,9 @@ public class UploadFragment extends MainFragment {
 
     EditText name;
     EditText genre;
-    CheckBox file;
-    CheckBox link;
-    CheckBox text;
+    RadioButton file;
+    RadioButton link;
+    RadioButton text;
     EditText content;
     Button upload;
 
@@ -33,7 +34,7 @@ public class UploadFragment extends MainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_upload, container, false);
+        View view = inflater.inflate(R.layout.upload_fragment, container, false);
         name = view.findViewById(R.id.name);
         genre = view.findViewById(R.id.genre);
         file = view.findViewById(R.id.file);

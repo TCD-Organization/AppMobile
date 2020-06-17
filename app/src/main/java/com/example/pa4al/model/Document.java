@@ -12,6 +12,4 @@ public class Document {
     final String genre;
     final String content;
     final String owner;
-
-
 }
