@@ -1,6 +1,7 @@
 package com.example.pa4al.ui.history;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
+import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
 
 import java.util.List;
@@ -39,6 +41,8 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         holder.mDocumentType.setText(mAnalyses.get(position).getType());
         holder.mAnalysisDocumentName.setText(mAnalyses.get(position).getDocument_name());
         holder.mAnalysisStatus.setText(mAnalyses.get(position).getStatus());
+        AsyncTask fetchAnalysisProgressionTask = new FetchAnalysisProgressionTask();
+        fetchAnalysisProgressionTask.execute(mAnalyses.get(position).getId());
 
         holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
 
