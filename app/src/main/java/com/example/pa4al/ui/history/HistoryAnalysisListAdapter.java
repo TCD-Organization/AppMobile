@@ -51,6 +51,9 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
 
     @Override
     public int getItemCount() {
+        if (mAnalyses == null) { // Because
+            return 0;
+        }
         return mAnalyses.size();
     }
 
