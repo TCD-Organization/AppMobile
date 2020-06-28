@@ -2,6 +2,7 @@ package com.example.pa4al.ui.history;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
+import com.example.pa4al.amqp.FetchAnalysisProgressionParameter;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.AnalysisProgress;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnalysisListAdapter.AnalysesViewHolder> {
 
     private final List<Analysis> mAnalyses;
+    private List<AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress>> analysisProgressionTasks = new ArrayList<>();
     private final Context mContext;
 
     public HistoryAnalysisListAdapter(Context context, List<Analysis> analyses) {
@@ -41,16 +48,38 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         holder.mDocumentType.setText(mAnalyses.get(position).getType());
         holder.mAnalysisDocumentName.setText(mAnalyses.get(position).getDocument_name());
         holder.mAnalysisStatus.setText(mAnalyses.get(position).getStatus());
-        AsyncTask fetchAnalysisProgressionTask = new FetchAnalysisProgressionTask();
-        fetchAnalysisProgressionTask.execute(mAnalyses.get(position).getId());
+
+        System.out.println("fetching progression for : " +mAnalyses.get(position).getId());
+
+        // TODO : Do not listen for progression if Status == FINISHED
+        //fetchAnalysisProgressionTask.execute(parameter);
+        if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {
+            fetchAnalysisProgression(holder, position);
+        }
 
         holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Click on"+ mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Click on" + mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        analysisProgressionTasks.forEach(asyncTask -> asyncTask.cancel(true));
+        System.out.println("OnDetached");
+        super.onDetachedFromRecyclerView(recyclerView);
+
+    }
+
+    private void fetchAnalysisProgression(final AnalysesViewHolder holder, final int position) {
+        FetchAnalysisProgressionParameter parameter = new FetchAnalysisProgressionParameter(mAnalyses.get(position).getId(),
+                holder.mAnalysisStatus);
+        AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress> analysisProgressAsyncTask =
+                new FetchAnalysisProgressionTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, parameter);
+        analysisProgressionTasks.add(analysisProgressAsyncTask);
     }
 
     @Override

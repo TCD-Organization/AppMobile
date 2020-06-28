@@ -2,10 +2,13 @@ package com.example.pa4al.amqp;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.widget.ProgressBar;
+import android.os.StrictMode;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.pa4al.gson.GsonCustom;
+import com.example.pa4al.model.AnalysisProgress;
 import com.google.gson.Gson;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -13,104 +16,177 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.DeliverCallback;
+import com.rabbitmq.client.Envelope;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
-public class FetchAnalysisProgressionTask extends AsyncTask<String, Integer, Integer> {
+public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress> {
 
-    public interface LoadingTaskListener {
-        void onResourceLoaded();
+    private Connection connection;
+    private Channel channel;
+    private TextView progressionTextView;
+    private String analysisId;
+
+    public static final String EXCHANGE = "type.id.tx";
+
+    public FetchAnalysisProgressionTask() {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("51.178.18.199");
+        factory.setPort(5672);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            connection = factory.newConnection();
+            channel = connection.createChannel();
+        } catch (IOException e) {
+            e.printStackTrace();
+            closeConnection(channel, connection);
+        } catch (TimeoutException e) {
+            System.out.println("Server unreachable");
+            e.printStackTrace();
+            closeConnection(channel, connection);
+        }
+
     }
 
-    /*private final ProgressBar progressBar;
-    private final LoadingTaskListener loadingTaskListener;*/
-    private ConnectionFactory connectionFactory;
+        /*
+        TimerTask readMessagesTask() {
+            return new TimerTask() {
+                public void run() {
+                    if (channel.messageCount(FRONT_ANALYSIS_QUEUE) > 0) {
 
-    public FetchAnalysisProgressionTask(/*ProgressBar progressBar, LoadingTaskListener loadingTaskListener*/) {
-        /*this.progressBar = progressBar;
-        this.loadingTaskListener = loadingTaskListener;
-        this.connectionFactory = new ConnectionFactory();*/
-        connectionFactory.setAutomaticRecoveryEnabled(true);
-    }
+                        String test = channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, consumer);
+                        System.out.println("test" + test);
+                    }
+                }
+            };
+        }
+        */
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected Integer doInBackground(String... analysisId) {
+    protected AnalysisProgress doInBackground(FetchAnalysisProgressionParameter... params) {
+        progressionTextView = params[0].tv;
+        analysisId = params[0].id;
+        String FRONT_ANALYSIS_ROOTING_KEY = "analysis."+ analysisId;
+        String FRONT_ANALYSIS_QUEUE = "analysis_"+ analysisId +"_q";
+
         try {
+            channel.queueDeclare(FRONT_ANALYSIS_QUEUE, true, false, false, null);
 
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("51.178.18.199:5672");
-            Connection connection = factory.newConnection();
+            Consumer consumer = new DefaultConsumer(channel) {
+                @Override
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties
+                        , byte[] body)
+                        throws IOException {
+                    properties.builder().deliveryMode(2);
+                    publishProgress(new Gson().fromJson(new String(body, StandardCharsets.UTF_8), AnalysisProgress.class));
 
-            Channel channel = connection.openChannel().orElseThrow(RuntimeException::new);
-
-            /*
-            Consumer consumer = new DefaultConsumer(channel);
-            channel.basicConsume("analysis_" + analysisId + "_q", false, consumer);
-            */
-
-            //String queueName = channel.queueBind("analysis."+analysisId, EXCHANGE_NAME, )
-
-
-            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-
-
-            System.out.println("Analysis id is : " + analysisId[0] + channel.confirmSelect());
-            publishProgress();
-
-            /*
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String message = new String(delivery.getBody(), "UTF-8");
-                System.out.println(" [x] Received '" +
-                        delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
-                publishProgress(message);
+                }
             };
-            channel.basicConsume("analysis_" + analysisId[0] + "_q", true, deliverCallback, consumerTag -> { });
-            */
+
+            // listen to channel ..
+            int count = 0;
+            while (!isCancelled()) {
+
+                if (channel.messageCount(FRONT_ANALYSIS_QUEUE) > 0) {
+                    //channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, consumer);
+                    channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, );
+                    // TODO : If Status of Analysis == FINISHED then break;
+                }
+
+                count++;
+                System.out.println("Listening " + FRONT_ANALYSIS_QUEUE + " for the " + count + "th time");
+                    /*try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+            }
+                /*
+                DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                    String message = new String(delivery.getBody(), "UTF-8");
+                    System.out.println(" [x] Received '" +
+                            delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+                    AnalysisProgress analysisProgress = new Gson().fromJson(message, AnalysisProgress.class);
+                    publishProgress(analysisProgress);
+                    System.out.println(analysisProgress);
+                };
+                channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, deliverCallback, consumerTag -> { });
+                */
 
 
         } catch (IOException e) {
             e.printStackTrace();
-        //} catch (InterruptedException e) {
-        //    e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        //} catch (IOException e) {
-        //    e.printStackTrace();
+            //} catch (InterruptedException e) {
+            //    e.printStackTrace();
+            closeConnection(channel, connection);
+
         }
         // Dummy Data until i can't connect to rabbitMQ
         return null;
     }
 
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        super.onProgressUpdate(values);
+    DefaultConsumer customConsumer() {
+        new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties
+                    , byte[] body) {
+                try {
+                    properties.builder().deliveryMode(2);
+                    String analysisProgression = new String(body, StandardCharsets.UTF_8);
+                    System.out.println("Progression: " + analysisProgression);
+                    AnalysisProgress progress = new GsonCustom().create().fromJson(analysisProgression,
+                            AnalysisProgress.class);
+                    publishProgress(progress);
+                    if (progress.getStatus().equals("FINISHED")) {
+                        cancel(true);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 
-    private static final String EXCHANGE_NAME = "type.id.tx";
+    private void closeConnection(Channel channel, Connection connection) {
+        if (channel != null && channel.isOpen()) {
+            try {
+                channel.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+            }
+        }
+        if (connection != null && connection.isOpen()) {
+            try {
+                connection.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void readUpdates(String analysisId) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("51.178.18.199:5672");
-        Connection connection = factory.newConnection();
-
-        Channel channel = connection.openChannel().orElseThrow(RuntimeException::new);
-
-        Consumer consumer = new DefaultConsumer(channel);
-        channel.basicConsume("analysis_" + analysisId + "_q", false, consumer);
-
-        //String queueName = channel.queueBind("analysis."+analysisId, EXCHANGE_NAME, )
+    @Override
+    protected void onPostExecute(AnalysisProgress result) {
+        System.out.println(result);
+        closeConnection(channel, connection);
+    }
 
 
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        closeConnection(channel, connection);
+    }
 
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            String message = new String(delivery.getBody(), "UTF-8");
-            System.out.println(" [x] Received '" +
-                    delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
-        };
-        channel.basicConsume("analysis_" + analysisId + "_q", true, deliverCallback, consumerTag -> { });
+    @Override
+    protected void onProgressUpdate(AnalysisProgress... values) {
+        AnalysisProgress progress = values[0];
+        progressionTextView.setText(progress.getStatus());
+        System.out.println(progress);
     }
 }

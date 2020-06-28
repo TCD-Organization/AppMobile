@@ -25,6 +25,7 @@ import retrofit2.Response;
 public class HistoryFragment extends MainFragment {
     private int mColumnCount = 1;
     private static final String ARG_COLUMN_COUNT = "column-count";
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -64,7 +65,7 @@ public class HistoryFragment extends MainFragment {
     private void initAnalysisListAdapter(View view, List<Analysis> analyses) {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -72,5 +73,11 @@ public class HistoryFragment extends MainFragment {
             }
             recyclerView.setAdapter(new HistoryAnalysisListAdapter(view.getContext(), analyses));
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recyclerView.setAdapter(null);
     }
 }

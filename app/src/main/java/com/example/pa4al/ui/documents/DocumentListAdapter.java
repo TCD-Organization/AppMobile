@@ -78,4 +78,6 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
             documentLayout = documentView.findViewById(R.id.document_layout);
         }
     }
+
+
 }
