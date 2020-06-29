@@ -69,67 +69,29 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     protected AnalysisProgress doInBackground(FetchAnalysisProgressionParameter... params) {
         progressionTextView = params[0].tv;
         analysisId = params[0].id;
-        String FRONT_ANALYSIS_ROOTING_KEY = "analysis."+ analysisId;
         String FRONT_ANALYSIS_QUEUE = "analysis_"+ analysisId +"_q";
 
         try {
-            channel.queueDeclare(FRONT_ANALYSIS_QUEUE, true, false, false, null);
-
-            Consumer consumer = new DefaultConsumer(channel) {
-                @Override
-                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties
-                        , byte[] body)
-                        throws IOException {
-                    properties.builder().deliveryMode(2);
-                    publishProgress(new Gson().fromJson(new String(body, StandardCharsets.UTF_8), AnalysisProgress.class));
-
-                }
-            };
-
-            // listen to channel ..
-            int count = 0;
+            channel.queueDeclare(FRONT_ANALYSIS_QUEUE, true, false, true, null);
             while (!isCancelled()) {
-
                 if (channel.messageCount(FRONT_ANALYSIS_QUEUE) > 0) {
-                    //channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, consumer);
-                    channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, );
-                    // TODO : If Status of Analysis == FINISHED then break;
+                    channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, analysisProgressionConsumer());
+                } else {
+                    System.out.println("Message count for " + FRONT_ANALYSIS_QUEUE + " is 0");
                 }
-
-                count++;
-                System.out.println("Listening " + FRONT_ANALYSIS_QUEUE + " for the " + count + "th time");
-                    /*try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
             }
-                /*
-                DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                    String message = new String(delivery.getBody(), "UTF-8");
-                    System.out.println(" [x] Received '" +
-                            delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
-                    AnalysisProgress analysisProgress = new Gson().fromJson(message, AnalysisProgress.class);
-                    publishProgress(analysisProgress);
-                    System.out.println(analysisProgress);
-                };
-                channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, deliverCallback, consumerTag -> { });
-                */
-
 
         } catch (IOException e) {
             e.printStackTrace();
-            //} catch (InterruptedException e) {
-            //    e.printStackTrace();
             closeConnection(channel, connection);
-
         }
         // Dummy Data until i can't connect to rabbitMQ
         return null;
     }
 
-    DefaultConsumer customConsumer() {
-        new DefaultConsumer(channel) {
+    DefaultConsumer analysisProgressionConsumer() {
+        return new DefaultConsumer(channel) {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties
                     , byte[] body) {
@@ -140,7 +102,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
                     AnalysisProgress progress = new GsonCustom().create().fromJson(analysisProgression,
                             AnalysisProgress.class);
                     publishProgress(progress);
-                    if (progress.getStatus().equals("FINISHED")) {
+                    if (progress.getStatus().equals("FINISHED")) { // TODO : Replace with status
                         cancel(true);
                     }
                 } catch (Exception e) {
@@ -148,7 +110,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
                 }
 
             }
-        }
+        };
     }
 
     private void closeConnection(Channel channel, Connection connection) {
