@@ -44,12 +44,14 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
 
     @Override
     public void onBindViewHolder(final AnalysesViewHolder holder, final int position) {
-        holder.mAnalysisItem = mAnalyses.get(position);
-        holder.mAnalysisName.setText(mAnalyses.get(position).getName());
-        holder.mDocumentType.setText(mAnalyses.get(position).getType());
-        holder.mAnalysisDocumentName.setText(mAnalyses.get(position).getDocument_name());
-        holder.mAnalysisStatus.setText(mAnalyses.get(position).getStatus());
-        holder.mProgressBar.setMax(mAnalyses.get(position).getTotal_steps());
+        final Analysis currentAnalysis = mAnalyses.get(position);
+        holder.mAnalysisItem = currentAnalysis;
+        holder.mAnalysisName.setText(currentAnalysis.getName());
+        holder.mDocumentType.setText(currentAnalysis.getType());
+        holder.mAnalysisDocumentName.setText(currentAnalysis.getDocument_name());
+        holder.mAnalysisStatus.setText(currentAnalysis.getStatus());
+        holder.mProgressBar.setMax(currentAnalysis.getTotal_steps());
+        holder.mProgressBar.setProgress(currentAnalysis.getStep_number());
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
         // TODO : Do not listen for progression if Status == FINISHED

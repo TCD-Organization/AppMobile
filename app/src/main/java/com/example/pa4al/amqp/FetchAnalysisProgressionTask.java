@@ -46,20 +46,6 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
 
     }
 
-        /*
-        TimerTask readMessagesTask() {
-            return new TimerTask() {
-                public void run() {
-                    if (channel.messageCount(FRONT_ANALYSIS_QUEUE) > 0) {
-
-                        String test = channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, consumer);
-                        System.out.println("test" + test);
-                    }
-                }
-            };
-        }
-        */
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected Analysis doInBackground(FetchAnalysisProgressionParameter... params) {

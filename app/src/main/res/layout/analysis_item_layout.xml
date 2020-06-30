@@ -63,12 +63,46 @@
         android:layout_below="@id/label_analysis_document_name"
         android:text="dummy_analysis_status"/>
 
+    <TextView
+        android:id="@+id/progressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_analysis_status"
+        android:text="Progress : "/>
+
+    <TextView
+        android:id="@+id/progressStepNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/progressLabel"
+        android:layout_toRightOf="@id/progressLabel"
+        android:layout_below="@id/label_analysis_status"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/outOfLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/progressStepNumber"
+        android:layout_toRightOf="@id/progressStepNumber"
+        android:layout_below="@id/label_analysis_status"
+        android:text="/"/>
+
+    <TextView
+        android:id="@+id/progressMaxStep"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@id/outOfLabel"
+        android:layout_toRightOf="@id/outOfLabel"
+        android:layout_below="@id/label_analysis_status"
+        android:text="10"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@style/MyProgressBarTwo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/label_analysis_status"
+        android:layout_height="@dimen/basic_margin"
+        android:layout_below="@+id/progressLabel"
         android:indeterminate="false" />
 
 </RelativeLayout>
