@@ -1,4 +1,4 @@
-package com.example.pa4al.ui.history;
+package com.example.pa4al.ui.analyses;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,6 +6,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,18 +19,18 @@ import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionParameter;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
-import com.example.pa4al.model.AnalysisProgress;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnalysisListAdapter.AnalysesViewHolder> {
+public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapter.AnalysesViewHolder> {
 
     private final List<Analysis> mAnalyses;
-    private List<AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress>> analysisProgressionTasks = new ArrayList<>();
+    private List<AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis>> analysisProgressionTasks =
+            new ArrayList<>();
     private final Context mContext;
 
-    public HistoryAnalysisListAdapter(Context context, List<Analysis> analyses) {
+    public AnalysisListAdapter(Context context, List<Analysis> analyses) {
         mAnalyses = analyses;
         mContext = context;
     }
@@ -48,11 +49,10 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         holder.mDocumentType.setText(mAnalyses.get(position).getType());
         holder.mAnalysisDocumentName.setText(mAnalyses.get(position).getDocument_name());
         holder.mAnalysisStatus.setText(mAnalyses.get(position).getStatus());
-
-        System.out.println("fetching progression for : " +mAnalyses.get(position).getId());
+        holder.mProgressBar.setMax(mAnalyses.get(position).getTotal_steps());
+        System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
         // TODO : Do not listen for progression if Status == FINISHED
-        //fetchAnalysisProgressionTask.execute(parameter);
         if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {
             fetchAnalysisProgression(holder, position);
         }
@@ -76,8 +76,8 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
 
     private void fetchAnalysisProgression(final AnalysesViewHolder holder, final int position) {
         FetchAnalysisProgressionParameter parameter = new FetchAnalysisProgressionParameter(mAnalyses.get(position).getId(),
-                holder.mAnalysisStatus);
-        AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress> analysisProgressAsyncTask =
+                holder.mProgressBar);
+        AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis> analysisProgressAsyncTask =
                 new FetchAnalysisProgressionTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, parameter);
         analysisProgressionTasks.add(analysisProgressAsyncTask);
     }
@@ -96,6 +96,7 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
         final TextView mDocumentType;
         final TextView mAnalysisDocumentName;
         final TextView mAnalysisStatus;
+        final ProgressBar mProgressBar;
         final RelativeLayout analysisLayout;
         public Analysis mAnalysisItem;
 
@@ -106,6 +107,7 @@ public class HistoryAnalysisListAdapter extends RecyclerView.Adapter<HistoryAnal
             mDocumentType = documentView.findViewById(R.id.analysis_type);
             mAnalysisDocumentName = documentView.findViewById(R.id.analysis_document_name);
             mAnalysisStatus = documentView.findViewById(R.id.analysis_status);
+            mProgressBar = documentView.findViewById(R.id.progressBar);
             analysisLayout = documentView.findViewById(R.id.analysis_layout);
         }
     }

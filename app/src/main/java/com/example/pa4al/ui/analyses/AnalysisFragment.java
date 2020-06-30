@@ -1,4 +1,4 @@
-package com.example.pa4al.ui.history;
+package com.example.pa4al.ui.analyses;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryFragment extends MainFragment {
+public class AnalysisFragment extends MainFragment {
     private int mColumnCount = 1;
     private static final String ARG_COLUMN_COUNT = "column-count";
     RecyclerView recyclerView;
@@ -71,7 +71,7 @@ public class HistoryFragment extends MainFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new HistoryAnalysisListAdapter(view.getContext(), analyses));
+            recyclerView.setAdapter(new AnalysisListAdapter(view.getContext(), analyses));
         }
     }
 

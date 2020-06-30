@@ -1,4 +1,4 @@
-package com.example.pa4al.ui.login;
+package com.example.pa4al.ui.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,55 +10,46 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
 import com.example.pa4al.api.RetrofitClient;
-import com.example.pa4al.model.LoginDTO;
-import com.example.pa4al.activities.StartCallbackFragment;
-import com.example.pa4al.ui.MainFragment;
+import com.example.pa4al.model.RegisterDTO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentLogin extends MainFragment {
+public class RegisterFragment extends Fragment {
 
     private Button btnLogin, btnRegister;
-    private EditText etUsername, etPassword;
-    private StartCallbackFragment startCallbackFragment;
-    private String username, password;
+    private EditText etUsername, etPassword, etEmail;
+    private String username, email, password;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        View view = inflater.inflate(R.layout.register_fragment, container, false);
         etUsername = view.findViewById(R.id.etUsername);
+        etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
-        btnLogin = view.findViewById(R.id.btnLogin);
         btnRegister = view.findViewById(R.id.btnRegister);
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                username = etUsername.getText().toString();
-                password = etPassword.getText().toString();
-
-                Login(username, password);
-            }
-        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (startCallbackFragment != null) {
-                    startCallbackFragment.loadRegisterFragment();
-                }
+                username = etUsername.getText().toString();
+                email = etEmail.getText().toString();
+                password = etPassword.getText().toString();
+
+                Register(username, email, password);
             }
         });
-
         return view;
     }
 
-    public void Login(String username, String password){
+
+    public void Register(String username, String email, String password){
 
         // TODO: Afficher un Toast si username ou password est vide (puis return;)
         if(username.isEmpty()){
@@ -73,9 +64,9 @@ public class FragmentLogin extends MainFragment {
             etPassword.requestFocus();
             return;
         }
-
+        RegisterDTO registerDTO = new RegisterDTO(username, email, password);
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().userLogin(new LoginDTO(username, password));
+                .getInstance().getApi().userRegister(registerDTO);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -87,16 +78,18 @@ public class FragmentLogin extends MainFragment {
                     Toast.makeText(getActivity(), "This user does not exist",
                             Toast.LENGTH_LONG).show();
                 }
-                else if(response.code() == 403){
-                    Toast.makeText(getActivity(), "Incorrect username or password",
+                else if(response.code() == 409){
+                    Toast.makeText(getActivity(), "A user with this name already exists",
                             Toast.LENGTH_LONG).show();
                 }
                 else if(response.code() > 299){
-                    Toast.makeText(getActivity(), "Error while logging in",
+                    Toast.makeText(getActivity(), "Error while Registering",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    userPrefsEditor.putString("Token", response.headers().get("Authorization")).commit();
-                    startCallbackFragment.startMainActivity();
+                    etUsername.setText("");
+                    etEmail.setText("");
+                    etPassword.setText("");
+                    Toast.makeText(getActivity(), "Registered", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -108,7 +101,4 @@ public class FragmentLogin extends MainFragment {
 
     }
 
-    public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {
-        this.startCallbackFragment = startCallbackFragment;
-    }
 }

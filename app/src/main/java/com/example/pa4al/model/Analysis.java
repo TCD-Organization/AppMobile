@@ -1,5 +1,7 @@
 package com.example.pa4al.model;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,18 +10,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Analysis {
-    public String id;
-    public String name;
-    public String type;
-    public String status;
-    public String document_id;
-    public String document_name;
-    public String owner;
-    public String runner;
-    public String step_number;
-    public String total_steps;
-    public String steps_name;
-    public String start_time;
-    public String lasting_time;
-    public String end_time;
+    private String id;
+    private String name;
+    private String type;
+    private String status;
+    private String document_id;
+    private String document_name;
+    private String owner;
+    private String runner;
+    private int step_number;
+    private int total_steps;
+    private String step_name;
+    private Date start_time;
+    private Long lasting_time;
+    private Date end_time;
+    private String result;
 }

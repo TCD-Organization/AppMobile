@@ -63,4 +63,12 @@
         android:layout_below="@id/label_analysis_document_name"
         android:text="dummy_analysis_status"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_analysis_status"
+        android:indeterminate="false" />
+
 </RelativeLayout>

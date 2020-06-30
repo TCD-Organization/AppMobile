@@ -3,32 +3,28 @@ package com.example.pa4al.amqp;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.pa4al.gson.GsonCustom;
-import com.example.pa4al.model.AnalysisProgress;
-import com.google.gson.Gson;
+import com.example.pa4al.model.Analysis;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
-public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgressionParameter, AnalysisProgress, AnalysisProgress> {
+public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis> {
 
     private Connection connection;
     private Channel channel;
-    private TextView progressionTextView;
+    private ProgressBar progressBar;
     private String analysisId;
-
-    public static final String EXCHANGE = "type.id.tx";
 
     public FetchAnalysisProgressionTask() {
         ConnectionFactory factory = new ConnectionFactory();
@@ -66,8 +62,8 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected AnalysisProgress doInBackground(FetchAnalysisProgressionParameter... params) {
-        progressionTextView = params[0].tv;
+    protected Analysis doInBackground(FetchAnalysisProgressionParameter... params) {
+        progressBar = params[0].progressBar;
         analysisId = params[0].id;
         String FRONT_ANALYSIS_QUEUE = "analysis_"+ analysisId +"_q";
 
@@ -97,12 +93,12 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
                     , byte[] body) {
                 try {
                     properties.builder().deliveryMode(2);
-                    String analysisProgression = new String(body, StandardCharsets.UTF_8);
-                    System.out.println("Progression: " + analysisProgression);
-                    AnalysisProgress progress = new GsonCustom().create().fromJson(analysisProgression,
-                            AnalysisProgress.class);
-                    publishProgress(progress);
-                    if (progress.getStatus().equals("FINISHED")) { // TODO : Replace with status
+                    String analysisProgressionText = new String(body, StandardCharsets.UTF_8);
+                    System.out.println("Progression: " + analysisProgressionText);
+                    Analysis analysisProgression = new GsonCustom().create().fromJson(analysisProgressionText,
+                            Analysis.class);
+                    publishProgress(analysisProgression);
+                    if (analysisProgression.getStatus().equals("FINISHED")) { // TODO : Replace with status
                         cancel(true);
                     }
                 } catch (Exception e) {
@@ -133,7 +129,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     }
 
     @Override
-    protected void onPostExecute(AnalysisProgress result) {
+    protected void onPostExecute(Analysis result) {
         System.out.println(result);
         closeConnection(channel, connection);
     }
@@ -146,9 +142,9 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     }
 
     @Override
-    protected void onProgressUpdate(AnalysisProgress... values) {
-        AnalysisProgress progress = values[0];
-        progressionTextView.setText(progress.getStatus());
+    protected void onProgressUpdate(Analysis... values) {
+        Analysis progress = values[0];
+        progressBar.setProgress(progress.getStep_number());
         System.out.println(progress);
     }
 }

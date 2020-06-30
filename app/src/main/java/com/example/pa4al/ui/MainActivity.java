@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
 import com.example.pa4al.ui.documents.DocumentListFragment;
-import com.example.pa4al.ui.history.HistoryFragment;
+import com.example.pa4al.ui.analyses.AnalysisFragment;
 import com.example.pa4al.ui.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new UploadFragment();
                     break;
                 case R.id.navigation_history:
-                    selectedFragment = new HistoryFragment();
+                    selectedFragment = new AnalysisFragment();
                     break;
                 default:
                     //selectedFragment = new HomeFragment();
