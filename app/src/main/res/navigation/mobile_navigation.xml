@@ -32,7 +32,7 @@
         tools:layout="@layout/analysis_list_fragment" />
     <activity
         android:id="@+id/newAnalysisActivity"
-        android:name="com.example.pa4al.ui.analyses.NewAnalysisActivity"
+        android:name="com.example.pa4al.ui.documents.NewAnalysisActivity"
         android:label="NewAnalysisActivity" />
     <fragment
         android:id="@+id/loginFragment"

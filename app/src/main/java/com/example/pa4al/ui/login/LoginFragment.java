@@ -62,13 +62,13 @@ public class LoginFragment extends MainFragment {
 
         // TODO: Afficher un Toast si username ou password est vide (puis return;)
         if(username.isEmpty()){
-            Toast.makeText(getActivity(), "Username required",
+            Toast.makeText(getActivity(), R.string.login_message_username_required,
                     Toast.LENGTH_LONG).show();
             etUsername.requestFocus();
             return;
         }
         if(password.isEmpty()){
-            Toast.makeText(getActivity(), "Password required",
+            Toast.makeText(getActivity(), R.string.login_message_password_required,
                     Toast.LENGTH_LONG).show();
             etPassword.requestFocus();
             return;
@@ -90,7 +90,7 @@ public class LoginFragment extends MainFragment {
                             Toast.LENGTH_LONG).show();
                 }
                 else if(response.code() == 403){ // FORBIDDEN
-                    Toast.makeText(getActivity(), "Incorrect username or password",
+                    Toast.makeText(getActivity(), R.string.login_message_incorrect_username_or_password,
                             Toast.LENGTH_LONG).show();
                 }
                 else if(response.code() > 299){

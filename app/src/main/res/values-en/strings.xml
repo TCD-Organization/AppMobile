@@ -19,6 +19,7 @@
     <string name="new_analysis_title">Create new analysis</string>
     <string name="new_analysis_name_hint">New analysis …</string>
     <string name="new_analysis_name_autofill_hints">Analysis</string>
+    <string name="new_analysis_created">New analysis created</string>
     <string name="analyze_button">ANALYZE</string>
 
     <!-- ANALYSIS -->
@@ -48,6 +49,11 @@
         Fragrances don’t make his nostrils quiver:
         He sleeps in the sun, one hand on his chest,
         Motionless: he has two red holes in his right side.</string>
+    <string name="login_message_incorrect_username_or_password">Incorrect username or password</string>
+    <string name="login_message_username_required">Please enter a username</string>
+    <string name="login_message_password_required">Please enter a password</string>
+    <string name="register_user_already_exists_message">A user with this name already exists</string>
+    <string name="register_user_created_message">Your account has been created</string>
 
     <string-array name="country_arrays">
         <item>Roman</item>

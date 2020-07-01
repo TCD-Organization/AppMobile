@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pa4al.R;
-import com.example.pa4al.ui.analyses.NewAnalysisActivity;
 import com.example.pa4al.model.Document;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapter.DocumentViewHolder> {
@@ -23,6 +22,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
     private final Context mContext;
 
     public DocumentListAdapter(Context context, List<Document> documents) {
+        Collections.reverse(documents);
         mDocuments = documents;
         mContext = context;
     }

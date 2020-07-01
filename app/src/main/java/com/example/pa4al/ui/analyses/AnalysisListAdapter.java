@@ -6,10 +6,8 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,6 +20,7 @@ import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +32,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
     private final Context mContext;
 
     public AnalysisListAdapter(Context context, List<Analysis> analyses) {
+        Collections.reverse(analyses);
         mAnalyses = analyses;
         mContext = context;
     }

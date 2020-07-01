@@ -1,4 +1,4 @@
-package com.example.pa4al.ui.analyses;
+package com.example.pa4al.ui.documents;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +71,7 @@ public class NewAnalysisActivity extends AppCompatActivity {
                 if(response.code() > 299) {
                     Toast.makeText(NewAnalysisActivity.this, "Error " + response.code(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(NewAnalysisActivity.this, "Analysis Created !",
+                    Toast.makeText(NewAnalysisActivity.this, R.string.new_analysis_created,
                             Toast.LENGTH_LONG).show();
                     finish();
                 }
