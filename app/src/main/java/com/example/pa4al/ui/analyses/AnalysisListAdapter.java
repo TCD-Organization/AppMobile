@@ -51,7 +51,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         final Long lastingTime = currentAnalysis.getLasting_time();
         holder.mAnalysisItem = currentAnalysis;
         holder.mAnalysisName.setText(currentAnalysis.getName());
-        holder.mDocumentType.setText(currentAnalysis.getType());
         holder.mAnalysisDocumentName.setText(currentAnalysis.getDocument_name());
         holder.mAnalysisStatus.setText(currentAnalysis.getStatus());
         holder.mProgressBar.setMax(currentAnalysis.getTotal_steps());
@@ -105,7 +104,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
     public class AnalysesViewHolder extends RecyclerView.ViewHolder {
         final View mViewItem;
         final TextView mAnalysisName;
-        final TextView mDocumentType;
         final TextView mAnalysisDocumentName;
         final TextView mAnalysisStatus;
         final ProgressBar mProgressBar;
@@ -119,7 +117,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             super(analysisView);
             mViewItem = analysisView;
             mAnalysisName = analysisView.findViewById(R.id.analysis_name);
-            mDocumentType = analysisView.findViewById(R.id.analysis_type);
             mAnalysisDocumentName = analysisView.findViewById(R.id.analysis_document_name);
             mAnalysisStatus = analysisView.findViewById(R.id.analysis_status);
             mProgressBar = analysisView.findViewById(R.id.progressBar);

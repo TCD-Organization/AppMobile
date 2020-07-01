@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- APP -->
     <string name="app_name">TCD Analyses</string>
     <string name="title_documents">Documents</string>
     <string name="title_upload">Téléverser</string>
@@ -11,7 +12,43 @@
     <string name="password">Mot de passe</string>
     <string name="email">E-mail</string>
     <string name="username">Nom d\'utilisateur</string>
-    <string name="analyse_button">ANALYSER</string>
+
+    <!-- CREATION D'ANALYSE -->
+    <string name="document_name_default">Mon_document.pdf</string>
+    <string name="document_content_hint">Il était une fois …</string>
+    <string name="new_analysis_title">Créer une analyse</string>
+    <string name="new_analysis_name_hint">Nouvelle analyse …</string>
+    <string name="new_analysis_name_autofill_hints">Analyse</string>
+    <string name="analyze_button">ANALYSER</string>
+
+    <!-- ANALYSE -->
+    <string name="analysis_name_default">Analyse n°…</string>
+    <string name="document_name_label">Nom du document :</string>
+    <string name="analysis_status_label">Statut :</string>
+    <string name="analysis_status_default">IN_PROGRESS</string>
+    <string name="analysis_lasting_time_label">Temps restant estimé :</string>
+    <string name="analysis_lasting_time_default">1 min, 3 sec</string>
+    <string name="document_genre_label">Genre :</string>
+    <string name="document_genre_default">Poème</string>
+    <string name="document_content_label">Contenu :</string>
+    <string name="document_content_default">C’est un trou de verdure où chante une rivière,
+        Accrochant follement aux herbes des haillons
+        D’argent ; où le soleil, de la montagne fière,
+        Luit : c’est un petit val qui mousse de rayons.
+
+        Un soldat jeune, bouche ouverte, tête nue,
+        Et la nuque baignant dans le frais cresson bleu,
+        Dort ; il est étendu dans l’herbe, sous la nue,
+        Pâle dans son lit vert où la lumière pleut.
+
+        Les pieds dans les glaïeuls, il dort. Souriant comme
+        Sourirait un enfant malade, il fait un somme :
+        Nature, berce-le chaudement : il a froid.
+
+        Les parfums ne font pas frissonner sa narine ;
+        Il dort dans le soleil, la main sur sa poitrine,
+        Tranquille. Il a deux trous rouges au côté droit.</string>
+
     <string-array name="country_arrays">
         <item>Roman</item>
         <item>Article</item>

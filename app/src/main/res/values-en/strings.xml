@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- APP -->
     <string name="app_name">TCD Analysis</string>
     <string name="title_documents">Documents</string>
     <string name="title_upload">Upload</string>
@@ -11,7 +12,43 @@
     <string name="password">Password</string>
     <string name="email">E-mail</string>
     <string name="username">Username</string>
-    <string name="analyse">ANALYSE</string>
+
+    <!-- ANALYSIS CREATION -->
+    <string name="document_name_default">My_document.pdf</string>
+    <string name="document_content_hint">Once upon a time …</string>
+    <string name="new_analysis_title">Create new analysis</string>
+    <string name="new_analysis_name_hint">New analysis …</string>
+    <string name="new_analysis_name_autofill_hints">Analysis</string>
+    <string name="analyze_button">ANALYZE</string>
+
+    <!-- ANALYSIS -->
+    <string name="analysis_name_default">Analysis n°…</string>
+    <string name="document_name_label">Document name :</string>
+    <string name="analysis_status_label">Status :</string>
+    <string name="analysis_status_default">IN_PROGRESS</string>
+    <string name="analysis_lasting_time_label">Estimated time remaining :</string>
+    <string name="analysis_lasting_time_default">1 min, 3 sec</string>
+    <string name="document_genre_label">Genre :</string>
+    <string name="document_genre_default">Poem</string>
+    <string name="document_content_label">Content :</string>
+    <string name="document_content_default">It’s a green hole where a river sings
+        As it madly hangs onto the grass its rags
+        Of silver; where the sun, from the proud mountain,
+        Shines down: it’s a little valley bubbling with light.
+
+        A young soldier, open mouth, bare head,
+        And neck bathing in the sweet blue watercress,
+        Sleeps; he is stretched out among the grass, beneath the skies,
+        Pale in his green bed where the light rains down.
+
+        Feet in the gladiolas, he sleeps. Smiling like
+        An ill child would smile, he takes a nap:
+        Nature, cradle him in warmth: he is cold.
+
+        Fragrances don’t make his nostrils quiver:
+        He sleeps in the sun, one hand on his chest,
+        Motionless: he has two red holes in his right side.</string>
+
     <string-array name="country_arrays">
         <item>Roman</item>
         <item>Article</item>
