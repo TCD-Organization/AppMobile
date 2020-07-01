@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PA4AL</string>
-    <string name="title_home">Home</string>
+    <string name="app_name">TCD Analysis</string>
+    <string name="title_documents">Documents</string>
     <string name="title_upload">Upload</string>
-    <string name="title_history">History</string>
-    <string name="categorie_prompt">Choose a categorie</string>
+    <string name="title_analyses">Analyses history</string>
+    <string name="categorie_prompt">Choose a category</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="subscribe">Subscribe</string>
     <string name="password">Password</string>
     <string name="email">E-mail</string>
     <string name="username">Username</string>
+    <string name="analyse">ANALYSE</string>
     <string-array name="country_arrays">
         <item>Roman</item>
         <item>Article</item>

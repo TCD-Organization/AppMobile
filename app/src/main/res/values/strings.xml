@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PA4AL</string>
-    <string name="title_home">Accueil</string>
-    <string name="title_upload">Téléchargement</string>
-    <string name="title_history">Historique</string>
+    <string name="app_name">TCD Analyses</string>
+    <string name="title_documents">Documents</string>
+    <string name="title_upload">Téléverser</string>
+    <string name="title_analyses">Historique d\'analyses</string>
     <string name="categorie_prompt">Choix de catégorie</string>
     <string name="login">S\'authentifier</string>
     <string name="register">S\'inscrire</string>
@@ -11,6 +11,7 @@
     <string name="password">Mot de passe</string>
     <string name="email">E-mail</string>
     <string name="username">Nom d\'utilisateur</string>
+    <string name="analyse_button">ANALYSER</string>
     <string-array name="country_arrays">
         <item>Roman</item>
         <item>Article</item>

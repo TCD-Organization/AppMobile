@@ -8,18 +8,51 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.pa4al.ui.documents.DocumentListFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/document_list_fragment" />
+        android:label="@string/title_documents"
+        tools:layout="@layout/document_list_fragment" >
+        <action
+            android:id="@+id/action_navigation_home_to_newAnalysisActivity"
+            app:destination="@id/newAnalysisActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_upload"
         android:name="com.example.pa4al.ui.upload.UploadFragment"
         android:label="@string/title_upload"
-        tools:layout="@layout/upload_fragment" />
+        tools:layout="@layout/upload_fragment" >
+        <action
+            android:id="@+id/action_navigation_upload_self"
+            app:destination="@id/navigation_upload" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.example.pa4al.ui.analyses.AnalysisFragment"
-        android:label="@string/title_history"
+        android:label="@string/title_analyses"
         tools:layout="@layout/analysis_list_fragment" />
+    <activity
+        android:id="@+id/newAnalysisActivity"
+        android:name="com.example.pa4al.ui.analyses.NewAnalysisActivity"
+        android:label="NewAnalysisActivity" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.pa4al.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_history2"
+            app:destination="@id/navigation_history" />
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_upload"
+            app:destination="@id/navigation_upload" />
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.pa4al.ui.register.RegisterFragment"
+        android:label="RegisterFragment" />
 </navigation>
