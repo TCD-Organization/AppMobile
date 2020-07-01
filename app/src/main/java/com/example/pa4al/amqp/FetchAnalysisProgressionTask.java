@@ -132,7 +132,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     protected void onProgressUpdate(Analysis... values) {
         Analysis progress = values[0];
         progressBar.setProgress(progress.getStep_number());
-        stepNumber.setText(progress.getStep_number());
+        stepNumber.setText(String.valueOf(progress.getStep_number()));
         System.out.println("Progress step number is now : " + progress.getStep_number());
     }
 }

@@ -4,7 +4,7 @@
     android:id="@+id/document_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/basic_margin"
+    android:layout_margin="@dimen/basic_margin"
     android:orientation="vertical">
 
 
