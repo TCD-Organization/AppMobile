@@ -54,6 +54,9 @@
     <string name="login_message_password_required">Veuillez rentrer un mot de passe</string>
     <string name="register_user_already_exists_message">Un utilisateur avec ce nom existe déjà</string>
     <string name="register_user_created_message">Votre compte a été créé</string>
+    <string name="document_delete_message">Voulez-vous vraiment supprimer le document "</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
 
     <string-array name="country_arrays">
