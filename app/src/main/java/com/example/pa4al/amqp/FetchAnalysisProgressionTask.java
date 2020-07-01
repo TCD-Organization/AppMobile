@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
@@ -24,6 +25,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     private Connection connection;
     private Channel channel;
     private ProgressBar progressBar;
+    private TextView stepNumber;
     private String analysisId;
 
     public FetchAnalysisProgressionTask() {
@@ -50,6 +52,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     @Override
     protected Analysis doInBackground(FetchAnalysisProgressionParameter... params) {
         progressBar = params[0].progressBar;
+        stepNumber = params[0].stepNumber;
         analysisId = params[0].id;
         String FRONT_ANALYSIS_QUEUE = "analysis_"+ analysisId +"_q";
 
@@ -58,8 +61,6 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
             while (!isCancelled()) {
                 if (channel.messageCount(FRONT_ANALYSIS_QUEUE) > 0) {
                     channel.basicConsume(FRONT_ANALYSIS_QUEUE, true, analysisProgressionConsumer());
-                } else {
-                    System.out.println("Message count for " + FRONT_ANALYSIS_QUEUE + " is 0");
                 }
             }
 
@@ -131,6 +132,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     protected void onProgressUpdate(Analysis... values) {
         Analysis progress = values[0];
         progressBar.setProgress(progress.getStep_number());
-        System.out.println(progress);
+        stepNumber.setText(progress.getStep_number());
+        System.out.println("Progress step number is now : " + progress.getStep_number());
     }
 }

@@ -6,13 +6,14 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
@@ -22,6 +23,7 @@ import com.example.pa4al.model.Analysis;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapter.AnalysesViewHolder> {
 
@@ -42,9 +44,11 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         return new AnalysesViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(final AnalysesViewHolder holder, final int position) {
         final Analysis currentAnalysis = mAnalyses.get(position);
+        final Long lastingTime = currentAnalysis.getLasting_time();
         holder.mAnalysisItem = currentAnalysis;
         holder.mAnalysisName.setText(currentAnalysis.getName());
         holder.mDocumentType.setText(currentAnalysis.getType());
@@ -52,11 +56,17 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mAnalysisStatus.setText(currentAnalysis.getStatus());
         holder.mProgressBar.setMax(currentAnalysis.getTotal_steps());
         holder.mProgressBar.setProgress(currentAnalysis.getStep_number());
+        holder.mStepNumber.setText(String.valueOf(currentAnalysis.getStep_number()));
+        holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
+        holder.mLastingTime.setText(String.format("%02d min, %02d sec",
+                TimeUnit.MILLISECONDS.toMinutes(lastingTime),
+                TimeUnit.MILLISECONDS.toSeconds(lastingTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lastingTime))
+        ));
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
-        // TODO : Do not listen for progression if Status == FINISHED
         if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {
-            fetchAnalysisProgression(holder, position);
+            fetchAnalysisProgression(holder);
         }
 
         holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +77,14 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         });
     }
 
+    private void fetchAnalysisProgression(final AnalysesViewHolder holder) {
+        FetchAnalysisProgressionParameter parameter = new FetchAnalysisProgressionParameter(holder.mAnalysisItem.getId(),
+                holder.mProgressBar, holder.mStepNumber);
+        AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis> analysisProgressAsyncTask =
+                new FetchAnalysisProgressionTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, parameter);
+        analysisProgressionTasks.add(analysisProgressAsyncTask);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -74,14 +92,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         System.out.println("OnDetached");
         super.onDetachedFromRecyclerView(recyclerView);
 
-    }
-
-    private void fetchAnalysisProgression(final AnalysesViewHolder holder, final int position) {
-        FetchAnalysisProgressionParameter parameter = new FetchAnalysisProgressionParameter(mAnalyses.get(position).getId(),
-                holder.mProgressBar);
-        AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis> analysisProgressAsyncTask =
-                new FetchAnalysisProgressionTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, parameter);
-        analysisProgressionTasks.add(analysisProgressAsyncTask);
     }
 
     @Override
@@ -99,18 +109,24 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         final TextView mAnalysisDocumentName;
         final TextView mAnalysisStatus;
         final ProgressBar mProgressBar;
-        final RelativeLayout analysisLayout;
+        final TextView mStepNumber;
+        final TextView mStepMax;
+        final TextView mLastingTime;
+        final ConstraintLayout analysisLayout;
         public Analysis mAnalysisItem;
 
-        public AnalysesViewHolder(View documentView) {
-            super(documentView);
-            mViewItem = documentView;
-            mAnalysisName = documentView.findViewById(R.id.analysis_name);
-            mDocumentType = documentView.findViewById(R.id.analysis_type);
-            mAnalysisDocumentName = documentView.findViewById(R.id.analysis_document_name);
-            mAnalysisStatus = documentView.findViewById(R.id.analysis_status);
-            mProgressBar = documentView.findViewById(R.id.progressBar);
-            analysisLayout = documentView.findViewById(R.id.analysis_layout);
+        public AnalysesViewHolder(View analysisView) {
+            super(analysisView);
+            mViewItem = analysisView;
+            mAnalysisName = analysisView.findViewById(R.id.analysis_name);
+            mDocumentType = analysisView.findViewById(R.id.analysis_type);
+            mAnalysisDocumentName = analysisView.findViewById(R.id.analysis_document_name);
+            mAnalysisStatus = analysisView.findViewById(R.id.analysis_status);
+            mProgressBar = analysisView.findViewById(R.id.progressBar);
+            mStepNumber = analysisView.findViewById(R.id.progressStepNumber);
+            mStepMax = analysisView.findViewById(R.id.progressMaxStep);
+            mLastingTime = analysisView.findViewById(R.id.lastingTimeTextView);
+            analysisLayout = analysisView.findViewById(R.id.analysis_layout);
         }
     }
 }

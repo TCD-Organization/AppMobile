@@ -8,4 +8,5 @@
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.analyses.AnalysisFragment"
-    tools:listitem="@layout/analysis_item_layout" />
+    tools:listitem="@layout/analysis_item_layout"
+    />
