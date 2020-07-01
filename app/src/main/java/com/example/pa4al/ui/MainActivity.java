@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-            Fragment selectedFragment = null;
+            Fragment selectedFragment;
 
             switch (menuItem.getItemId()){
                 case R.id.navigation_upload:

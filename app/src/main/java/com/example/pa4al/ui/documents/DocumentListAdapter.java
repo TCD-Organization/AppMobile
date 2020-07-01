@@ -45,7 +45,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Click on"+ mDocuments.get(position).toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Click on"+ mDocuments.get(position).toString(), Toast.LENGTH_SHORT).show();
                 Intent newAnalysisIntent = new Intent(view.getContext(), NewAnalysisActivity.class);
                 newAnalysisIntent.putExtra("document", mDocuments.get(position));
                 mContext.startActivity(newAnalysisIntent);
