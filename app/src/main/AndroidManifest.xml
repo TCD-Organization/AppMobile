@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity"></activity>
-        <activity android:name=".ui.analysis.NewAnalysisActivity"></activity>
+        <activity android:name=".ui.analyses.NewAnalysisActivity"></activity>
     </application>
 
 </manifest>

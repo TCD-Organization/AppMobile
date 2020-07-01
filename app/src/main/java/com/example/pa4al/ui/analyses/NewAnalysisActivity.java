@@ -1,4 +1,4 @@
-package com.example.pa4al.ui.analysis;
+package com.example.pa4al.ui.analyses;
 
 import android.content.Context;
 import android.content.SharedPreferences;

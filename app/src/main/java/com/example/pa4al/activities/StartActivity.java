@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pa4al.R;
 import com.example.pa4al.ui.MainActivity;
-import com.example.pa4al.ui.login.FragmentLogin;
-import com.example.pa4al.ui.register.FragmentRegister;
+import com.example.pa4al.ui.login.LoginFragment;
+import com.example.pa4al.ui.register.RegisterFragment;
 
 public class StartActivity extends AppCompatActivity implements StartCallbackFragment {
     Fragment fragment;
@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity implements StartCallbackFra
     }
 
     public void loadLoginFragment() {
-        FragmentLogin fragment = new FragmentLogin();
+        LoginFragment fragment = new LoginFragment();
         fragment.setStartCallbackFragment(this);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -35,7 +35,7 @@ public class StartActivity extends AppCompatActivity implements StartCallbackFra
     }
 
     public void loadRegisterFragment() {
-        fragment = new FragmentRegister();
+        fragment = new RegisterFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);

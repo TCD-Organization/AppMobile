@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.example.pa4al.ui.history.HistoryFragment"
+        android:name="com.example.pa4al.ui.analyses.AnalysisFragment"
         android:label="@string/title_history"
         tools:layout="@layout/analysis_list_fragment" />
 </navigation>

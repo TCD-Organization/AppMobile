@@ -18,7 +18,6 @@
             android:inputType="textPersonName"
             android:textColorHint="@color/colorHint"
             android:ems="10"
-            android:textColor="#FFF"
             />
     </com.google.android.material.textfield.TextInputLayout>
 

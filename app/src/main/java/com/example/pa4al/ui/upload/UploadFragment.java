@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
 import com.example.pa4al.api.RetrofitClient;
-import com.example.pa4al.model.DocumentDTO;
 import com.example.pa4al.ui.MainFragment;
 
 import retrofit2.Call;
@@ -79,8 +79,7 @@ public class UploadFragment extends MainFragment {
         }
 
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null),
-                        new DocumentDTO(fileName, fileGenre, contentType, fileContent));
+                .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null), fileName, fileGenre, contentType, fileContent);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -88,7 +87,23 @@ public class UploadFragment extends MainFragment {
                 // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
                 //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
                 //  message d'erreur
-
+                if(response.code() == 403){
+                    Toast.makeText(getActivity(), "Not Authorized",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if(response.code() == 409){
+                    Toast.makeText(getActivity(), "A document with this name already exists",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if(response.code() > 299){
+                    Toast.makeText(getActivity(), "Error while creating document : " +response.code(),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    name.setText("");
+                    genre.setText("");
+                    content.setText("");
+                    Toast.makeText(getActivity(), "Document Created", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override

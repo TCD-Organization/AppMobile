@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pa4al.R;
-import com.example.pa4al.ui.analysis.NewAnalysisActivity;
+import com.example.pa4al.ui.analyses.NewAnalysisActivity;
 import com.example.pa4al.model.Document;
 
 import java.util.List;
@@ -78,4 +78,6 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
             documentLayout = documentView.findViewById(R.id.document_layout);
         }
     }
+
+
 }
