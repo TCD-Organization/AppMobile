@@ -54,9 +54,12 @@
     <string name="login_message_password_required">Please enter a password</string>
     <string name="register_user_already_exists_message">A user with this name already exists</string>
     <string name="register_user_created_message">Your account has been created</string>
-    <string name="document_delete_message">Do you really want to delete the document "</string>
+    <string name="document_delete_message">Do you really want to delete the document \"</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="document_remove_title">Delete document</string>
+    <string name="login_progress_title">Login…</string>
+    <string name="login_progress_message">Please wait…</string>
 
     <string-array name="country_arrays">
         <item>Roman</item>

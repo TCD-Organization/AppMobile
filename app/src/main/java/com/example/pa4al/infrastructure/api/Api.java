@@ -1,4 +1,4 @@
-package com.example.pa4al.api;
+package com.example.pa4al.infrastructure.api;
 
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.model.AnalysisDTO;

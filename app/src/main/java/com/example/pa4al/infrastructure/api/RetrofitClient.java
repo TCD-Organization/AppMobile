@@ -1,4 +1,6 @@
-package com.example.pa4al.api;
+package com.example.pa4al.infrastructure.api;
+
+import com.example.pa4al.model.Analysis;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,5 +25,4 @@ public class RetrofitClient {
     public Api getApi(){
         return retrofit.create(Api.class);
     }
-
 }

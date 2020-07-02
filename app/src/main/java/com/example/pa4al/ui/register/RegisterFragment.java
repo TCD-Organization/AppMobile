@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
-import com.example.pa4al.api.RetrofitClient;
+import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.RegisterDTO;
 
 import retrofit2.Call;

@@ -76,7 +76,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
 
     private void showDeleteAlert(Document document) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(R.string.app_name);
+        builder.setTitle(R.string.document_remove_title);
         builder.setMessage(mContext.getString(R.string.document_delete_message) + document.getName() +"\" ?");
         builder.setIcon(R.drawable.ic_delete);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
