@@ -6,10 +6,8 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,6 +20,7 @@ import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +32,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
     private final Context mContext;
 
     public AnalysisListAdapter(Context context, List<Analysis> analyses) {
+        Collections.reverse(analyses);
         mAnalyses = analyses;
         mContext = context;
     }
@@ -51,7 +51,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         final Long lastingTime = currentAnalysis.getLasting_time();
         holder.mAnalysisItem = currentAnalysis;
         holder.mAnalysisName.setText(currentAnalysis.getName());
-        holder.mDocumentType.setText(currentAnalysis.getType());
         holder.mAnalysisDocumentName.setText(currentAnalysis.getDocument_name());
         holder.mAnalysisStatus.setText(currentAnalysis.getStatus());
         holder.mProgressBar.setMax(currentAnalysis.getTotal_steps());
@@ -72,7 +71,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Click on" + mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Click on" + mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -105,7 +104,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
     public class AnalysesViewHolder extends RecyclerView.ViewHolder {
         final View mViewItem;
         final TextView mAnalysisName;
-        final TextView mDocumentType;
         final TextView mAnalysisDocumentName;
         final TextView mAnalysisStatus;
         final ProgressBar mProgressBar;
@@ -119,7 +117,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             super(analysisView);
             mViewItem = analysisView;
             mAnalysisName = analysisView.findViewById(R.id.analysis_name);
-            mDocumentType = analysisView.findViewById(R.id.analysis_type);
             mAnalysisDocumentName = analysisView.findViewById(R.id.analysis_document_name);
             mAnalysisStatus = analysisView.findViewById(R.id.analysis_status);
             mProgressBar = analysisView.findViewById(R.id.progressBar);

@@ -7,51 +7,65 @@
     android:padding="@dimen/basic_margin">
 
     <TextView
-        android:id="@+id/tvNewAnalysisTitle"
+        android:id="@+id/selectedDocumentTitle"
         android:layout_width="match_parent"
-        android:layout_height="94dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="@dimen/basic_margin"
-        android:text="Create an Analysis"
+        android:text="@string/document_name_default"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/selectedDocumentContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/document_content_hint"
+        android:inputType="textMultiLine"
+        android:textColorHint="@color/colorHint"
+        android:gravity="start|top"
+        app:layout_constraintBottom_toTopOf="@+id/newAnalysisTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedDocumentTitle"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/newAnalysisTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/new_analysis_title"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/newAnalysisName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/newAnalysisName"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:hint="NAME"
+        android:hint="@string/new_analysis_name_hint"
         android:padding="5dp"
         android:textColorHint="@color/colorHint"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/newAnalysisButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNewAnalysisTitle"
-        tools:ignore="MissingConstraints"></EditText>
-
-    <Spinner
-        android:id="@+id/spinnerAnalysisTypes"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:padding="5dp"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        tools:ignore="MissingConstraints"
+        android:inputType="textCapWords|textShortMessage"
+        android:autofillHints="@string/new_analysis_name_autofill_hints" />
 
     <Button
-        android:id="@+id/btnAnalyze"
+        android:id="@+id/newAnalysisButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/login_button_back"
-        android:text="Analysis"
+        android:text="@string/analyze_button"
         android:textColor="@color/colorLogin"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

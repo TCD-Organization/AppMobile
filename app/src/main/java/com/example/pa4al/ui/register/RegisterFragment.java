@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pa4al.R;
-import com.example.pa4al.api.RetrofitClient;
+import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.RegisterDTO;
 
 import retrofit2.Call;
@@ -53,13 +53,13 @@ public class RegisterFragment extends Fragment {
 
         // TODO: Afficher un Toast si username ou password est vide (puis return;)
         if(username.isEmpty()){
-            Toast.makeText(getActivity(), "Username required",
+            Toast.makeText(getActivity(), R.string.login_message_username_required,
                     Toast.LENGTH_LONG).show();
             etUsername.requestFocus();
             return;
         }
         if(password.isEmpty()){
-            Toast.makeText(getActivity(), "Password required",
+            Toast.makeText(getActivity(), R.string.login_message_password_required,
                     Toast.LENGTH_LONG).show();
             etPassword.requestFocus();
             return;
@@ -79,17 +79,17 @@ public class RegisterFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                 }
                 else if(response.code() == 409){
-                    Toast.makeText(getActivity(), "A user with this name already exists",
+                    Toast.makeText(getActivity(), R.string.register_user_already_exists_message,
                             Toast.LENGTH_LONG).show();
                 }
                 else if(response.code() > 299){
-                    Toast.makeText(getActivity(), "Error while Registering",
+                    Toast.makeText(getActivity(), "Error while Registering" + response.code(),
                             Toast.LENGTH_LONG).show();
                 } else {
                     etUsername.setText("");
                     etEmail.setText("");
                     etPassword.setText("");
-                    Toast.makeText(getActivity(), "Registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.register_user_created_message, Toast.LENGTH_LONG).show();
                 }
             }
 

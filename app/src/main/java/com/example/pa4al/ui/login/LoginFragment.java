@@ -1,5 +1,7 @@
 package com.example.pa4al.ui.login;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
-import com.example.pa4al.api.RetrofitClient;
-import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.activities.StartCallbackFragment;
+import com.example.pa4al.use_case.Login;
 import com.example.pa4al.ui.MainFragment;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginFragment extends MainFragment {
 
@@ -27,6 +24,7 @@ public class LoginFragment extends MainFragment {
     private EditText etUsername, etPassword;
     private StartCallbackFragment startCallbackFragment;
     private String username, password;
+    private ProgressDialog mProgress;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,14 +34,46 @@ public class LoginFragment extends MainFragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnRegister = view.findViewById(R.id.btnRegister);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                username = etUsername.getText().toString();
-                password = etPassword.getText().toString();
+        //mProgress = view.findViewById(R.id.loginProgressBar);
+        mProgress = new ProgressDialog(getContext());
+        mProgress.setTitle(getString(R.string.login_progress_title));
+        mProgress.setMessage(getString(R.string.login_progress_message));
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
-                Login(username, password);
-            }
+        btnLogin.setOnClickListener(view1 -> {
+            mProgress.show();
+            username = etUsername.getText().toString();
+            password = etPassword.getText().toString();
+
+            Login.Login(username, password, etUsername, etPassword, getContext(),
+                    new Login.LoginCallBack() {
+                @Override
+                public void onSuccess(Context context, String token) {
+                    mProgress.dismiss();
+
+                    userPrefsEditor.putString("Token", token).commit();
+                    startCallbackFragment.startMainActivity();
+                    System.out.println("Success");
+                    Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Context context, Exception e) {
+                    mProgress.dismiss();
+                    System.out.println(e.getMessage());
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onWarning(Context context, Exception e, EditText field) {
+                    mProgress.dismiss();
+                    System.out.println(e.getMessage());
+                    Toast.makeText(getActivity(), R.string.login_message_username_required,
+                            Toast.LENGTH_LONG).show();
+                    field.requestFocus();
+                }
+            });
         });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -58,57 +88,7 @@ public class LoginFragment extends MainFragment {
         return view;
     }
 
-    public void Login(String username, String password){
 
-        // TODO: Afficher un Toast si username ou password est vide (puis return;)
-        if(username.isEmpty()){
-            Toast.makeText(getActivity(), "Username required",
-                    Toast.LENGTH_LONG).show();
-            etUsername.requestFocus();
-            return;
-        }
-        if(password.isEmpty()){
-            Toast.makeText(getActivity(), "Password required",
-                    Toast.LENGTH_LONG).show();
-            etPassword.requestFocus();
-            return;
-        }
-
-        Call<Void> call = RetrofitClient
-                .getInstance().getApi().userLogin(new LoginDTO(username, password));
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
-                //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
-                //  message d'erreur
-                // Response response = new ResponseHandler(Login).handle(response);
-                // Login() { NOT_FOUND = resource.login.error.not_found = "This user does not exist" }
-                if(response.code() == 404){
-                    Toast.makeText(getActivity(), "This user does not exist",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(response.code() == 403){ // FORBIDDEN
-                    Toast.makeText(getActivity(), "Incorrect username or password",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(response.code() > 299){
-                    Toast.makeText(getActivity(), "Error while logging in",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    userPrefsEditor.putString("Token", response.headers().get("Authorization")).commit();
-                    startCallbackFragment.startMainActivity();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
 
     public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {
         this.startCallbackFragment = startCallbackFragment;

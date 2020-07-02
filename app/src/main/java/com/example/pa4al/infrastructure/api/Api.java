@@ -1,8 +1,7 @@
-package com.example.pa4al.api;
+package com.example.pa4al.infrastructure.api;
 
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.model.AnalysisDTO;
-import com.example.pa4al.model.AnalysisType;
 import com.example.pa4al.model.Document;
 import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.model.RegisterDTO;
@@ -34,9 +33,6 @@ public interface Api {
 
     @GET("/analysis/all")
     Call<List<Analysis>> getAnalysis(@Header("Authorization") String token);
-
-    @GET("/analysis-types/all")
-    Call<List<AnalysisType>> getAnalysisTypes(@Header("Authorization") String token);
 
     @GET("/document/all")
     Call<List<Document>> getDocuments(@Header("Authorization") String token);

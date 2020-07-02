@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
-import com.example.pa4al.api.RetrofitClient;
+import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.ui.MainFragment;
 
 import retrofit2.Call;

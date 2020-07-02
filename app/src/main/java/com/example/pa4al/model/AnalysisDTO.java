@@ -7,7 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class AnalysisDTO {
         final String name;
-        final String type;
         final String doc_id;
 
 
