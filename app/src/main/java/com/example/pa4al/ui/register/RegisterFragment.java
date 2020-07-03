@@ -23,15 +23,15 @@ import retrofit2.Response;
 public class RegisterFragment extends Fragment {
 
     private Button btnLogin, btnRegister;
-    private EditText etUsername, etPassword, etEmail;
-    private String username, email, password;
-
+    private EditText etUsername;
+    private EditText etPassword;
+    private String username;
+    private String password;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_fragment, container, false);
         etUsername = view.findViewById(R.id.etUsername);
-        etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
         btnRegister = view.findViewById(R.id.btnRegister);
 
@@ -39,17 +39,16 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 username = etUsername.getText().toString();
-                email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
 
-                Register(username, email, password);
+                Register(username, password);
             }
         });
         return view;
     }
 
 
-    public void Register(String username, String email, String password){
+    public void Register(String username, String password){
 
         // TODO: Afficher un Toast si username ou password est vide (puis return;)
         if(username.isEmpty()){
@@ -64,7 +63,7 @@ public class RegisterFragment extends Fragment {
             etPassword.requestFocus();
             return;
         }
-        RegisterDTO registerDTO = new RegisterDTO(username, email, password);
+        RegisterDTO registerDTO = new RegisterDTO(username, password);
         Call<Void> call = RetrofitClient
                 .getInstance().getApi().userRegister(registerDTO);
 
@@ -87,7 +86,6 @@ public class RegisterFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                 } else {
                     etUsername.setText("");
-                    etEmail.setText("");
                     etPassword.setText("");
                     Toast.makeText(getActivity(), R.string.register_user_created_message, Toast.LENGTH_LONG).show();
                 }
