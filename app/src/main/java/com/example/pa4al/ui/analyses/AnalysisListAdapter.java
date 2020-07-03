@@ -1,5 +1,6 @@
 package com.example.pa4al.ui.analyses;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,6 +45,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         return new AnalysesViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(final AnalysesViewHolder holder, final int position) {
@@ -57,11 +59,15 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mProgressBar.setProgress(currentAnalysis.getStep_number());
         holder.mStepNumber.setText(String.valueOf(currentAnalysis.getStep_number()));
         holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
-        holder.mLastingTime.setText(String.format("%02d min, %02d sec",
-                TimeUnit.MILLISECONDS.toMinutes(lastingTime),
-                TimeUnit.MILLISECONDS.toSeconds(lastingTime) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lastingTime))
-        ));
+        if(lastingTime == null) {
+            holder.mLastingTime.setText(R.string.analysis_not_started);
+        } else {
+            holder.mLastingTime.setText(String.format("%02d min, %02d sec",
+                    TimeUnit.MILLISECONDS.toMinutes(lastingTime),
+                    TimeUnit.MILLISECONDS.toSeconds(lastingTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lastingTime))
+            ));
+        }
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
         if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {

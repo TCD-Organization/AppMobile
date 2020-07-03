@@ -24,6 +24,8 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
 
     private Connection connection;
     private Channel channel;
+    private TextView status;
+    
     private ProgressBar progressBar;
     private TextView stepNumber;
     private String analysisId;

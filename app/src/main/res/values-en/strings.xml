@@ -59,6 +59,7 @@
     <string name="document_remove_title">Delete document</string>
     <string name="login_progress_title">Login…</string>
     <string name="login_progress_message">Please wait…</string>
+    <string name="analysis_not_started">Not started yet</string>
 
     <string-array name="country_arrays">
         <item>Roman</item>

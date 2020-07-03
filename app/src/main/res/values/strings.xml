@@ -59,6 +59,7 @@
     <string name="document_remove_title">Supprimer document</string>
     <string name="login_progress_title">Connexion…</string>
     <string name="login_progress_message">Veuillez patienter…</string>
+    <string name="analysis_not_started">Pas encore commencé</string>
 
 
     <string-array name="country_arrays">
