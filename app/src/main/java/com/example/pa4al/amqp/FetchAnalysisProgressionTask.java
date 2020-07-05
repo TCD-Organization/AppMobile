@@ -25,7 +25,8 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     private Connection connection;
     private Channel channel;
     private TextView status;
-    
+    private TextView stepName;
+    private TextView estimatedTime;
     private ProgressBar progressBar;
     private TextView stepNumber;
     private String analysisId;
@@ -53,6 +54,9 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected Analysis doInBackground(FetchAnalysisProgressionParameter... params) {
+        status = params[0].status;
+        stepName = params[0].stepName;
+        estimatedTime = params[0].estimatedTime;
         progressBar = params[0].progressBar;
         stepNumber = params[0].stepNumber;
         analysisId = params[0].id;
