@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources >
     <string name="app_name">PA4AL</string>
     <string name="title_home">Accueil</string>
     <string name="title_upload">Téléchargement</string>
@@ -11,8 +11,33 @@
     <string name="password">Mot de passe</string>
     <string name="email">E-mail</string>
     <string name="username">Nom d`\'utilisateur</string>
+    <string-array name="loginError" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="register" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="document" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="analysis" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+
     <string-array name="country__arrays">
-        <item>Roman</item>
+
         <item>Article</item>
         <item>Commentaires</item>
         <item>Chanson</item>

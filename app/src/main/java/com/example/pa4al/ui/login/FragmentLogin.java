@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
+import com.example.pa4al.api.ResponseHandler;
 import com.example.pa4al.api.RetrofitClient;
 import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.activities.StartCallbackFragment;
@@ -83,20 +84,15 @@ public class FragmentLogin extends MainFragment {
                 // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
                 //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
                 //  message d'erreur
-                if(response.code() == 404){
-                    Toast.makeText(getActivity(), "This user does not exist",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(response.code() == 403){
-                    Toast.makeText(getActivity(), "Incorrect username or password",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(response.code() > 299){
-                    Toast.makeText(getActivity(), "Error while logging in",
-                            Toast.LENGTH_LONG).show();
-                } else {
+                if(response.isSuccessful()){
                     userPrefsEditor.putString("Token", response.headers().get("Authorization")).apply();
                     startCallbackFragment.startMainActivity();
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.id.loginError, getContext());
+                    String message = responseHandler.handle(response.code());
+                    Toast.makeText(getActivity(), message,
+                            Toast.LENGTH_LONG).show();
                 }
             }
 

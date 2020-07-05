@@ -11,6 +11,30 @@
     <string name="password">Password</string>
     <string name="email">E-mail</string>
     <string name="username">Username</string>
+    <string-array name="loginError" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="register" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="document" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="analysis" translatable="false">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
     <string-array name="country__arrays">
         <item>Roman</item>
         <item>Article</item>
