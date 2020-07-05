@@ -89,7 +89,7 @@ public class FragmentLogin extends MainFragment {
                     startCallbackFragment.startMainActivity();
                 }
                 else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.id.loginError, getContext());
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.loginError, getContext());
                     String message = responseHandler.handle(response.code());
                     Toast.makeText(getActivity(), message,
                             Toast.LENGTH_LONG).show();
