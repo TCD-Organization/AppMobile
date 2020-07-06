@@ -25,9 +25,10 @@
     <string name="analysis_name_default">Analysis n°…</string>
     <string name="document_name_label">Document name :</string>
     <string name="analysis_status_label">Status :</string>
-    <string name="analysis_status_default">IN_PROGRESS</string>
     <string name="analysis_lasting_time_label">Estimated time remaining :</string>
     <string name="analysis_lasting_time_default">1 min, 3 sec</string>
+    <string name="analysis_lasting_time_not_started">∞</string>
+    <string name="analysis_step_name_label">Step :</string>
     <string name="document_genre_label">Genre :</string>
     <string name="document_genre_default">Poem</string>
     <string name="document_content_label">Content :</string>
@@ -59,7 +60,8 @@
     <string name="document_remove_title">Delete document</string>
     <string name="login_progress_title">Login…</string>
     <string name="login_progress_message">Please wait…</string>
-    <string name="analysis_not_started">Not started yet</string>
+    <string name="analysis_status_not_started">Waiting…</string>
+
 
     <string-array name="country_arrays">
         <item>Roman</item>
