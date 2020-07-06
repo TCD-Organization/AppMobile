@@ -7,4 +7,6 @@
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.documents.DocumentListFragment"
-    tools:listitem="@layout/document_item_layout" />
+    tools:listitem="@layout/document_item_layout"
+    android:scrollbars="vertical"
+    />
