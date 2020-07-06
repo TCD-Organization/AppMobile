@@ -61,6 +61,16 @@ public class DocumentListFragment extends MainFragment {
         call.enqueue(new Callback<List<Document>>() {
             @Override
             public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
+               /*if(response.isSuccessful()){
+                    callBack.onSuccess(context, response.body());
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.documentsFetchingErrors);
+                    String errorMessage = responseHandler.handle(response.code());
+                    callBack.onFailure(context, new Exception(errorMessage));
+                }*/
+                // TODO: Move into a service
+
                 List<Document> documents = response.body();
                 initDocumentsListAdapter(view, documents);
             }

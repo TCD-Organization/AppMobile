@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.EditText;
 
 import com.example.pa4al.R;
+import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.LoginDTO;
 
@@ -34,14 +35,12 @@ public class Login {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()) {
+                if(response.isSuccessful()){
                     callBack.onSuccess(context, response.headers().get("Authorization"));
-                } else {
-                    String errorMessage;
-
-                    errorMessage = response.code() == 404 ? "Error, user not found" :
-                              response.code() == 403 ? context.getString(R.string.login_message_incorrect_username_or_password) :
-                              response.errorBody().toString();
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.loginErrors);
+                    String errorMessage = responseHandler.handle(response.code());
                     callBack.onFailure(context, new Exception(errorMessage));
                 }
             }

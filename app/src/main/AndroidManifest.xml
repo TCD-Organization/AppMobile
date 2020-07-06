@@ -3,6 +3,7 @@
     package="com.example.pa4al">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".AndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_tcd_launcher"
         android:label="@string/app_name"

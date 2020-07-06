@@ -65,9 +65,16 @@ public class NewAnalysisActivity extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
-                //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
-                //  message d'erreur
+               /*if(response.isSuccessful()){
+                    callBack.onSuccess(context);
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.newAnalysisErrors);
+                    String errorMessage = responseHandler.handle(response.code());
+                    callBack.onFailure(context, new Exception(errorMessage));
+                }*/
+                // TODO: Move into a service
+
                 if(response.code() > 299) {
                     Toast.makeText(NewAnalysisActivity.this, "Error " + response.code(), Toast.LENGTH_LONG).show();
                 } else {

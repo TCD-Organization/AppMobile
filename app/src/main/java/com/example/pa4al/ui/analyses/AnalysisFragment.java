@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
+import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.ui.MainFragment;
@@ -51,6 +52,16 @@ public class AnalysisFragment extends MainFragment {
         call.enqueue(new Callback<List<Analysis>>() {
             @Override
             public void onResponse(Call<List<Analysis>> call, Response<List<Analysis>> response) {
+                /*if(response.isSuccessful()){
+                    callBack.onSuccess(context, response.body());
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.analysisFetchingErrors);
+                    String errorMessage = responseHandler.handle(response.code());
+                    callBack.onFailure(context, new Exception(errorMessage));
+                }*/
+                // TODO: Move into a service
+
                 List<Analysis> analyses = response.body();
                 initAnalysisListAdapter(view, analyses);
             }
