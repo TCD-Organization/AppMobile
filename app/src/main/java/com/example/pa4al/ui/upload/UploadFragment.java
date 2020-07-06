@@ -5,14 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
-import com.example.pa4al.api.RetrofitClient;
-import com.example.pa4al.model.DocumentDTO;
+import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.ui.MainFragment;
 
 import retrofit2.Call;
@@ -23,9 +23,9 @@ public class UploadFragment extends MainFragment {
 
     EditText name;
     EditText genre;
-    CheckBox file;
-    CheckBox link;
-    CheckBox text;
+    RadioButton file;
+    RadioButton link;
+    RadioButton text;
     EditText content;
     Button upload;
 
@@ -33,8 +33,8 @@ public class UploadFragment extends MainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_upload, container, false);
-        name = view.findViewById(R.id.name);
+        View view = inflater.inflate(R.layout.upload_fragment, container, false);
+        name = view.findViewById(R.id.etName);
         genre = view.findViewById(R.id.genre);
         file = view.findViewById(R.id.file);
         link = view.findViewById(R.id.link);
@@ -79,16 +79,37 @@ public class UploadFragment extends MainFragment {
         }
 
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null),
-                        new DocumentDTO(fileName, fileGenre, contentType, fileContent));
+                .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null), fileName, fileGenre, contentType, fileContent);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                // TODO: Créer un objet pour déléguer la réponse de connexion : logginResponseHandler(response)
-                //  Concrètement cet objet regarderai le type de retour et enregistre le token ou bien affiche un
-                //  message d'erreur
-
+               /*if(response.isSuccessful()){
+                    callBack.onSuccess(context);
+                }
+                else{
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.uploadErrors);
+                    String errorMessage = responseHandler.handle(response.code());
+                    callBack.onFailure(context, new Exception(errorMessage));
+                }*/
+                // TODO: Move into a service
+                if(response.code() == 403){
+                    Toast.makeText(getActivity(), "Not Authorized",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if(response.code() == 409){
+                    Toast.makeText(getActivity(), "A document with this name already exists",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if(response.code() > 299){
+                    Toast.makeText(getActivity(), "Error while creating document : " +response.code(),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    name.setText("");
+                    genre.setText("");
+                    content.setText("");
+                    Toast.makeText(getActivity(), "Document Created", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
