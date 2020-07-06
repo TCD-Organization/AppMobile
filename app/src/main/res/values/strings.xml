@@ -25,9 +25,12 @@
     <string name="analysis_name_default">Analyse n°…</string>
     <string name="document_name_label">Nom du document :</string>
     <string name="analysis_status_label">Statut :</string>
-    <string name="analysis_status_default">IN_PROGRESS</string>
+    <string name="analysis_status_default" translatable="false">IN_PROGRESS</string>
     <string name="analysis_lasting_time_label">Temps restant estimé :</string>
     <string name="analysis_lasting_time_default">1 min, 3 sec</string>
+    <string name="analysis_lasting_time_not_started">∞</string>
+    <string name="analysis_step_name_label">Étape :</string>
+    <string name="analysis_step_name_default" translatable="false">INITIALIZATION</string>
     <string name="document_genre_label">Genre :</string>
     <string name="document_genre_default">Poème</string>
     <string name="document_content_label">Contenu :</string>
@@ -58,6 +61,7 @@
     <string name="document_remove_title">Supprimer document</string>
     <string name="login_progress_title">Connexion…</string>
     <string name="login_progress_message">Veuillez patienter…</string>
+    <string name="analysis_status_not_started">En attente…</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>

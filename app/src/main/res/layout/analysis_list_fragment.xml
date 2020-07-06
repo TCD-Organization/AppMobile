@@ -9,4 +9,5 @@
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.analyses.AnalysisFragment"
     tools:listitem="@layout/analysis_item_layout"
+    android:scrollbars="vertical"
     />

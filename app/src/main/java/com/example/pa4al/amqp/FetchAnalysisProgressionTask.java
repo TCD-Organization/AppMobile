@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.pa4al.gson.GsonCustom;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.ui.analyses.AnalysisListAdapter;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -20,13 +21,18 @@ import com.rabbitmq.client.Envelope;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
-public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgressionParameter, Analysis, Analysis> {
+
+import lombok.val;
+
+import static com.example.pa4al.utils.timeToStringFormatter.timeToString;
+
+public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.AnalysesViewHolder, Analysis, Analysis> {
 
     private Connection connection;
     private Channel channel;
-    private ProgressBar progressBar;
-    private TextView stepNumber;
-    private String analysisId;
+    private AnalysisListAdapter.AnalysesViewHolder holder;
+
+    private boolean firstReception = true;
 
     public FetchAnalysisProgressionTask() {
         ConnectionFactory factory = new ConnectionFactory();
@@ -50,11 +56,9 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected Analysis doInBackground(FetchAnalysisProgressionParameter... params) {
-        progressBar = params[0].progressBar;
-        stepNumber = params[0].stepNumber;
-        analysisId = params[0].id;
-        String FRONT_ANALYSIS_QUEUE = "analysis_"+ analysisId +"_q";
+    protected Analysis doInBackground(AnalysisListAdapter.AnalysesViewHolder... params) {
+        holder = params[0];
+        String FRONT_ANALYSIS_QUEUE = "analysis_"+ holder.mAnalysisItem.getId() +"_q";
 
         try {
             channel.queueDeclare(FRONT_ANALYSIS_QUEUE, true, false, true, null);
@@ -79,14 +83,25 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties
                     , byte[] body) {
                 try {
+
                     properties.builder().deliveryMode(2);
                     String analysisProgressionText = new String(body, StandardCharsets.UTF_8);
                     System.out.println("Progression: " + analysisProgressionText);
                     Analysis analysisProgression = new GsonCustom().create().fromJson(analysisProgressionText,
                             Analysis.class);
+
                     publishProgress(analysisProgression);
                     if (analysisProgression.getStatus().equals("FINISHED")) { // TODO : Replace with status
+                        holder.mLastingTime.setText(timeToString(0L));
                         cancel(true);
+                    }
+                    if(!analysisProgression.getStatus().equals("TO_START") && firstReception) {
+                        holder.mAnalysisItem.setLasting_time(analysisProgression.getLasting_time());
+                        holder.mLastingTime.setText(timeToString(analysisProgression.getLasting_time()));
+                        holder.mProgressBar.setMax(analysisProgression.getTotal_steps());
+                        holder.mStepMax.setText(String.valueOf(analysisProgression.getTotal_steps()));
+                        startRemainingTimeCountdown();
+                        firstReception = false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -96,6 +111,25 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
         };
     }
 
+    private void startRemainingTimeCountdown() {
+        new Thread(new Runnable() {
+            public void run() {
+                while (!isCancelled() && holder.mAnalysisItem.getLasting_time() > 0) {
+                    removeOneSecond();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            private void removeOneSecond() {
+                holder.mAnalysisItem.setLasting_time(holder.mAnalysisItem.getLasting_time() - 1000);
+                holder.mLastingTime.setText(timeToString(holder.mAnalysisItem.getLasting_time()));
+            }
+
+        }).start();
+    }
     private void closeConnection(Channel channel, Connection connection) {
         if (channel != null && channel.isOpen()) {
             try {
@@ -131,8 +165,12 @@ public class FetchAnalysisProgressionTask extends AsyncTask<FetchAnalysisProgres
     @Override
     protected void onProgressUpdate(Analysis... values) {
         Analysis progress = values[0];
-        progressBar.setProgress(progress.getStep_number());
-        stepNumber.setText(String.valueOf(progress.getStep_number()));
+        holder.mAnalysisStatus.setText(progress.getStatus());
+        holder.mStepName.setText(String.valueOf(progress.getStep_name()));
+        holder.mStepNumber.setText(String.valueOf(progress.getStep_number()));
+        holder.mProgressBar.setProgress(progress.getStep_number());
+        // value for the first time
+
         System.out.println("Progress step number is now : " + progress.getStep_number());
     }
 }
