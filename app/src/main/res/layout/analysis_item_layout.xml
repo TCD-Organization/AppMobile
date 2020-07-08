@@ -16,6 +16,8 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="@string/analysis_name_default"
+        android:paddingLeft="@dimen/small_margin"
+        android:textColor="@color/cardview_light_background"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -13,7 +13,7 @@
         android:layout_height="94dp"
         android:gravity="center"
         android:padding="@dimen/basic_margin"
-        android:text="Upload a document"
+        android:text="@string/upload_document_title_label"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,7 +24,7 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/upload_document_name_hint"
         android:textColorHint="@color/colorHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -36,7 +36,7 @@
         android:id="@+id/genre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Genre"
+        android:hint="@string/upload_document_genre_hint"
         android:inputType="textShortMessage"
         android:textColorHint="@color/colorHint"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/small_margin"
-            android:text="Text"
+            android:checked="true"
+            android:text="@string/upload_document_radio_text_label"
             android:textColor="@color/colorHint" />
 
         <RadioButton
@@ -66,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/small_margin"
-            android:text="Link"
+            android:text="@string/upload_document_radio_link_label"
             android:textColor="@color/colorHint" />
 
         <RadioButton
@@ -74,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/small_margin"
-            android:text="File"
+            android:text="@string/upload_document_radio_file_label"
             android:textColor="@color/colorHint" />
     </RadioGroup>
 
@@ -82,7 +83,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:hint="Content"
+        android:hint="@string/upload_document_content_hint"
         android:gravity="start|top"
         android:textColorHint="@color/colorHint"
         app:layout_constraintBottom_toTopOf="@+id/upload"
@@ -93,16 +94,40 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/fileSelectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_document_select_file_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/documentFileNameLabel"
+        android:layout_width="16dp"
+        android:layout_height="5dp"
+        android:text="@string/upload_document_file_name_label"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fileSelectBtn" />
+
+    <TextView
+        android:id="@+id/documentFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/documentFileNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/fileSelectBtn" />
 
     <Button
         android:id="@+id/upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload"
+        android:text="@string/upload_document_button"
         android:textColor="@color/colorLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
