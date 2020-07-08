@@ -1,5 +1,6 @@
 package com.example.pa4al.ui.documents;
 
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,7 +40,6 @@ public class DocumentListFragment extends MainFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.document_list_fragment, container, false);
-
         loadDocumentList(view);
 
         return view;

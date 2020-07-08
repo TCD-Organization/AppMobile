@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pa4al.R;
+import com.example.pa4al.infrastructure.api.RetrofitClient;
+import com.example.pa4al.model.AnalysisDTO;
 import com.example.pa4al.model.Document;
 
 import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapter.DocumentViewHolder> {
 
     private final List<Document> mDocuments;
     private final Context mContext;
+    public SharedPreferences userSharedPreferences;
 
     public DocumentListAdapter(Context context, List<Document> documents) {
         Collections.reverse(documents);
@@ -81,6 +87,9 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
         builder.setIcon(R.drawable.ic_delete);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                Call<Void> call = RetrofitClient
+                        .getInstance().getApi().deleteDocument(userSharedPreferences.getString("Token", null),
+                                id);
                 dialog.dismiss();
 
                 ;    // stop chronometer here

@@ -41,39 +41,42 @@ public class LoginFragment extends MainFragment {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        btnLogin.setOnClickListener(view1 -> {
-            mProgress.show();
-            username = etUsername.getText().toString();
-            password = etPassword.getText().toString();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                mProgress.show();
+                username = etUsername.getText().toString();
+                password = etPassword.getText().toString();
 
-            Login.Login(username, password, etUsername, etPassword, getContext(),
-                    new Login.LoginCallBack() {
-                @Override
-                public void onSuccess(Context context, String token) {
-                    mProgress.dismiss();
+                Login.Login(username, password, etUsername, etPassword, LoginFragment.this.getContext(),
+                        new Login.LoginCallBack() {
+                            @Override
+                            public void onSuccess(Context context, String token) {
+                                mProgress.dismiss();
 
-                    userPrefsEditor.putString("Token", token).commit();
-                    startCallbackFragment.startMainActivity();
-                    System.out.println("Success");
-                    Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
-                }
+                                userPrefsEditor.putString("Token", token).commit();
+                                startCallbackFragment.startMainActivity();
+                                System.out.println("Success");
+                                Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
+                            }
 
-                @Override
-                public void onFailure(Context context, Exception e) {
-                    mProgress.dismiss();
-                    System.out.println(e.getMessage());
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                            @Override
+                            public void onFailure(Context context, Exception e) {
+                                mProgress.dismiss();
+                                System.out.println(e.getMessage());
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
-                @Override
-                public void onWarning(Context context, Exception e, EditText field) {
-                    mProgress.dismiss();
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getActivity(), R.string.login_message_username_required,
-                            Toast.LENGTH_LONG).show();
-                    field.requestFocus();
-                }
-            });
+                            @Override
+                            public void onWarning(Context context, Exception e, EditText field) {
+                                mProgress.dismiss();
+                                System.out.println(e.getMessage());
+                                Toast.makeText(getActivity(), R.string.login_message_username_required,
+                                        Toast.LENGTH_LONG).show();
+                                field.requestFocus();
+                            }
+                        });
+            }
         });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {

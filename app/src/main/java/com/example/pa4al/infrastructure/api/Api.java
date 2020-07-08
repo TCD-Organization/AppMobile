@@ -10,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -39,4 +40,7 @@ public interface Api {
 
     @POST("/analysis")
     Call<Void> createAnalysis(@Header("Authorization") String token, @Body AnalysisDTO body);
+
+    @DELETE("/document")
+    Call<Void> deleteDocument(@Header("Authorization") String token, @Body int id);
 }
