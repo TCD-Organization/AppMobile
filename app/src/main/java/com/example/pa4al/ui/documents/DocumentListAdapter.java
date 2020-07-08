@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
 
     private void showDeleteAlert(Document document) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(R.string.document_remove_title);
+        builder.setTitle(R.string.document_delete_title);
         builder.setMessage(mContext.getString(R.string.document_delete_message) + document.getName() +"\" ?");
         builder.setIcon(R.drawable.ic_delete);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {

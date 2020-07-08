@@ -57,7 +57,7 @@
     <string name="document_delete_message">Voulez-vous vraiment supprimer le document \"</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <string name="document_remove_title">Supprimer document</string>
+    <string name="document_delete_title">Supprimer document</string>
     <string name="login_progress_title">Connexion…</string>
     <string name="login_progress_message">Veuillez patienter…</string>
     <string name="analysis_status_not_started">En attente…</string>
@@ -77,6 +77,12 @@
     <string name="upload_document_file_required_message">Veuillez sélectionner un fichier</string>
     <string name="upload_document_select_file_button">CHOISIR FICHIER</string>
     <string name="upload_document_already_exists_message">Un document avec ce contenu existe déjà</string>
+    <string name="analysis_delete_title">Suprimmer analyse</string>
+    <string name="analysis_delete_message">Voulez-vous vraiment supprimer l\'analyse \"</string>
+    <string name="document_delete_id_empty_error">DocumentId est vide</string>
+    <string name="analysis_delete_id_empty_error">AnalysisId est vide</string>
+    <string name="analysis_delete_progress_title">Suppression du document</string>
+    <string name="analysis_delete_progress_message">Veuillez patienter…</string>
 
 
     <string-array name="loginErrors">

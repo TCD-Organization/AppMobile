@@ -1,14 +1,19 @@
 package com.example.pa4al.ui.analyses;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -18,12 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.use_case.DeleteAnalysis;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.example.pa4al.utils.timeToStringFormatter.timeToString;
+import static com.example.pa4al.utils.TimeToStringFormatter.timeToString;
 
 public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapter.AnalysesViewHolder> {
 
@@ -62,6 +68,18 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.mDeleteButton.setBackground(mContext.getDrawable(R.drawable.ic_delete));
+        }
+
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteAlert(holder, position);
+            }
+        });
+
+
         if(stepName == null) {
             holder.mStepName.setText(R.string.analysis_status_not_started);
         } else {
@@ -87,6 +105,64 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
                 //Toast.makeText(mContext, "Click on" + mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+
+    private void showDeleteAlert(AnalysesViewHolder holder, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(R.string.analysis_delete_title);
+        builder.setMessage(mContext.getString(R.string.analysis_delete_message) + holder.mAnalysisItem.getName() +
+                "\" ?");
+        builder.setIcon(R.drawable.ic_delete);
+
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ProgressDialog mProgress = new ProgressDialog(mContext);
+                mProgress.setTitle(mContext.getResources().getString(R.string.analysis_delete_progress_title));
+                mProgress.setMessage(mContext.getResources().getString(R.string.analysis_delete_progress_message));
+                mProgress.setCancelable(false);
+                mProgress.setIndeterminate(true);
+                mProgress.show();
+
+                DeleteAnalysis.DeleteAnalysis(holder.mAnalysisItem.getId(), mContext,
+                        new DeleteAnalysis.DeleteAnalysisCallBack() {
+
+                            @Override
+                            public void onSuccess(Context context) {
+                                Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
+                                mProgress.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Context context, Exception e) {
+                                Toast.makeText(context, "Failure:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                mProgress.dismiss();
+                            }
+
+                            @Override
+                            public void onError(Context context, Exception e) {
+                                Toast.makeText(context, "/!\\ Error:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                mProgress.dismiss();
+                            }
+                        });
+                removeAt(position);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void removeAt(int position) {
+        mAnalyses.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mAnalyses.size());
     }
 
     private void fetchAnalysisProgression(final AnalysesViewHolder holder) {
@@ -122,6 +198,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         public TextView mStepMax;
         public TextView mStepName;
         public TextView mLastingTime;
+        public Button mDeleteButton;
         final ConstraintLayout analysisLayout;
         public Analysis mAnalysisItem;
 
@@ -135,6 +212,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             mStepNumber = analysisView.findViewById(R.id.progressStepNumber);
             mStepMax = analysisView.findViewById(R.id.progressMaxStep);
             mStepName = analysisView.findViewById(R.id.stepNameTextView);
+            mDeleteButton = analysisView.findViewById(R.id.deleteAnalysisButton);
             mLastingTime = analysisView.findViewById(R.id.lastingTimeTextView);
             analysisLayout = analysisView.findViewById(R.id.analysis_layout);
         }

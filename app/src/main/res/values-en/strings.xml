@@ -55,7 +55,7 @@
     <string name="document_delete_message">Do you really want to delete the document \"</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="document_remove_title">Delete document</string>
+    <string name="document_delete_title">Delete document</string>
     <string name="login_progress_title">Login…</string>
     <string name="login_progress_message">Please wait…</string>
     <string name="analysis_status_not_started">Waiting…</string>
@@ -75,6 +75,12 @@
     <string name="upload_document_file_required_message">Please select a file</string>
     <string name="upload_document_select_file_button">SELECT FILE</string>
     <string name="upload_document_already_exists_message">A document with this content already exists</string>
+    <string name="analysis_delete_title">Delete analysis</string>
+    <string name="analysis_delete_message">Do you really want to delete the analysis \"</string>
+    <string name="document_delete_id_empty_error">DocumentId is empty</string>
+    <string name="analysis_delete_id_empty_error">Id is empty</string>
+    <string name="analysis_delete_progress_title">Deleting document</string>
+    <string name="analysis_delete_progress_message">Please wait…</string>
 
 
     <string-array name="loginErrors">

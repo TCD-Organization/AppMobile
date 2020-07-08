@@ -3,7 +3,7 @@ package com.example.pa4al.utils;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class timeToStringFormatter {
+public class TimeToStringFormatter {
     public static String timeToString(Long lastingTime) {
         return String.format(Locale.FRANCE, "%02d min, %02d sec",
                 TimeUnit.MILLISECONDS.toMinutes(lastingTime),
