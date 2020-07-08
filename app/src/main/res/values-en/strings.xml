@@ -74,6 +74,7 @@
     <string name="upload_document_content_required_message">Please enter content</string>
     <string name="upload_document_file_required_message">Please select a file</string>
     <string name="upload_document_select_file_button">SELECT FILE</string>
+    <string name="upload_document_already_exists_message">A document with this content already exists</string>
 
 
     <string-array name="loginErrors">

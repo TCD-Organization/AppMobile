@@ -116,8 +116,11 @@ public class UploadFragment extends MainFragment {
             Uri selectedfile = data.getData(); //The uri with the location of the file
             if (selectedfile != null) {
                 fileUri = selectedfile;
-                System.out.println("selectedFile Uri = " + selectedfile);
-                System.out.println("selectedFile name = " + new File(selectedfile.getPath()).getName());
+                String path = FileUtil.getRealPath(getContext(), fileUri);
+                if (path != null) {
+                    file = new File(path);
+                    fileName.setText(file.getName());
+                }
             }
         }
     }
@@ -167,17 +170,10 @@ public class UploadFragment extends MainFragment {
 
         Call<Void> call;
         if(fileRadio.isChecked()) {
-            String path = FileUtil.getRealPath(getContext(), fileUri);
-            if (path == null)
-                throw new Error("Path is null");
-            file = new File(path);
-            System.out.println("Real path: " + file.getName());
-
-            MultipartBody.Part body = prepareFilePart("data");
-
-            //RequestBody requestFile = RequestBody.create(MediaType.parse("application/pdf"), file);
-            //MultipartBody.Part partFile = MultipartBody.Part.createFormData("test", file.getName(), requestFile);
+            MultipartBody.Part body = prepareFilePart("somethingelse");
             RequestBody filePartName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+
+            System.out.println(filePartName);
 
             call = RetrofitClient
                     .getInstance().getApi().createDocumentFromFile(userSharedPreferences.getString("Token", null),
@@ -205,7 +201,7 @@ public class UploadFragment extends MainFragment {
                         Toast.makeText(getActivity(), "Not Authorized",
                                 Toast.LENGTH_LONG).show();
                     } else if (response.code() == 409) {
-                        Toast.makeText(getActivity(), "A document with this name already exists",
+                        Toast.makeText(getActivity(), R.string.upload_document_already_exists_message,
                                 Toast.LENGTH_LONG).show();
                     } else if (response.code() > 299) {
                         Toast.makeText(getActivity(), "Error while creating document : " + response.code(),

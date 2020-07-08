@@ -10,45 +10,11 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import androidx.loader.content.CursorLoader;
-
 import java.io.File;
 
 public class FileUtil {
-
-    public static String getRealPath(Context context, Uri fileUri) {
-        String realPath;
-        // SDK < API11
-        if (Build.VERSION.SDK_INT < 19) {
-            realPath = FileUtil.getRealPathFromURI_API11to18(context, fileUri);
-        }
-        // SDK > 19 (Android 4.4) and up
-        else {
-            realPath = FileUtil.getRealPathFromURI_API19(context, fileUri);
-        }
-        return realPath;
-    }
-
-
     @SuppressLint("NewApi")
-    public static String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        String result = null;
-
-        CursorLoader cursorLoader = new CursorLoader(context, contentUri, proj, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-
-        if (cursor != null) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            result = cursor.getString(column_index);
-            cursor.close();
-        }
-        return result;
-    }
-
-    @SuppressLint("NewApi")
-    public static String getRealPathFromURI_API19(final Context context, final Uri uri) {
+    public static String getRealPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
@@ -113,15 +79,6 @@ public class FileUtil {
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
-            // Return the remote address
-            if (isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return getDataColumn(context, uri, null, null);
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
@@ -200,11 +157,4 @@ public class FileUtil {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     */
-    public static boolean isGooglePhotosUri(Uri uri) {
-        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
-    }
 }
