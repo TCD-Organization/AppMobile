@@ -89,6 +89,8 @@ public class AnalysisFragment extends MainFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        recyclerView.setAdapter(null);
+        if(recyclerView != null) {
+            recyclerView.setAdapter(null);
+        }
     }
 }
