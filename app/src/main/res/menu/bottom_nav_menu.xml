@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_upload"
         android:icon="@drawable/ic_file_upload_black_24dp"
-        android:title="@string/title_upload" />
+        android:title="@string/upload_document_title" />
 
     <item
         android:id="@+id/navigation_history"

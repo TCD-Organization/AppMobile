@@ -3,7 +3,6 @@
     <!-- APP -->
     <string name="app_name">TCD Analysis</string>
     <string name="title_documents">Documents</string>
-    <string name="title_upload">Upload</string>
     <string name="title_analyses">Analyses history</string>
     <string name="categorie_prompt">Choose a category</string>
     <string name="login">Login</string>
@@ -60,6 +59,22 @@
     <string name="login_progress_title">Login…</string>
     <string name="login_progress_message">Please wait…</string>
     <string name="analysis_status_not_started">Waiting…</string>
+    <string name="upload_document_title">Upload</string>
+    <string name="upload_document_title_label">Upload a document</string>
+    <string name="upload_document_file_name_label">File name :</string>
+    <string name="upload_document_name_hint">Name</string>
+    <string name="upload_document_genre_hint">Genre</string>
+    <string name="upload_document_radio_text_label">Text</string>
+    <string name="upload_document_radio_link_label">Link</string>
+    <string name="upload_document_radio_file_label">File</string>
+    <string name="upload_document_content_hint">Content</string>
+    <string name="upload_document_button">Upload</string>
+    <string name="upload_document_name_required_message">Please enter a name</string>
+    <string name="upload_document_genre_required_message">Please enter a genre</string>
+    <string name="upload_document_content_required_message">Please enter content</string>
+    <string name="upload_document_file_required_message">Please select a file</string>
+    <string name="upload_document_select_file_button">SELECT FILE</string>
+    <string name="upload_document_already_exists_message">A document with this content already exists</string>
 
 
     <string-array name="loginErrors">

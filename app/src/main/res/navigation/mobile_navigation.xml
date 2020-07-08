@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/navigation_upload"
         android:name="com.example.pa4al.ui.upload.UploadFragment"
-        android:label="@string/title_upload"
+        android:label="@string/upload_document_title"
         tools:layout="@layout/upload_fragment" >
         <action
             android:id="@+id/action_navigation_upload_self"

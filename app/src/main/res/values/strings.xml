@@ -3,7 +3,6 @@
     <!-- APP -->
     <string name="app_name">TCD Analyses</string>
     <string name="title_documents">Documents</string>
-    <string name="title_upload">Téléverser</string>
     <string name="title_analyses">Historique d\'analyses</string>
     <string name="categorie_prompt">Choix de catégorie</string>
     <string name="login">S\'authentifier</string>
@@ -62,6 +61,23 @@
     <string name="login_progress_title">Connexion…</string>
     <string name="login_progress_message">Veuillez patienter…</string>
     <string name="analysis_status_not_started">En attente…</string>
+    <string name="upload_document_title">Uploader</string>
+    <string name="upload_document_title_label">Uploader un document</string>
+    <string name="upload_document_file_name_label">Nom du fichier :</string>
+    <string name="upload_document_name_hint">Nom</string>
+    <string name="upload_document_genre_hint">Genre</string>
+    <string name="upload_document_radio_text_label">Texte</string>
+    <string name="upload_document_radio_link_label">Lien</string>
+    <string name="upload_document_radio_file_label">Fichier</string>
+    <string name="upload_document_content_hint">Contenu</string>
+    <string name="upload_document_button">Envoyer</string>
+    <string name="upload_document_name_required_message">Veuillez entrer un nom</string>
+    <string name="upload_document_genre_required_message">Veuillez entrer un genre</string>
+    <string name="upload_document_content_required_message">Veuillez entrer du contenu</string>
+    <string name="upload_document_file_required_message">Veuillez sélectionner un fichier</string>
+    <string name="upload_document_select_file_button">CHOISIR FICHIER</string>
+    <string name="upload_document_already_exists_message">Un document avec ce contenu existe déjà</string>
+
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>
