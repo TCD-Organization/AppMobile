@@ -3,8 +3,6 @@ package com.example.pa4al.amqp;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
@@ -22,9 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
-import lombok.val;
-
-import static com.example.pa4al.utils.timeToStringFormatter.timeToString;
+import static com.example.pa4al.utils.TimeToStringFormatter.timeToString;
 
 public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.AnalysesViewHolder, Analysis, Analysis> {
 
@@ -47,7 +43,6 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
             e.printStackTrace();
             closeConnection(channel, connection);
         } catch (TimeoutException e) {
-            System.out.println("Server unreachable");
             e.printStackTrace();
             closeConnection(channel, connection);
         }

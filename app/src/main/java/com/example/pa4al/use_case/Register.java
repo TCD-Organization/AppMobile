@@ -5,22 +5,23 @@ import android.content.Context;
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
-import com.example.pa4al.model.LoginDTO;
+import com.example.pa4al.model.RegisterDTO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login {
-    public static void Login(String username, String password, final Context context, final LoginCallBack callBack) {
+public class Register {
+    public static void Register(String username, String password, final Context context,
+                                final RegisterCallBack callBack) {
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().userLogin(new LoginDTO(username, password));
+                .getInstance().getApi().userRegister(new RegisterDTO(username, password));
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    callBack.onSuccess(context, response.headers().get("Authorization"));
+                    callBack.onSuccess(context);
                 }
                 else{
                     ResponseHandler responseHandler = new ResponseHandler(R.array.loginErrors);
@@ -36,8 +37,8 @@ public class Login {
         });
     }
 
-    public interface LoginCallBack {
-        void onSuccess(Context context, String token);
+    public interface RegisterCallBack {
+        void onSuccess(Context context);
         void onFailure(Context context, String message);
         void onError(Context context, Exception e);
     }

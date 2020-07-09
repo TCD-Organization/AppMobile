@@ -11,11 +11,13 @@
 
     <TextView
         android:id="@+id/analysis_name"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="@string/analysis_name_default"
+        android:paddingLeft="@dimen/small_margin"
+        android:textColor="@color/cardview_light_background"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,4 +182,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/deleteAnalysisButton"
+        style="@style/DeleteAnalysis"
+        android:theme="@style/DeleteAnalysis"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import com.example.pa4al.model.RegisterDTO;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -15,7 +17,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface Api {
     @POST("/register")
@@ -32,6 +37,21 @@ public interface Api {
         @Field("content_type") String contentType,
         @Field("content") String content);
 
+    @Multipart
+    @POST("/document")
+    Call<Void> createDocumentFromFile(@Header("Authorization") String token,
+                                      @Part("file") RequestBody fileName,
+                                      @Part MultipartBody.Part file,
+                                      @Part("name") String name,
+                                      @Part("genre") String genre,
+                                      @Part("content_type") String contentType,
+                                      @Part("content") String content);
+
+    @DELETE("/document/{documentId}")
+    Call<Void> deleteDocument(@Header("Authorization") String token,
+                                      @Path("documentId") String documentId);
+
+
     @GET("/analysis/all")
     Call<List<Analysis>> getAnalysis(@Header("Authorization") String token);
 
@@ -41,6 +61,6 @@ public interface Api {
     @POST("/analysis")
     Call<Void> createAnalysis(@Header("Authorization") String token, @Body AnalysisDTO body);
 
-    @DELETE("/document")
-    Call<Void> deleteDocument(@Header("Authorization") String token, @Body int id);
+    @DELETE("/analysis/{analysisId}")
+    Call<Void> deleteAnalysis(@Header("Authorization") String token, @Path("analysisId") String analysisId);
 }

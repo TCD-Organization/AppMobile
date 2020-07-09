@@ -5,40 +5,42 @@ import android.content.Context;
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
-import com.example.pa4al.model.LoginDTO;
 
+import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login {
-    public static void Login(String username, String password, final Context context, final LoginCallBack callBack) {
+public class DeleteAnalysis {
+    public static void DeleteAnalysis(@NonNull String analysisId, final Context context,
+                                      final DeleteAnalysisCallBack callBack){
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().userLogin(new LoginDTO(username, password));
+                .getInstance().getApi().deleteAnalysis(context.getSharedPreferences("userPrefs",
+                        Context.MODE_PRIVATE).getString("Token",null), analysisId);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    callBack.onSuccess(context, response.headers().get("Authorization"));
+                    System.out.println(response.code());
+                    callBack.onSuccess(context);
                 }
                 else{
                     ResponseHandler responseHandler = new ResponseHandler(R.array.loginErrors);
                     String errorMessage = responseHandler.handle(response.code());
-                    callBack.onFailure(context, errorMessage);
+                    callBack.onFailure(context, new Exception(errorMessage));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                callBack.onError(context, new Exception(t));
+                callBack.onFailure(context, new Exception(t));
             }
         });
     }
 
-    public interface LoginCallBack {
-        void onSuccess(Context context, String token);
-        void onFailure(Context context, String message);
-        void onError(Context context, Exception e);
+    public interface DeleteAnalysisCallBack {
+        void onSuccess(Context context);
+        void onFailure(Context context, Exception e);
     }
 }
