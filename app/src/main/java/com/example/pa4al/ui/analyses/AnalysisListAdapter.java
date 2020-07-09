@@ -23,12 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
-import com.example.pa4al.use_case.DeleteAnalysis;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.pa4al.use_case.DeleteAnalysis.DeleteAnalysis;
+import static com.example.pa4al.use_case.DeleteAnalysis.DeleteAnalysisCallBack;
 import static com.example.pa4al.utils.TimeToStringFormatter.timeToString;
 
 public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapter.AnalysesViewHolder> {
@@ -116,45 +117,37 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
                 "\" ?");
         builder.setIcon(R.drawable.ic_delete);
 
-        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                ProgressDialog mProgress = new ProgressDialog(mContext);
-                mProgress.setTitle(mContext.getResources().getString(R.string.analysis_delete_progress_title));
-                mProgress.setMessage(mContext.getResources().getString(R.string.analysis_delete_progress_message));
-                mProgress.setCancelable(false);
-                mProgress.setIndeterminate(true);
-                mProgress.show();
+        builder.setPositiveButton(R.string.yes, (dialog, id) -> {
+            ProgressDialog mProgress = new ProgressDialog(mContext);
+            mProgress.setTitle(mContext.getResources().getString(R.string.analysis_delete_progress_title));
+            mProgress.setMessage(mContext.getResources().getString(R.string.analysis_delete_progress_message));
+            mProgress.setCancelable(false);
+            mProgress.setIndeterminate(true);
+            mProgress.show();
 
-                DeleteAnalysis.DeleteAnalysis(holder.mAnalysisItem.getId(), mContext,
-                        new DeleteAnalysis.DeleteAnalysisCallBack() {
+            DeleteAnalysis(holder.mAnalysisItem.getId(), mContext,
+                    new DeleteAnalysisCallBack() {
 
-                            @Override
-                            public void onSuccess(Context context) {
-                                Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
-                                mProgress.dismiss();
-                            }
+                        @Override
+                        public void onSuccess(Context context) {
+                            Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
+                            mProgress.dismiss();
+                            removeAt(position);
 
-                            @Override
-                            public void onFailure(Context context, Exception e) {
-                                Toast.makeText(context, "Failure:"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                mProgress.dismiss();
-                            }
+                        }
 
-                            @Override
-                            public void onError(Context context, Exception e) {
-                                Toast.makeText(context, "/!\\ Error:"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                mProgress.dismiss();
-                            }
-                        });
-                removeAt(position);
-                dialog.dismiss();
-            }
+                        @Override
+                        public void onFailure(Context context, Exception e) {
+                            Toast.makeText(context, R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                            mProgress.dismiss();
+                        }
+                    });
+
+            dialog.dismiss();
         });
-        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+
+        builder.setNegativeButton(R.string.no, (dialog, id) -> dialog.dismiss());
+
         AlertDialog alert = builder.create();
         alert.show();
     }

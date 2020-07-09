@@ -83,6 +83,7 @@
     <string name="analysis_delete_id_empty_error">AnalysisId est vide</string>
     <string name="analysis_delete_progress_title">Suppression du document</string>
     <string name="analysis_delete_progress_message">Veuillez patienter…</string>
+    <string name="error">Une erreur est survenue : </string>
 
 
     <string-array name="loginErrors">
