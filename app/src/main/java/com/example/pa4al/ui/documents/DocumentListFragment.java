@@ -1,5 +1,6 @@
 package com.example.pa4al.ui.documents;
 
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,7 +46,6 @@ public class DocumentListFragment extends MainFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.document_list_fragment, container, false);
-
         loadDocumentList(view);
 
         return view;
@@ -70,7 +70,7 @@ public class DocumentListFragment extends MainFragment {
 
             @Override
             public void onFailure(Context context, Exception e) {
-                Toast.makeText(getActivity(), R.string.error + " : "+e.getMessage(),
+                Toast.makeText(getActivity(), context.getResources().getString(R.string.error, e.getMessage()),
                         Toast.LENGTH_LONG).show();
             }
         });

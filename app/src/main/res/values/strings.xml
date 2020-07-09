@@ -83,7 +83,9 @@
     <string name="analysis_delete_id_empty_error">AnalysisId est vide</string>
     <string name="analysis_delete_progress_title">Suppression du document</string>
     <string name="analysis_delete_progress_message">Veuillez patienter…</string>
-    <string name="error">Une erreur est survenue : </string>
+    <string name="error">Une erreur est survenue : %1$s</string>
+    <string name="analysis_deleted_message">Analyse supprimée</string>
+    <string name="document_created_message">Document créé</string>
 
 
     <string-array name="loginErrors">
@@ -103,6 +105,12 @@
         <item name="error_404">This User does not exist</item>
         <item name="error_409">This User does not exist</item>
         <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="deleteDocumentErrors">
+        <item name="error_403">403</item>
+        <item name="error_404">404</item>
+        <item name="error_409">409</item>
+        <item name="error_500">500</item>
     </string-array>
     <string-array name="analysis">
         <item name="error_403">This User does not exist</item>

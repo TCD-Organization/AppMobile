@@ -1,9 +1,10 @@
 package com.example.pa4al.ui.documents;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +22,14 @@ import com.example.pa4al.model.Document;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.pa4al.use_case.DeleteDocument.DeleteDocument;
+import static com.example.pa4al.use_case.DeleteDocument.DeleteDocumentCallBack;
+
 public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapter.DocumentViewHolder> {
 
     private final List<Document> mDocuments;
     private final Context mContext;
+    public SharedPreferences userSharedPreferences;
 
     public DocumentListAdapter(Context context, List<Document> documents) {
         Collections.reverse(documents);
@@ -47,7 +53,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             holder.mDeleteButton.setBackground(mContext.getDrawable(R.drawable.ic_delete));
 
-        holder.mDeleteButton.setOnClickListener(v -> showDeleteAlert(holder.mItem));
+        holder.mDeleteButton.setOnClickListener(v -> showDeleteAlert(position));
 
         holder.documentLayout.setOnClickListener(view -> {
             Intent newAnalysisIntent = new Intent(view.getContext(), NewAnalysisActivity.class);
@@ -64,26 +70,50 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
         return mDocuments.size();
     }
 
-    private void showDeleteAlert(Document document) {
+    private void showDeleteAlert(int position) {
+        Document document = mDocuments.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.document_delete_title);
         builder.setMessage(mContext.getString(R.string.document_delete_message) + document.getName() +"\" ?");
         builder.setIcon(R.drawable.ic_delete);
-        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
+        builder.setPositiveButton(R.string.yes, (dialog, id) -> {
+            ProgressDialog mProgress = new ProgressDialog(mContext);
+            mProgress.setTitle(mContext.getResources().getString(R.string.analysis_delete_progress_title));
+            mProgress.setMessage(mContext.getResources().getString(R.string.analysis_delete_progress_message));
+            mProgress.setCancelable(false);
+            mProgress.setIndeterminate(true);
+            mProgress.show();
 
-                ;    // stop chronometer here
+            DeleteDocument(document.getId(), mContext, new DeleteDocumentCallBack() {
+                @Override
+                public void onSuccess(Context context) {
+                    Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
+                    mProgress.dismiss();
+                    removeAt(position);
+                }
 
-            }
+                @Override
+                public void onFailure(Context context, Exception e) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error, e.getMessage()),
+                            Toast.LENGTH_LONG).show();
+                    mProgress.dismiss();
+                }
+            });
+
+            dialog.dismiss();
+
         });
-        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+
+        builder.setNegativeButton(R.string.no, (dialog, id) -> dialog.dismiss());
+
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void removeAt(int position) {
+        mDocuments.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mDocuments.size());
     }
 
     public class DocumentViewHolder extends RecyclerView.ViewHolder {

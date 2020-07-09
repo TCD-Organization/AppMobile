@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -69,16 +68,10 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             holder.mDeleteButton.setBackground(mContext.getDrawable(R.drawable.ic_delete));
-        }
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteAlert(holder, position);
-            }
-        });
+        holder.mDeleteButton.setOnClickListener(v -> showDeleteAlert(position));
 
 
         if(stepName == null) {
@@ -100,20 +93,18 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             fetchAnalysisProgression(holder);
         }
 
-        holder.analysisLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(mContext, "Click on" + mAnalyses.get(position).getName(), Toast.LENGTH_SHORT).show();
-            }
+        holder.analysisLayout.setOnClickListener(view -> {
+            // TODO: Open intent with result
         });
     }
 
 
 
-    private void showDeleteAlert(AnalysesViewHolder holder, int position) {
+    private void showDeleteAlert(int position) {
+        Analysis analysis = mAnalyses.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.analysis_delete_title);
-        builder.setMessage(mContext.getString(R.string.analysis_delete_message) + holder.mAnalysisItem.getName() +
+        builder.setMessage(mContext.getString(R.string.analysis_delete_message) + analysis.getName() +
                 "\" ?");
         builder.setIcon(R.drawable.ic_delete);
 
@@ -125,20 +116,20 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             mProgress.setIndeterminate(true);
             mProgress.show();
 
-            DeleteAnalysis(holder.mAnalysisItem.getId(), mContext,
+            DeleteAnalysis(analysis.getId(), mContext,
                     new DeleteAnalysisCallBack() {
 
                         @Override
                         public void onSuccess(Context context) {
-                            Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.analysis_deleted_message, Toast.LENGTH_SHORT).show();
                             mProgress.dismiss();
                             removeAt(position);
-
                         }
 
                         @Override
                         public void onFailure(Context context, Exception e) {
-                            Toast.makeText(context, R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, context.getResources().getString(R.string.error, e.getMessage()),
+                                    Toast.LENGTH_LONG).show();
                             mProgress.dismiss();
                         }
                     });

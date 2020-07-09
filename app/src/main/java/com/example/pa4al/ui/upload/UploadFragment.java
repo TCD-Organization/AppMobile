@@ -177,22 +177,14 @@ public class UploadFragment extends MainFragment {
                         name.setText("");
                         genre.setText("");
                         content.setText("");
-                        Toast.makeText(getActivity(), "Document Created", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.document_created_message, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(Context context, Exception e) {
-                        Toast.makeText(getActivity(), R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), context.getResources().getString(R.string.error, e.getMessage()),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
-
-    public MultipartBody.Part prepareFilePart(String partName) {
-        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-        System.out.println("MimeType: "+mimeType);
-        RequestBody requestFile = RequestBody.create(MediaType.parse(mimeType), file);
-
-        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
-    }
-
 }
