@@ -51,7 +51,7 @@ public class AnalysisFragment extends MainFragment {
 
             @Override
             public void onFailure(Context context, Exception e) {
-                Toast.makeText(getActivity(), R.string.error + " : "+e.getMessage(),
+                Toast.makeText(getActivity(), context.getResources().getString(R.string.error, e.getMessage()),
                         Toast.LENGTH_LONG).show();
             }
         });

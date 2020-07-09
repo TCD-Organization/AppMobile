@@ -85,7 +85,8 @@ public class LoginFragment extends MainFragment {
                     @Override
                     public void onError(Context context, Exception e) {
                         mProgress.dismiss();
-                        Toast.makeText(getActivity(), R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), context.getResources().getString(R.string.error, e.getMessage()),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
