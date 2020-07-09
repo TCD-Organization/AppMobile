@@ -84,6 +84,7 @@
     <string name="error">An error occurred : %1$s</string>
     <string name="analysis_deleted_message">Analysis deleted</string>
     <string name="document_created_message">Document Created</string>
+    <string name="document_deleted_message">Document deleted</string>
 
 
     <string-array name="loginErrors">

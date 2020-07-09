@@ -87,7 +87,7 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
             DeleteDocument(document.getId(), mContext, new DeleteDocumentCallBack() {
                 @Override
                 public void onSuccess(Context context) {
-                    Toast.makeText(context, "Analysis Successfuly deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.document_deleted_message, Toast.LENGTH_SHORT).show();
                     mProgress.dismiss();
                     removeAt(position);
                 }

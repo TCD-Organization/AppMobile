@@ -86,6 +86,7 @@
     <string name="error">Une erreur est survenue : %1$s</string>
     <string name="analysis_deleted_message">Analyse supprimée</string>
     <string name="document_created_message">Document créé</string>
+    <string name="document_deleted_message">Document supprimé</string>
 
 
     <string-array name="loginErrors">
