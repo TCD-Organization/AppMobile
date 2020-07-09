@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,16 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
-import com.example.pa4al.infrastructure.api.ResponseHandler;
-import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.ui.MainFragment;
+import com.example.pa4al.use_case.FetchAnalyses;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AnalysisFragment extends MainFragment {
     private int mColumnCount = 1;
@@ -47,28 +43,16 @@ public class AnalysisFragment extends MainFragment {
     }
 
     private void loadAnalysisList(final View view) {
-        Call<List<Analysis>> call = RetrofitClient
-                .getInstance().getApi().getAnalysis(userSharedPreferences.getString("Token", null));
-        call.enqueue(new Callback<List<Analysis>>() {
+        FetchAnalyses.FetchAnalyses(getContext(), new FetchAnalyses.FetchAnalysesCallBack() {
             @Override
-            public void onResponse(Call<List<Analysis>> call, Response<List<Analysis>> response) {
-                /*if(response.isSuccessful()){
-                    callBack.onSuccess(context, response.body());
-                }
-                else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.analysisFetchingErrors);
-                    String errorMessage = responseHandler.handle(response.code());
-                    callBack.onFailure(context, new Exception(errorMessage));
-                }*/
-                // TODO: Move into a service
-
-                List<Analysis> analyses = response.body();
+            public void onSuccess(Context context, List<Analysis> analyses) {
                 initAnalysisListAdapter(view, analyses);
             }
 
             @Override
-            public void onFailure(Call<List<Analysis>> call, Throwable t) {
-
+            public void onFailure(Context context, Exception e) {
+                Toast.makeText(getActivity(), R.string.error + " : "+e.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

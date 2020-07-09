@@ -15,15 +15,15 @@ import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
 import com.example.pa4al.activities.StartCallbackFragment;
-import com.example.pa4al.use_case.Login;
 import com.example.pa4al.ui.MainFragment;
+
+import static com.example.pa4al.use_case.Login.*;
 
 public class LoginFragment extends MainFragment {
 
     private Button btnLogin, btnRegister;
     private EditText etUsername, etPassword;
     private StartCallbackFragment startCallbackFragment;
-    private String username, password;
     private ProgressDialog mProgress;
     @Nullable
     @Override
@@ -34,60 +34,61 @@ public class LoginFragment extends MainFragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnRegister = view.findViewById(R.id.btnRegister);
 
-        //mProgress = view.findViewById(R.id.loginProgressBar);
         mProgress = new ProgressDialog(getContext());
         mProgress.setTitle(getString(R.string.login_progress_title));
         mProgress.setMessage(getString(R.string.login_progress_message));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        btnLogin.setOnClickListener(view1 -> {
+        btnLogin.setOnClickListener(returnedView -> {
             mProgress.show();
-            username = etUsername.getText().toString();
-            password = etPassword.getText().toString();
-
-            Login.Login(username, password, etUsername, etPassword, getContext(),
-                    new Login.LoginCallBack() {
-                @Override
-                public void onSuccess(Context context, String token) {
-                    mProgress.dismiss();
-
-                    userPrefsEditor.putString("Token", token).commit();
-                    startCallbackFragment.startMainActivity();
-                    System.out.println("Success");
-                    Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onFailure(Context context, Exception e) {
-                    mProgress.dismiss();
-                    System.out.println(e.getMessage());
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onWarning(Context context, Exception e, EditText field) {
-                    mProgress.dismiss();
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getActivity(), R.string.login_message_username_required,
-                            Toast.LENGTH_LONG).show();
-                    field.requestFocus();
-                }
-            });
+            String username = etUsername.getText().toString();
+            String password = etPassword.getText().toString();
+            login(username, password);
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (startCallbackFragment != null) {
-                    startCallbackFragment.loadRegisterFragment();
-                }
+        btnRegister.setOnClickListener(returnedView -> {
+            if (startCallbackFragment != null) {
+                startCallbackFragment.loadRegisterFragment();
             }
         });
 
         return view;
     }
 
+    private void login(String username, String password) {
+        if(username.isEmpty()){
+            Toast.makeText(getContext(), R.string.login_message_username_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(password.isEmpty()){
+            Toast.makeText(getContext(), R.string.login_message_password_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Login(username, password, getContext(),
+                new LoginCallBack() {
+                    @Override
+                    public void onSuccess(Context context, String token) {
+                        userPrefsEditor.putString("Token", token).commit();
+                        mProgress.dismiss();
+                        startCallbackFragment.startMainActivity();
+                    }
+
+                    @Override
+                    public void onFailure(Context context, String message) {
+                        mProgress.dismiss();
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Context context, Exception e) {
+                        mProgress.dismiss();
+                        Toast.makeText(getActivity(), R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
 
     public void setStartCallbackFragment(StartCallbackFragment startCallbackFragment) {

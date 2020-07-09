@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,14 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
+import com.example.pa4al.model.Analysis;
 import com.example.pa4al.model.Document;
 import com.example.pa4al.ui.MainFragment;
+import com.example.pa4al.use_case.FetchAnalyses;
+import com.example.pa4al.use_case.FetchDocuments;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.pa4al.use_case.FetchDocuments.*;
 
 public class DocumentListFragment extends MainFragment {
 
@@ -56,28 +62,16 @@ public class DocumentListFragment extends MainFragment {
 
 
     private void loadDocumentList(final View view) {
-        Call<List<Document>> call = RetrofitClient
-                .getInstance().getApi().getDocuments(userSharedPreferences.getString("Token", null));
-        call.enqueue(new Callback<List<Document>>() {
+        FetchDocuments(getContext(), new FetchDocumentsCallBack() {
             @Override
-            public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
-               /*if(response.isSuccessful()){
-                    callBack.onSuccess(context, response.body());
-                }
-                else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.documentsFetchingErrors);
-                    String errorMessage = responseHandler.handle(response.code());
-                    callBack.onFailure(context, new Exception(errorMessage));
-                }*/
-                // TODO: Move into a service
-
-                List<Document> documents = response.body();
+            public void onSuccess(Context context, List<Document> documents) {
                 initDocumentsListAdapter(view, documents);
             }
 
             @Override
-            public void onFailure(Call<List<Document>> call, Throwable t) {
-
+            public void onFailure(Context context, Exception e) {
+                Toast.makeText(getActivity(), R.string.error + " : "+e.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

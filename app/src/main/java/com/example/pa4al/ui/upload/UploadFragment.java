@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.ui.MainFragment;
+import com.example.pa4al.use_case.UploadDocument;
 import com.example.pa4al.utils.FileUtil;
 
 import java.io.File;
@@ -126,9 +127,10 @@ public class UploadFragment extends MainFragment {
     }
 
     private void Upload(){
-        String fileName = name.getText().toString();
-        String fileGenre = genre.getText().toString();
-        String fileContent = content.getText().toString();
+        String documentName = name.getText().toString();
+        String documentGenre = genre.getText().toString();
+        String documentContent = content.getText().toString();
+
         String contentType = "";
         if(fileRadio.isChecked()){
              contentType = "file";
@@ -140,13 +142,13 @@ public class UploadFragment extends MainFragment {
             contentType = "text";
         }
 
-        if (fileName.isEmpty()) {
+        if (documentName.isEmpty()) {
             Toast.makeText(getActivity(), R.string.upload_document_name_required_message,
                     Toast.LENGTH_LONG).show();
             name.requestFocus();
             return;
         }
-        if (fileGenre.isEmpty()) {
+        if (documentGenre.isEmpty()) {
             Toast.makeText(getActivity(), R.string.upload_document_genre_required_message,
                     Toast.LENGTH_LONG).show();
             genre.requestFocus();
@@ -161,66 +163,28 @@ public class UploadFragment extends MainFragment {
                 return;
             }
 
-        } else if (fileContent.isEmpty()) {
+        } else if (documentContent.isEmpty()) {
             Toast.makeText(getActivity(), R.string.upload_document_content_required_message,
                     Toast.LENGTH_LONG).show();
             fileBtn.requestFocus();
             return;
         }
 
-        Call<Void> call;
-        if(fileRadio.isChecked()) {
-            MultipartBody.Part body = prepareFilePart("somethingelse");
-            RequestBody filePartName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-
-            System.out.println(filePartName);
-
-            call = RetrofitClient
-                    .getInstance().getApi().createDocumentFromFile(userSharedPreferences.getString("Token", null),
-                            filePartName, body, fileName, fileGenre, contentType, fileContent);
-        } else {
-            call = RetrofitClient
-                    .getInstance().getApi().createDocument(userSharedPreferences.getString("Token", null),
-                    fileName, fileGenre, contentType, fileContent);
-        }
-
-        if (call != null) {
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-               /*if(response.isSuccessful()){
-                    callBack.onSuccess(context);
-                }
-                else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.uploadErrors);
-                    String errorMessage = responseHandler.handle(response.code());
-                    callBack.onFailure(context, new Exception(errorMessage));
-                }*/
-                    // TODO: Move into a service
-                    if (response.code() == 403) {
-                        Toast.makeText(getActivity(), "Not Authorized",
-                                Toast.LENGTH_LONG).show();
-                    } else if (response.code() == 409) {
-                        Toast.makeText(getActivity(), R.string.upload_document_already_exists_message,
-                                Toast.LENGTH_LONG).show();
-                    } else if (response.code() > 299) {
-                        Toast.makeText(getActivity(), "Error while creating document : " + response.code(),
-                                Toast.LENGTH_LONG).show();
-                    } else {
+        UploadDocument.UploadDocument(documentName, documentGenre, contentType, documentContent, file,
+                fileRadio.isChecked(), getContext(), new UploadDocument.UploadDocumentCallBack() {
+                    @Override
+                    public void onSuccess(Context context) {
                         name.setText("");
                         genre.setText("");
                         content.setText("");
                         Toast.makeText(getActivity(), "Document Created", Toast.LENGTH_LONG).show();
                     }
-                }
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Error sending request : " + t.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+                    @Override
+                    public void onFailure(Context context, Exception e) {
+                        Toast.makeText(getActivity(), R.string.error + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     public MultipartBody.Part prepareFilePart(String partName) {

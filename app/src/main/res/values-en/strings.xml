@@ -81,6 +81,7 @@
     <string name="analysis_delete_id_empty_error">Id is empty</string>
     <string name="analysis_delete_progress_title">Deleting document</string>
     <string name="analysis_delete_progress_message">Please wait…</string>
+    <string name="error">An error occurred : </string>
 
 
     <string-array name="loginErrors">

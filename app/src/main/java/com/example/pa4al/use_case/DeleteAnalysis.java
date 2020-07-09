@@ -6,19 +6,14 @@ import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
 
+import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DeleteAnalysis {
-    public static void DeleteAnalysis(String analysisId, final Context context,
-                             final DeleteAnalysisCallBack callBack){
-
-        if(analysisId.isEmpty()){
-            callBack.onError(context, new Exception(context.getString(R.string.analysis_delete_id_empty_error)));
-            return;
-        }
-
+    public static void DeleteAnalysis(@NonNull String analysisId, final Context context,
+                                      final DeleteAnalysisCallBack callBack){
         Call<Void> call = RetrofitClient
                 .getInstance().getApi().deleteAnalysis(context.getSharedPreferences("userPrefs",
                         Context.MODE_PRIVATE).getString("Token",null), analysisId);
@@ -39,7 +34,7 @@ public class DeleteAnalysis {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                callBack.onError(context, new Exception(t));
+                callBack.onFailure(context, new Exception(t));
             }
         });
     }
@@ -47,6 +42,5 @@ public class DeleteAnalysis {
     public interface DeleteAnalysisCallBack {
         void onSuccess(Context context);
         void onFailure(Context context, Exception e);
-        void onError(Context context, Exception e);
     }
 }
