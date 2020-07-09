@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/document_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/basic_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/document_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/document_name_default"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/label_document_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/document_name"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:text="@string/document_genre_label"/>
+
+    <TextView
+        android:id="@+id/document_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:paddingLeft="@dimen/small_margin"
+        android:layout_below="@id/document_name"
+        android:layout_toEndOf="@id/label_document_genre"
+        android:layout_toRightOf="@id/label_document_genre"
+        android:text="@string/document_genre_default" />
+
+    <TextView
+        android:id="@+id/label_document_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_document_genre"
+        android:paddingBottom="@dimen/basic_margin"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:text="@string/document_content_label"/>
+
+    <TextView
+        android:id="@+id/document_content"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:paddingLeft="@dimen/small_margin"
+        android:layout_toEndOf="@id/label_document_content"
+        android:layout_toRightOf="@id/label_document_content"
+        android:layout_below="@id/label_document_genre"
+        android:text="@string/document_content_default"/>
+
+    <ImageView
+        android:src="@drawable/separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_below="@id/label_document_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/deleteDocumentButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|center_vertical"
+        android:layout_margin="@dimen/small_margin" />
+</RelativeLayout>

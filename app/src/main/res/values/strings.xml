@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- APP -->
+    <string name="app_name">TCD Analyses</string>
+    <string name="title_documents">Documents</string>
+    <string name="title_analyses">Historique d\'analyses</string>
+    <string name="categorie_prompt">Choix de catégorie</string>
+    <string name="login">S\'authentifier</string>
+    <string name="register">S\'inscrire</string>
+    <string name="subscribe">S\'inscrire</string>
+    <string name="password">Mot de passe</string>
+    <string name="username">Nom d`\'utilisateur</string>
+
+    <!-- CREATION D'ANALYSE -->
+    <string name="document_name_default">Mon_document.pdf</string>
+    <string name="document_content_hint">Il était une fois …</string>
+    <string name="new_analysis_title">Créer une analyse</string>
+    <string name="new_analysis_name_hint">Nouvelle analyse …</string>
+    <string name="new_analysis_name_autofill_hints">Analyse</string>
+    <string name="new_analysis_created">Nouvelle analyse créée</string>
+    <string name="analyze_button">ANALYSER</string>
+
+    <!-- ANALYSE -->
+    <string name="analysis_name_default">Analyse n°…</string>
+    <string name="document_name_label">Nom du document :</string>
+    <string name="analysis_status_label">Statut :</string>
+    <string name="analysis_status_default" translatable="false">IN_PROGRESS</string>
+    <string name="analysis_lasting_time_label">Temps restant estimé :</string>
+    <string name="analysis_lasting_time_default">1 min, 3 sec</string>
+    <string name="analysis_lasting_time_not_started">∞</string>
+    <string name="analysis_step_name_label">Étape :</string>
+    <string name="analysis_step_name_default" translatable="false">INITIALIZATION</string>
+    <string name="document_genre_label">Genre :</string>
+    <string name="document_genre_default">Poème</string>
+    <string name="document_content_label">Contenu :</string>
+    <string name="document_content_default">C’est un trou de verdure où chante une rivière,
+        Accrochant follement aux herbes des haillons
+        D’argent ; où le soleil, de la montagne fière,
+        Luit : c’est un petit val qui mousse de rayons.
+
+        Un soldat jeune, bouche ouverte, tête nue,
+        Et la nuque baignant dans le frais cresson bleu,
+        Dort ; il est étendu dans l’herbe, sous la nue,
+        Pâle dans son lit vert où la lumière pleut.
+
+        Les pieds dans les glaïeuls, il dort. Souriant comme
+        Sourirait un enfant malade, il fait un somme :
+        Nature, berce-le chaudement : il a froid.
+
+        Les parfums ne font pas frissonner sa narine ;
+        Il dort dans le soleil, la main sur sa poitrine,
+        Tranquille. Il a deux trous rouges au côté droit.</string>
+    <string name="login_message_username_required">Veuillez rentrer un nom d\'utilisateur</string>
+    <string name="login_message_password_required">Veuillez rentrer un mot de passe</string>
+    <string name="register_user_already_exists_message">Un utilisateur avec ce nom existe déjà</string>
+    <string name="register_user_created_message">Votre compte a été créé</string>
+    <string name="document_delete_message">Voulez-vous vraiment supprimer le document \"</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="document_delete_title">Supprimer document</string>
+    <string name="login_progress_title">Connexion…</string>
+    <string name="login_progress_message">Veuillez patienter…</string>
+    <string name="analysis_status_not_started">En attente…</string>
+    <string name="upload_document_title">Uploader</string>
+    <string name="upload_document_title_label">Uploader un document</string>
+    <string name="upload_document_file_name_label">Nom du fichier :</string>
+    <string name="upload_document_name_hint">Nom</string>
+    <string name="upload_document_genre_hint">Genre</string>
+    <string name="upload_document_radio_text_label">Texte</string>
+    <string name="upload_document_radio_link_label">Lien</string>
+    <string name="upload_document_radio_file_label">Fichier</string>
+    <string name="upload_document_content_hint">Contenu</string>
+    <string name="upload_document_button">Envoyer</string>
+    <string name="upload_document_name_required_message">Veuillez entrer un nom</string>
+    <string name="upload_document_genre_required_message">Veuillez entrer un genre</string>
+    <string name="upload_document_content_required_message">Veuillez entrer du contenu</string>
+    <string name="upload_document_file_required_message">Veuillez sélectionner un fichier</string>
+    <string name="upload_document_select_file_button">CHOISIR FICHIER</string>
+    <string name="upload_document_already_exists_message">Un document avec ce contenu existe déjà</string>
+    <string name="analysis_delete_title">Suprimmer analyse</string>
+    <string name="analysis_delete_message">Voulez-vous vraiment supprimer l\'analyse \"</string>
+    <string name="document_delete_id_empty_error">DocumentId est vide</string>
+    <string name="analysis_delete_id_empty_error">AnalysisId est vide</string>
+    <string name="analysis_delete_progress_title">Suppression du document</string>
+    <string name="analysis_delete_progress_message">Veuillez patienter…</string>
+    <string name="error">Une erreur est survenue : %1$s</string>
+    <string name="analysis_deleted_message">Analyse supprimée</string>
+    <string name="document_created_message">Document créé</string>
+    <string name="document_deleted_message">Document supprimé</string>
+
+
+    <string-array name="loginErrors">
+        <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>
+        <item name="error_404" />
+        <item name="error_409" />
+        <item name="error_500">Erreur interne (non autorisé)</item>
+    </string-array>
+    <string-array name="register">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="document">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+    <string-array name="deleteDocumentErrors">
+        <item name="error_403">403</item>
+        <item name="error_404">404</item>
+        <item name="error_409">409</item>
+        <item name="error_500">500</item>
+    </string-array>
+    <string-array name="analysis">
+        <item name="error_403">This User does not exist</item>
+        <item name="error_404">This User does not exist</item>
+        <item name="error_409">This User does not exist</item>
+        <item name="error_500">Unauthorized</item>
+    </string-array>
+</resources>

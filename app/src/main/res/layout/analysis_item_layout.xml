@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/analysis_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/basic_margin">
+
+    <TextView
+        android:id="@+id/analysis_name"
+        android:background="@color/colorAccent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="@string/analysis_name_default"
+        android:paddingLeft="@dimen/small_margin"
+        android:textColor="@color/cardview_light_background"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_analysis_document_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/document_name_label"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/analysis_name" />
+
+    <TextView
+        android:id="@+id/analysis_document_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/small_margin"
+        android:text="@string/document_name_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/label_analysis_document_name"
+        app:layout_constraintTop_toBottomOf="@+id/analysis_name" />
+
+    <TextView
+        android:id="@+id/label_analysis_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/analysis_status_label"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_analysis_document_name" />
+
+    <TextView
+        android:id="@+id/analysis_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/small_margin"
+        android:text="@string/analysis_status_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/label_analysis_status"
+        app:layout_constraintTop_toBottomOf="@+id/analysis_document_name" />
+
+    <TextView
+        android:id="@+id/lastingTimeLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/small_margin"
+        android:text="@string/analysis_lasting_time_label"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/analysis_status" />
+
+    <TextView
+        android:id="@+id/lastingTimeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/small_margin"
+        android:text="@string/analysis_lasting_time_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lastingTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/label_analysis_status" />
+
+    <TextView
+        android:id="@+id/stepNameLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/small_margin"
+        android:text="@string/analysis_step_name_label"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastingTimeLabel" />
+
+    <TextView
+        android:id="@+id/stepNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/small_margin"
+        android:text="@string/analysis_step_name_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stepNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/lastingTimeLabel" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/small_margin"
+        app:layout_constraintTop_toBottomOf="@+id/stepNameLabel"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/progressStepNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/outOfLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/outOfLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_toEndOf="@id/progressStepNumber"
+            android:layout_toRightOf="@id/progressStepNumber"
+            android:text="/"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/progressMaxStep"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/outOfLabel"
+            android:layout_toRightOf="@id/outOfLabel"
+            android:singleLine="true"
+            android:text="10"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/outOfLabel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/MyProgressBarTwo"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:indeterminate="false"
+            android:theme="@style/MyProgressBarTwo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <ImageView
+        android:src="@drawable/separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/deleteAnalysisButton"
+        style="@style/DeleteAnalysis"
+        android:theme="@style/DeleteAnalysis"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
