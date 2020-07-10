@@ -27,7 +27,7 @@ public class FetchAnalyses {
                     callBack.onSuccess(context, response.body());
                 }
                 else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.loginErrors);
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.fetchAnalysesErrors);
                     String errorMessage = responseHandler.handle(response.code());
                     callBack.onFailure(context, new Exception(errorMessage));
                 }
