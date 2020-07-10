@@ -69,7 +69,9 @@
     <string name="upload_document_radio_text_label">Texte</string>
     <string name="upload_document_radio_link_label">Lien</string>
     <string name="upload_document_radio_file_label">Fichier</string>
-    <string name="upload_document_content_hint">Contenu</string>
+    <string name="upload_document_content_text_hint">Contenu</string>
+    <string name="upload_document_content_link_hint">Lien de fichier .pdf ou .txt</string>
+    <string name="upload_document_content_link_malformed_message">Le lien doit finir par .txt ou .pdf</string>
     <string name="upload_document_button">Envoyer</string>
     <string name="upload_document_name_required_message">Veuillez entrer un nom</string>
     <string name="upload_document_genre_required_message">Veuillez entrer un genre</string>

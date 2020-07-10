@@ -33,9 +33,6 @@ public class ResponseHandler {
         else if (error==409){
             message = stringArray[2];
         }
-        else if (error==500){
-            message =  stringArray[3];
-        }
         return message;
     }
 }

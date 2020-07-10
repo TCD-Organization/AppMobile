@@ -28,6 +28,7 @@ public class UploadDocument {
 
         Call<Void> call = null;
         if (fileUpload) {
+            System.out.println("FileUpload : " + contentType);
             body = prepareFilePart("data", file);
             filePartName = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 
@@ -36,6 +37,7 @@ public class UploadDocument {
                             Context.MODE_PRIVATE).getString("Token",null),
                             filePartName, body, documentName, documentGenre, contentType, documentContent);
         } else {
+            System.out.println("No fileupload : " + contentType);
             call = RetrofitClient
                     .getInstance().getApi().createDocument(context.getSharedPreferences("userPrefs",
                             Context.MODE_PRIVATE).getString("Token",null),
@@ -53,8 +55,10 @@ public class UploadDocument {
                     System.out.println(response.code());
                     callBack.onSuccess(context);
                 } else {
+                    System.out.println("Error message: " + response.message());
                     ResponseHandler responseHandler = new ResponseHandler(R.array.documentUploadErrors);
                     String errorMessage = responseHandler.handle(response.code());
+
                     callBack.onFailure(context, new Exception(errorMessage));
                 }
             }

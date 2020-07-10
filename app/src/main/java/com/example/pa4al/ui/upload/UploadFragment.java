@@ -2,10 +2,8 @@ package com.example.pa4al.ui.upload;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +17,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
-import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.DocumentContentType;
 import com.example.pa4al.ui.MainFragment;
-import com.example.pa4al.use_case.UploadDocument;
 import com.example.pa4al.utils.FileUtil;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URLConnection;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.pa4al.model.DocumentContentType.*;
@@ -87,6 +74,10 @@ public class UploadFragment extends MainFragment {
                     fileNameLabel.setVisibility(View.GONE);
                     fileName.setVisibility(View.GONE);
                     content.setVisibility(View.VISIBLE);
+                    if (checkedId == R.id.link)
+                        content.setHint(R.string.upload_document_content_link_hint);
+                    else if (checkedId == R.id.text)
+                        content.setHint(R.string.upload_document_content_text_hint);
                 }
             }
         });
@@ -165,11 +156,15 @@ public class UploadFragment extends MainFragment {
                 fileBtn.requestFocus();
                 return;
             }
-
         } else if (documentContent.isEmpty()) {
             Toast.makeText(getActivity(), R.string.upload_document_content_required_message,
                     Toast.LENGTH_LONG).show();
-            fileBtn.requestFocus();
+            content.requestFocus();
+            return;
+        } else if (!linkIsCorrect(documentContent)) {
+            Toast.makeText(getActivity(), R.string.upload_document_content_link_malformed_message,
+                    Toast.LENGTH_LONG).show();
+            content.requestFocus();
             return;
         }
 
@@ -189,5 +184,11 @@ public class UploadFragment extends MainFragment {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    private boolean linkIsCorrect(String url) {
+        int dotIndex = url.lastIndexOf('.');
+        String extension = url.substring(dotIndex);
+        return extension.equals(".pdf") || extension.equals(".txt");
     }
 }
