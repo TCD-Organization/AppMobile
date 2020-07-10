@@ -76,7 +76,6 @@
     <string name="upload_document_content_required_message">Veuillez entrer du contenu</string>
     <string name="upload_document_file_required_message">Veuillez sélectionner un fichier</string>
     <string name="upload_document_select_file_button">CHOISIR FICHIER</string>
-    <string name="upload_document_already_exists_message">Un document avec ce contenu existe déjà</string>
     <string name="analysis_delete_title">Suprimmer analyse</string>
     <string name="analysis_delete_message">Voulez-vous vraiment supprimer l\'analyse \"</string>
     <string name="document_delete_id_empty_error">DocumentId est vide</string>
@@ -88,35 +87,42 @@
     <string name="document_created_message">Document créé</string>
     <string name="document_deleted_message">Document supprimé</string>
 
+    <string name="serverError">Erreur serveur</string>
+    <string name="badRequest">Erreur client (requête mal formée)</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>
-        <item name="error_404" />
-        <item name="error_409" />
-        <item name="error_500">Erreur interne (non autorisé)</item>
+        <item name="error_404">Utilisateur non trouvé (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
     </string-array>
-    <string-array name="register">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="registerErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Utilisateur non trouvé (Erreur Serveur)</item>
+        <item name="error_409">Ce nom d\'utilisateur est déjà utilisé</item>
     </string-array>
-    <string-array name="document">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="documentUploadErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Document non trouvé (Erreur Serveur)</item>
+        <item name="error_409">Un document avec ce contenu existe déjà</item>
     </string-array>
     <string-array name="deleteDocumentErrors">
-        <item name="error_403">403</item>
-        <item name="error_404">404</item>
-        <item name="error_409">409</item>
-        <item name="error_500">500</item>
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Document non trouvé (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
     </string-array>
-    <string-array name="analysis">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="fetchDocumentsErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
+    </string-array>
+    <string-array name="deleteAnalysisErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
+    </string-array>
+    <string-array name="fetchAnalysesErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
     </string-array>
 </resources>

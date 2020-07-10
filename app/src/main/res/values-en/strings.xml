@@ -74,7 +74,6 @@
     <string name="upload_document_content_required_message">Please enter content</string>
     <string name="upload_document_file_required_message">Please select a file</string>
     <string name="upload_document_select_file_button">SELECT FILE</string>
-    <string name="upload_document_already_exists_message">A document with this content already exists</string>
     <string name="analysis_delete_title">Delete analysis</string>
     <string name="analysis_delete_message">Do you really want to delete the analysis \"</string>
     <string name="document_delete_id_empty_error">DocumentId is empty</string>
@@ -86,29 +85,42 @@
     <string name="document_created_message">Document Created</string>
     <string name="document_deleted_message">Document deleted</string>
 
+    <string name="serverError">Server error</string>
+    <string name="badRequest">Client error (bad request)</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Incorrect username or password</item>
-        <item name="error_404" />
+        <item name="error_404">User not found (Server Error)</item>
         <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
     </string-array>
-    <string-array name="register">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="registerErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">User not found (Server Error)</item>
+        <item name="error_409">This username is already taken</item>
     </string-array>
-    <string-array name="document">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="documentUploadErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Document not found (Server Error)</item>
+        <item name="error_409">A document with this content already exists</item>
     </string-array>
-    <string-array name="analysis">
-        <item name="error_403">This User does not exist</item>
-        <item name="error_404">This User does not exist</item>
-        <item name="error_409">This User does not exist</item>
-        <item name="error_500">Unauthorized</item>
+    <string-array name="deleteDocumentErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Document not found (Server Error)</item>
+        <item name="error_409">Document conflict (Server Error)</item>
+    </string-array>
+    <string-array name="fetchDocumentsErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Document not found (Server Error)</item>
+        <item name="error_409">Document conflict (Server Error)</item>
+    </string-array>
+    <string-array name="deleteAnalysisErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Analysis not found (Server Error)</item>
+        <item name="error_409">Analysis conflict (Server Error)</item>
+    </string-array>
+    <string-array name="fetchAnalysesErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Analysis not found (Server Error)</item>
+        <item name="error_409">Analysis conflict (Server Error)</item>
     </string-array>
 </resources>
