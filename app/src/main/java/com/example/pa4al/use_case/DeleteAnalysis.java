@@ -26,7 +26,7 @@ public class DeleteAnalysis {
                     callBack.onSuccess(context);
                 }
                 else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.loginErrors);
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.deleteAnalysisErrors);
                     String errorMessage = responseHandler.handle(response.code());
                     callBack.onFailure(context, new Exception(errorMessage));
                 }
