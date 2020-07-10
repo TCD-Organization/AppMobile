@@ -3,6 +3,7 @@ package com.example.pa4al.infrastructure.api;
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.model.AnalysisDTO;
 import com.example.pa4al.model.Document;
+import com.example.pa4al.model.DocumentContentType;
 import com.example.pa4al.model.LoginDTO;
 import com.example.pa4al.model.RegisterDTO;
 
@@ -34,7 +35,7 @@ public interface Api {
     Call<Void> createDocument(@Header("Authorization") String token,
         @Field("name") String name,
         @Field("genre") String genre,
-        @Field("content_type") String contentType,
+        @Field("content_type") DocumentContentType contentType,
         @Field("content") String content);
 
     @Multipart
@@ -44,7 +45,7 @@ public interface Api {
                                       @Part MultipartBody.Part file,
                                       @Part("name") String name,
                                       @Part("genre") String genre,
-                                      @Part("content_type") String contentType,
+                                      @Part("content_type") DocumentContentType contentType,
                                       @Part("content") String content);
 
     @DELETE("/document/{documentId}")

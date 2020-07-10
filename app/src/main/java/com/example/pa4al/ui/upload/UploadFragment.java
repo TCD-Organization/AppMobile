@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
+import com.example.pa4al.model.DocumentContentType;
 import com.example.pa4al.ui.MainFragment;
 import com.example.pa4al.use_case.UploadDocument;
 import com.example.pa4al.utils.FileUtil;
@@ -36,6 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.pa4al.model.DocumentContentType.*;
+import static com.example.pa4al.use_case.UploadDocument.*;
 
 public class UploadFragment extends MainFragment {
 
@@ -131,15 +134,15 @@ public class UploadFragment extends MainFragment {
         String documentGenre = genre.getText().toString();
         String documentContent = content.getText().toString();
 
-        String contentType = "";
+        DocumentContentType contentType = NONE;
         if(fileRadio.isChecked()){
-             contentType = "file";
+             contentType = FILE;
         }
         else if(linkRadio.isChecked()){
-            contentType = "link";
+            contentType = LINK;
         }
         else if(textRadio.isChecked()){
-            contentType = "text";
+            contentType = TEXT;
         }
 
         if (documentName.isEmpty()) {
@@ -170,8 +173,8 @@ public class UploadFragment extends MainFragment {
             return;
         }
 
-        UploadDocument.UploadDocument(documentName, documentGenre, contentType, documentContent, file,
-                fileRadio.isChecked(), getContext(), new UploadDocument.UploadDocumentCallBack() {
+        UploadDocument(documentName, documentGenre, contentType, documentContent, file,
+                fileRadio.isChecked(), getContext(), new UploadDocumentCallBack() {
                     @Override
                     public void onSuccess(Context context) {
                         name.setText("");
