@@ -91,6 +91,7 @@
 
     <string name="serverError">Erreur serveur</string>
     <string name="badRequest">Erreur client (requête mal formée)</string>
+    <string name="upload_document_file_must_be_format">Le format du fichier doit être .pdf ou .txt</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>

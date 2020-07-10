@@ -89,6 +89,7 @@
 
     <string name="serverError">Server error</string>
     <string name="badRequest">Client error (bad request)</string>
+    <string name="upload_document_file_must_be_format">File format must be .pdf or .txt</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Incorrect username or password</item>

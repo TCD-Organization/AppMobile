@@ -82,24 +82,15 @@ public class UploadFragment extends MainFragment {
             }
         });
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Upload();
-            }
+        fileBtn.setOnClickListener(v -> {
+            Intent intent = new Intent()
+                    .setType("application/pdf|text/*")
+                    .setAction(Intent.ACTION_GET_CONTENT);
+
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), 123);
         });
 
-
-        fileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent()
-                        .setType("*/*")
-                        .setAction(Intent.ACTION_GET_CONTENT);
-
-                startActivityForResult(Intent.createChooser(intent, "Select a file"), 123);
-            }
-        });
+        upload.setOnClickListener(v -> Upload());
 
         return view;
     }
