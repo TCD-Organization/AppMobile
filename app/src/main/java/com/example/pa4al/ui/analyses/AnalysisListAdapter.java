@@ -67,19 +67,16 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mStepNumber.setText(String.valueOf(currentAnalysis.getStep_number()));
         holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             holder.mDeleteButton.setBackground(mContext.getDrawable(R.drawable.ic_delete));
 
         holder.mDeleteButton.setOnClickListener(v -> showDeleteAlert(position));
-
 
         if(stepName == null) {
             holder.mStepName.setText(R.string.analysis_status_not_started);
         } else {
             holder.mStepName.setText(stepName);
         }
-
 
         if(lastingTime == null) {
             holder.mLastingTime.setText(R.string.analysis_lasting_time_not_started);
@@ -89,12 +86,24 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
 
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
-        if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {
+        if (!currentAnalysis.getStatus().equals("FINISHED") && !currentAnalysis.getStatus().equals("CANCELED")) {
             fetchAnalysisProgression(holder);
         }
 
         holder.analysisLayout.setOnClickListener(view -> {
             // TODO: Open intent with result
+            if (currentAnalysis.getStatus().equals("FINISHED")) {
+                if (currentAnalysis.getResult() != null && !currentAnalysis.getResult().isEmpty()) {
+                    Toast.makeText(mContext, currentAnalysis.getResult(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "No Result", Toast.LENGTH_SHORT).show();
+                }
+            } else if (currentAnalysis.getStatus().equals("CANCELED")) {
+                Toast.makeText(mContext, "Analysis canceled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "Analysis not finished", Toast.LENGTH_SHORT).show();
+
+            }
         });
     }
 

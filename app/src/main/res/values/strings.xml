@@ -92,40 +92,48 @@
     <string name="serverError">Erreur serveur</string>
     <string name="badRequest">Erreur client (requête mal formée)</string>
     <string name="upload_document_file_must_be_format">Le format du fichier doit être .pdf ou .txt</string>
+    <string name="upload_document_link_required_message">Veuillez entrer un lien vers un fichier .txt ou .pdf</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>
         <item name="error_404">Utilisateur non trouvé (Erreur Serveur)</item>
         <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
     <string-array name="registerErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Utilisateur non trouvé (Erreur Serveur)</item>
         <item name="error_409">Ce nom d\'utilisateur est déjà utilisé</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
     <string-array name="documentUploadErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Document non trouvé (Erreur Serveur)</item>
         <item name="error_409">Un document avec ce contenu existe déjà</item>
+        <item name="error_500">Le serveur n\'a pas réussi à télécharger le document. Le lien est-il correct ?</item>
     </string-array>
     <string-array name="deleteDocumentErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Document non trouvé (Erreur Serveur)</item>
         <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
     <string-array name="fetchDocumentsErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
         <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
     <string-array name="deleteAnalysisErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
         <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
     <string-array name="fetchAnalysesErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
         <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
     </string-array>
 </resources>
