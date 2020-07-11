@@ -18,20 +18,21 @@ public class ResponseHandler {
     public String handle(int error){
         if (error == 400)
             return context.getResources().getString(R.string.badRequest);
-        if (error == 500)
-            return context.getResources().getString(R.string.serverError);
 
         stringArray = context.getResources().getStringArray(stringArrayId);
         String message = null;
         System.out.println("Error code : "+error);
-        if(error==403){
+        if(error==403) {
             message = stringArray[0];
         }
-        else if (error==404){
+        else if (error==404) {
             message = stringArray[1];
         }
-        else if (error==409){
+        else if (error== 409) {
             message = stringArray[2];
+        }
+        else if (error == 500) {
+            message = stringArray[3];
         }
         return message;
     }

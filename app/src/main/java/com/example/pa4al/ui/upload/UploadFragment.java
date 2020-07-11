@@ -60,25 +60,21 @@ public class UploadFragment extends MainFragment {
         fileNameLabel = view.findViewById(R.id.documentFileNameLabel);
         fileName = view.findViewById(R.id.documentFileName);
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.file) {
-
-                    fileBtn.setVisibility(View.VISIBLE);
-                    fileNameLabel.setVisibility(View.VISIBLE);
-                    fileName.setVisibility(View.VISIBLE);
-                    content.setVisibility(View.GONE);
-                } else {
-                    fileBtn.setVisibility(View.GONE);
-                    fileNameLabel.setVisibility(View.GONE);
-                    fileName.setVisibility(View.GONE);
-                    content.setVisibility(View.VISIBLE);
-                    if (checkedId == R.id.link)
-                        content.setHint(R.string.upload_document_content_link_hint);
-                    else if (checkedId == R.id.text)
-                        content.setHint(R.string.upload_document_content_text_hint);
-                }
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.file) {
+                fileBtn.setVisibility(View.VISIBLE);
+                fileNameLabel.setVisibility(View.VISIBLE);
+                fileName.setVisibility(View.VISIBLE);
+                content.setVisibility(View.GONE);
+            } else {
+                fileBtn.setVisibility(View.GONE);
+                fileNameLabel.setVisibility(View.GONE);
+                fileName.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
+                if (checkedId == R.id.link)
+                    content.setHint(R.string.upload_document_content_link_hint);
+                else if (checkedId == R.id.text)
+                    content.setHint(R.string.upload_document_content_text_hint);
             }
         });
 
@@ -147,16 +143,23 @@ public class UploadFragment extends MainFragment {
                 fileBtn.requestFocus();
                 return;
             }
-        } else if (documentContent.isEmpty()) {
+        } else if (textRadio.isChecked() && documentContent.isEmpty()) {
             Toast.makeText(getActivity(), R.string.upload_document_content_required_message,
                     Toast.LENGTH_LONG).show();
             content.requestFocus();
             return;
-        } else if (!linkIsCorrect(documentContent)) {
-            Toast.makeText(getActivity(), R.string.upload_document_content_link_malformed_message,
-                    Toast.LENGTH_LONG).show();
-            content.requestFocus();
-            return;
+        } else if (linkRadio.isChecked()) {
+            if (documentContent.isEmpty()){
+                Toast.makeText(getActivity(), R.string.upload_document_link_required_message,
+                        Toast.LENGTH_LONG).show();
+                content.requestFocus();
+                return;
+            } else if (!linkIsCorrect(documentContent)) {
+                Toast.makeText(getActivity(), R.string.upload_document_content_link_malformed_message,
+                        Toast.LENGTH_LONG).show();
+                content.requestFocus();
+                return;
+            }
         }
 
         UploadDocument(documentName, documentGenre, contentType, documentContent, file,
@@ -179,7 +182,10 @@ public class UploadFragment extends MainFragment {
 
     private boolean linkIsCorrect(String url) {
         int dotIndex = url.lastIndexOf('.');
-        String extension = url.substring(dotIndex);
-        return extension.equals(".pdf") || extension.equals(".txt");
+        if (dotIndex != -1) {
+            String extension = url.substring(dotIndex);
+            return extension.equals(".pdf") || extension.equals(".txt");
+        }
+        return false;
     }
 }
