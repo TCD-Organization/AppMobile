@@ -91,6 +91,7 @@
     <string name="badRequest">Client error (bad request)</string>
     <string name="upload_document_file_must_be_format">File format must be .pdf or .txt</string>
     <string name="upload_document_link_required_message">Please enter a link to a .txt or .pdf file</string>
+    <string name="analysis_result_content_hint">Language : FR …</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Incorrect username or password</item>

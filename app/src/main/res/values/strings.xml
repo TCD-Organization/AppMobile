@@ -93,6 +93,7 @@
     <string name="badRequest">Erreur client (requête mal formée)</string>
     <string name="upload_document_file_must_be_format">Le format du fichier doit être .pdf ou .txt</string>
     <string name="upload_document_link_required_message">Veuillez entrer un lien vers un fichier .txt ou .pdf</string>
+    <string name="analysis_result_content_hint">Langage : FR …</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>

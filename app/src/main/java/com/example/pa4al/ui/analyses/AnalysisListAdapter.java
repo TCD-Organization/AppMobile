@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.ui.documents.NewAnalysisActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,9 +93,11 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         }
 
         holder.analysisLayout.setOnClickListener(view -> {
-            // TODO: Open intent with result
             if (currentAnalysis.getStatus().equals("FINISHED")) {
                 if (currentAnalysis.getResult() != null && !currentAnalysis.getResult().isEmpty()) {
+                    Intent analysisResultIntent = new Intent(view.getContext(), AnalysisResultActivity.class);
+                    analysisResultIntent.putExtra("analysis", currentAnalysis);
+                    mContext.startActivity(analysisResultIntent);
                     Toast.makeText(mContext, currentAnalysis.getResult(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mContext, "No Result", Toast.LENGTH_SHORT).show();
