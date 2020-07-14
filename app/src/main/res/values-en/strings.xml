@@ -91,6 +91,18 @@
     <string name="badRequest">Client error (bad request)</string>
     <string name="upload_document_file_must_be_format">File format must be .pdf or .txt</string>
     <string name="upload_document_link_required_message">Please enter a link to a .txt or .pdf file</string>
+    <string name="analysis_result_content_hint">Language : FR …</string>
+    <string name="analysis_result_download_error">An error occurred during the export of the results</string>
+    <string name="analysis_result_downloaded_message">%1$s  downloaded</string>
+    <string name="analysis_result_creating_error">An error occurred during the saving of the result file</string>
+    <string name="analysis_result_no_result_message">This analysis returned no result</string>
+    <string name="analysis_result_canceled_message">This analysis has been canceled</string>
+    <string name="analysis_result_not_finished_message">This analysis is not finished yet</string>
+    <string name="analysis_result_flag">Flag : </string>
+    <string name="analysis_result_start">Starting time : </string>
+    <string name="analysis_result_end">Ending time : </string>
+    <string name="analysis_result_delay">Delay : </string>
+    <string name="analysis_result_result">Result : </string>
 
     <string-array name="loginErrors">
         <item name="error_403">Incorrect username or password</item>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -91,17 +92,18 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         }
 
         holder.analysisLayout.setOnClickListener(view -> {
-            // TODO: Open intent with result
             if (currentAnalysis.getStatus().equals("FINISHED")) {
                 if (currentAnalysis.getResult() != null && !currentAnalysis.getResult().isEmpty()) {
-                    Toast.makeText(mContext, currentAnalysis.getResult(), Toast.LENGTH_SHORT).show();
+                    Intent analysisResultIntent = new Intent(view.getContext(), AnalysisResultActivity.class);
+                    analysisResultIntent.putExtra("analysis", currentAnalysis);
+                    mContext.startActivity(analysisResultIntent);
                 } else {
-                    Toast.makeText(mContext, "No Result", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.analysis_result_no_result_message, Toast.LENGTH_SHORT).show();
                 }
             } else if (currentAnalysis.getStatus().equals("CANCELED")) {
-                Toast.makeText(mContext, "Analysis canceled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.analysis_result_canceled_message, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(mContext, "Analysis not finished", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.analysis_result_not_finished_message, Toast.LENGTH_SHORT).show();
 
             }
         });

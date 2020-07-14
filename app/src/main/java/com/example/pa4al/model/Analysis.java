@@ -1,5 +1,6 @@
 package com.example.pa4al.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Analysis {
+public class Analysis implements Serializable {
     private String id;
     private String name;
     private String status;
