@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
-import com.example.pa4al.ui.documents.NewAnalysisActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,14 +97,13 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
                     Intent analysisResultIntent = new Intent(view.getContext(), AnalysisResultActivity.class);
                     analysisResultIntent.putExtra("analysis", currentAnalysis);
                     mContext.startActivity(analysisResultIntent);
-                    Toast.makeText(mContext, currentAnalysis.getResult(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mContext, "No Result", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.analysis_result_no_result_message, Toast.LENGTH_SHORT).show();
                 }
             } else if (currentAnalysis.getStatus().equals("CANCELED")) {
-                Toast.makeText(mContext, "Analysis canceled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.analysis_result_canceled_message, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(mContext, "Analysis not finished", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.analysis_result_not_finished_message, Toast.LENGTH_SHORT).show();
 
             }
         });
