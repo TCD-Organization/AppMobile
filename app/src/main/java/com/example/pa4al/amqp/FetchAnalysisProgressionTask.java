@@ -10,6 +10,7 @@ import com.example.pa4al.AndroidApplication;
 import com.example.pa4al.R;
 import com.example.pa4al.gson.GsonCustom;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.AnalysisStatus;
 import com.example.pa4al.ui.analyses.AnalysisListAdapter;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -22,6 +23,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
+import static com.example.pa4al.model.AnalysisStatus.CANCELED;
+import static com.example.pa4al.model.AnalysisStatus.FINISHED;
+import static com.example.pa4al.model.AnalysisStatus.TO_START;
 import static com.example.pa4al.utils.TimeToStringFormatter.timeToString;
 
 public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.AnalysesViewHolder, Analysis, Analysis> {
@@ -88,14 +92,15 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
                             Analysis.class);
 
                     publishProgress(analysisProgression);
-                    if (analysisProgression.getStatus().equals("FINISHED") ||
-                            analysisProgression.getStatus().equals("CANCELED")) { // TODO : Replace with status
+                    if (analysisProgression.getStatus().equals(FINISHED.name()) ||
+                            analysisProgression.getStatus().equals(CANCELED.name())) { // TODO : Replace with
+                        // status
                         holder.mLastingTime.setText(timeToString(0L));
                         holder.mAnalysisItem.setStatus(analysisProgression.getStatus());
                         holder.mAnalysisItem.setResult(analysisProgression.getResult());
                         cancel(true);
                     }
-                    if(!analysisProgression.getStatus().equals("TO_START") && firstReception) {
+                    if(!analysisProgression.getStatus().equals(TO_START.name()) && firstReception) {
                         holder.mAnalysisItem.setLasting_time(analysisProgression.getLasting_time());
                         holder.mLastingTime.setText(timeToString(analysisProgression.getLasting_time()));
                         holder.mProgressBar.setMax(analysisProgression.getTotal_steps());

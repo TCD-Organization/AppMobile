@@ -23,11 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pa4al.R;
 import com.example.pa4al.amqp.FetchAnalysisProgressionTask;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.AnalysisStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.pa4al.model.AnalysisStatus.CANCELED;
+import static com.example.pa4al.model.AnalysisStatus.FINISHED;
 import static com.example.pa4al.use_case.DeleteAnalysis.DeleteAnalysis;
 import static com.example.pa4al.use_case.DeleteAnalysis.DeleteAnalysisCallBack;
 import static com.example.pa4al.utils.TimeToStringFormatter.timeToString;
@@ -87,12 +90,13 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
 
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
-        if (!currentAnalysis.getStatus().equals("FINISHED") && !currentAnalysis.getStatus().equals("CANCELED")) {
+        if (!currentAnalysis.getStatus().equals(FINISHED.name()) && !currentAnalysis.getStatus().equals(
+                CANCELED.name())) {
             fetchAnalysisProgression(holder);
         }
 
         holder.analysisLayout.setOnClickListener(view -> {
-            if (currentAnalysis.getStatus().equals("FINISHED")) {
+            if (currentAnalysis.getStatus().equals(FINISHED.name())) {
                 if (currentAnalysis.getResult() != null && !currentAnalysis.getResult().isEmpty()) {
                     Intent analysisResultIntent = new Intent(view.getContext(), AnalysisResultActivity.class);
                     analysisResultIntent.putExtra("analysis", currentAnalysis);
@@ -100,7 +104,7 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
                 } else {
                     Toast.makeText(mContext, R.string.analysis_result_no_result_message, Toast.LENGTH_SHORT).show();
                 }
-            } else if (currentAnalysis.getStatus().equals("CANCELED")) {
+            } else if (currentAnalysis.getStatus().equals(CANCELED.name())) {
                 Toast.makeText(mContext, R.string.analysis_result_canceled_message, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(mContext, R.string.analysis_result_not_finished_message, Toast.LENGTH_SHORT).show();
