@@ -6,6 +6,8 @@ import android.os.StrictMode;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.pa4al.AndroidApplication;
+import com.example.pa4al.R;
 import com.example.pa4al.gson.GsonCustom;
 import com.example.pa4al.model.Analysis;
 import com.example.pa4al.ui.analyses.AnalysisListAdapter;
@@ -67,7 +69,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
             e.printStackTrace();
             closeConnection(channel, connection);
         }
-        // Dummy Data until i can't connect to rabbitMQ
+
         return null;
     }
 
@@ -86,8 +88,11 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
                             Analysis.class);
 
                     publishProgress(analysisProgression);
-                    if (analysisProgression.getStatus().equals("FINISHED")) { // TODO : Replace with status
+                    if (analysisProgression.getStatus().equals("FINISHED") ||
+                            analysisProgression.getStatus().equals("CANCELED")) { // TODO : Replace with status
                         holder.mLastingTime.setText(timeToString(0L));
+                        holder.mAnalysisItem.setStatus(analysisProgression.getStatus());
+                        holder.mAnalysisItem.setResult(analysisProgression.getResult());
                         cancel(true);
                     }
                     if(!analysisProgression.getStatus().equals("TO_START") && firstReception) {
@@ -161,11 +166,13 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
     protected void onProgressUpdate(Analysis... values) {
         Analysis progress = values[0];
         holder.mAnalysisStatus.setText(progress.getStatus());
-        holder.mStepName.setText(String.valueOf(progress.getStep_name()));
+        String step_name = progress.getStep_name();
+        if (step_name == null) {
+            step_name =
+                    AndroidApplication.getAppContext().getResources().getString(R.string.analysis_status_not_started);
+        }
+        holder.mStepName.setText(step_name);
         holder.mStepNumber.setText(String.valueOf(progress.getStep_number()));
         holder.mProgressBar.setProgress(progress.getStep_number());
-        // value for the first time
-
-        System.out.println("Progress step number is now : " + progress.getStep_number());
     }
 }

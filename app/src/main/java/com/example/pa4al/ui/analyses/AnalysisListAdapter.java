@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -67,19 +68,16 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
         holder.mStepNumber.setText(String.valueOf(currentAnalysis.getStep_number()));
         holder.mStepMax.setText(String.valueOf(currentAnalysis.getTotal_steps()));
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             holder.mDeleteButton.setBackground(mContext.getDrawable(R.drawable.ic_delete));
 
         holder.mDeleteButton.setOnClickListener(v -> showDeleteAlert(position));
-
 
         if(stepName == null) {
             holder.mStepName.setText(R.string.analysis_status_not_started);
         } else {
             holder.mStepName.setText(stepName);
         }
-
 
         if(lastingTime == null) {
             holder.mLastingTime.setText(R.string.analysis_lasting_time_not_started);
@@ -89,12 +87,25 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
 
         System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
 
-        if (!mAnalyses.get(position).getStatus().equals("FINISHED")) {
+        if (!currentAnalysis.getStatus().equals("FINISHED") && !currentAnalysis.getStatus().equals("CANCELED")) {
             fetchAnalysisProgression(holder);
         }
 
         holder.analysisLayout.setOnClickListener(view -> {
-            // TODO: Open intent with result
+            if (currentAnalysis.getStatus().equals("FINISHED")) {
+                if (currentAnalysis.getResult() != null && !currentAnalysis.getResult().isEmpty()) {
+                    Intent analysisResultIntent = new Intent(view.getContext(), AnalysisResultActivity.class);
+                    analysisResultIntent.putExtra("analysis", currentAnalysis);
+                    mContext.startActivity(analysisResultIntent);
+                } else {
+                    Toast.makeText(mContext, R.string.analysis_result_no_result_message, Toast.LENGTH_SHORT).show();
+                }
+            } else if (currentAnalysis.getStatus().equals("CANCELED")) {
+                Toast.makeText(mContext, R.string.analysis_result_canceled_message, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, R.string.analysis_result_not_finished_message, Toast.LENGTH_SHORT).show();
+
+            }
         });
     }
 
