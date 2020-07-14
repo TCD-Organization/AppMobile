@@ -25,11 +25,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.pa4al.R;
+import com.example.pa4al.gson.GsonCustom;
 import com.example.pa4al.model.Analysis;
+import com.example.pa4al.model.AnalysisResult;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.val;
 
@@ -65,72 +71,65 @@ public class AnalysisResultActivity extends AppCompatActivity {
     private void downloadResult() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            document = new PdfDocument();
-            String content = selectedAnalysisResultContent.getText().toString();
-            content = "sau\nsa\nges\nare\nvery\ngood\nfor\nme";
-            TextPaint textPaint = new TextPaint();
-            textPaint.setAntiAlias(true);
-            textPaint.setTextSize(24 * getResources().getDisplayMetrics().density);
-            textPaint.setColor(Color.BLACK);
-            int width = (int) textPaint.measureText(content);
-            Rect rect = new Rect();
-            textPaint.getTextBounds(content, 0, content.length(), rect);
+            try {
+                String originalContent = selectedAnalysisResultContent.getText().toString();
+                System.out.println(originalContent);
+                Type listOfAnalysisResult = new TypeToken<List<AnalysisResult>>(){}.getType();
+                AnalysisResult[] analysisResults = new GsonCustom().create().fromJson(originalContent, AnalysisResult[].class);
+                StringBuilder result = new StringBuilder();
+                for (AnalysisResult analysisResult : analysisResults) {
+                    result.append(analysisResult.toString());
+                }
+                TextPaint textPaint = new TextPaint();
+                textPaint.setAntiAlias(true);
+                textPaint.setTextSize(24 * getResources().getDisplayMetrics().density);
+                textPaint.setColor(Color.BLACK);
+                int width = (int) textPaint.measureText(result.toString());
+                Rect rect = new Rect();
+                textPaint.getTextBounds(result.toString(), 0, result.toString().length(), rect);
 
 
+                StaticLayout staticLayout = new StaticLayout(result.toString(), textPaint, (int) width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0
+                        , false);
 
-            // crate a page description
-            PdfDocument.PageInfo pageInfo =
-                    new PdfDocument.PageInfo.Builder(width,  rect.height() , 1).create();
+                // crate a page description
+                PdfDocument.PageInfo pageInfo =
+                        new PdfDocument.PageInfo.Builder(width,  staticLayout.getHeight() , 1).create();
 
-            // start a page
-            PdfDocument.Page page = document.startPage(pageInfo);
+                document = new PdfDocument();
 
+                // start a page
+                PdfDocument.Page page = document.startPage(pageInfo);
 
+                Canvas firstPage = page.getCanvas();
+                staticLayout.draw(firstPage);
 
-            float originalTextSize = selectedAnalysisResultContent.getTextSize();
-            System.out.println("Original text size: " + originalTextSize);
-            //selectedAnalysisResultContent.setTextSize(originalTextSize - 70f);
-            System.out.println("New text size: " + originalTextSize);
+                // finish the page
+                document.finishPage(page);
 
-            // draw something on the page
-            Canvas firstPage = page.getCanvas();
-            /*Paint paint = new Paint();
-            paint.setColor(Color.WHITE);
-            paint.setStyle(Paint.Style.FILL);
-            firstPage.drawPaint(paint);
-             */
-            StaticLayout staticLayout = new StaticLayout(content, textPaint, (int) width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
-            staticLayout.draw(firstPage);
+                // write the document content
+                String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/TCD-Analyses";
+                //File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-            /*paint.setColor(Color.BLACK);
-            paint.setTextSize(20);*/
-            //firstPage.drawText(selectedAnalysisResultContent.getText().toString(), 10, 25, textPaint);
-            //content.draw(page.getCanvas());
+                File dir = new File(path);
+                if(!dir.exists())
+                    dir.mkdirs();
 
-            // finish the page
-            document.finishPage(page);
-
-            // write the document content
-            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/TCD-Analyses";
-            //File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-
-            File dir = new File(path);
-            if(!dir.exists())
-                dir.mkdirs();
-
-            analysisFile = new File(path, selectedAnalysisTitle.getText()+".pdf");
-            System.out.println("analysisFile path : "+ analysisFile.getAbsolutePath());
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                saveFile();
-            } else {
-                // Request permission from the user
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-            }
+                analysisFile = new File(path, selectedAnalysisTitle.getText()+".pdf");
+                System.out.println("analysisFile path : "+ analysisFile.getAbsolutePath());
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    saveFile();
+                } else {
+                    // Request permission from the user
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                }
 
             // close the document
             document.close();
-
+            } catch (IllegalStateException e) {
+                Toast.makeText(this, "An error occured during the export of the results", Toast.LENGTH_SHORT).show();
+            }
         }
 
         //List<AnalysisResult> analysisResults = getListOfResults(analysis.getResult());
