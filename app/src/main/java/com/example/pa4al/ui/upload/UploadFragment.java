@@ -1,8 +1,11 @@
 package com.example.pa4al.ui.upload;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.pa4al.R;
 import com.example.pa4al.model.DocumentContentType;
@@ -79,16 +85,35 @@ public class UploadFragment extends MainFragment {
         });
 
         fileBtn.setOnClickListener(v -> {
-            Intent intent = new Intent()
-                    .setType("application/pdf|text/*")
-                    .setAction(Intent.ACTION_GET_CONTENT);
+            if (ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                askForFile();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+            }
 
-            startActivityForResult(Intent.createChooser(intent, "Select a file"), 123);
         });
 
         upload.setOnClickListener(v -> Upload());
 
         return view;
+    }
+
+    private void askForFile() {
+        Intent intent = new Intent()
+                .setType("application/pdf|text/*")
+                .setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(intent, "Select a file"), 123);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 0:
+                askForFile();
+        }
     }
 
     @Override

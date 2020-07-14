@@ -105,6 +105,7 @@
     <string name="analysis_result_end">Date de Fin : </string>
     <string name="analysis_result_delay">Durée : </string>
     <string name="analysis_result_result">Résultat : </string>
+    <string name="register_progress_title">Inscription</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Nom d\'utilisateur ou mot de passe incorrect</item>

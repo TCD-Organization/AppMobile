@@ -103,6 +103,7 @@
     <string name="analysis_result_end">Ending time : </string>
     <string name="analysis_result_delay">Delay : </string>
     <string name="analysis_result_result">Result : </string>
+    <string name="register_progress_title">Register</string>
 
     <string-array name="loginErrors">
         <item name="error_403">Incorrect username or password</item>

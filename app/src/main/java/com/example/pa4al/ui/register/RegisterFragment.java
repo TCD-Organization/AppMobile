@@ -55,7 +55,7 @@ public class RegisterFragment extends Fragment {
         }
 
         ProgressDialog mProgress = new ProgressDialog(getContext());
-        mProgress.setTitle(getString(R.string.login_progress_title));
+        mProgress.setTitle(getString(R.string.register_progress_title));
         mProgress.setMessage(getString(R.string.login_progress_message));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
