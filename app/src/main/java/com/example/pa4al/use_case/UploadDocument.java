@@ -28,7 +28,6 @@ public class UploadDocument {
 
         Call<Void> call;
         if (fileUpload) {
-            System.out.println("FileUpload : " + contentType);
             RequestBody fileBody = prepareFileBody(file);
 
             if (fileBody == null) {
@@ -47,7 +46,6 @@ public class UploadDocument {
                     .getInstance().getApi().createDocumentFromFile(context.getSharedPreferences("userPrefs",
                             Context.MODE_PRIVATE).getString("Token",null), map);
         } else {
-            System.out.println("No fileupload : " + contentType);
             call = RetrofitClient
                     .getInstance().getApi().createDocument(context.getSharedPreferences("userPrefs",
                             Context.MODE_PRIVATE).getString("Token",null),
@@ -60,10 +58,8 @@ public class UploadDocument {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        System.out.println(response.code());
                         callBack.onSuccess(context);
                     } else {
-                        System.out.println("Error message: " + response.message());
                         ResponseHandler responseHandler = new ResponseHandler(R.array.documentUploadErrors);
                         String errorMessage = responseHandler.handle(response.code());
 
@@ -83,7 +79,6 @@ public class UploadDocument {
 
     public static RequestBody prepareFileBody(File file) {
         String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-        System.out.println("MimeType: "+mimeType);
         if (mimeType.equals("application/pdf") || mimeType.equals("application/txt")) {
             return RequestBody.create(MediaType.parse(mimeType), file);
         }

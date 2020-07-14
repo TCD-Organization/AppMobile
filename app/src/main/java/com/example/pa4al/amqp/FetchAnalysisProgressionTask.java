@@ -87,7 +87,6 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
 
                     properties.builder().deliveryMode(2);
                     String analysisProgressionText = new String(body, StandardCharsets.UTF_8);
-                    System.out.println("Progression: " + analysisProgressionText);
                     Analysis analysisProgression = new GsonCustom().create().fromJson(analysisProgressionText,
                             Analysis.class);
 
@@ -156,7 +155,6 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
 
     @Override
     protected void onPostExecute(Analysis result) {
-        System.out.println(result);
         closeConnection(channel, connection);
     }
 

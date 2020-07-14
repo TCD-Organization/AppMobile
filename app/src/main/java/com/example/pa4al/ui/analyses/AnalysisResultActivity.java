@@ -100,7 +100,7 @@ public class AnalysisResultActivity extends AppCompatActivity {
                     dir.mkdirs();
 
                 analysisFile = new File(path, selectedAnalysisTitle.getText() + "-analysis-" + new Date() +".pdf");
-                System.out.println("analysisFile path : "+ analysisFile.getAbsolutePath());
+
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     saveFile();
                 } else {

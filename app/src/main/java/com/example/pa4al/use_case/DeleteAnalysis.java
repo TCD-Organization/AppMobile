@@ -22,7 +22,6 @@ public class DeleteAnalysis {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    System.out.println(response.code());
                     callBack.onSuccess(context);
                 }
                 else{

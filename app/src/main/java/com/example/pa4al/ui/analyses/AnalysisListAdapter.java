@@ -88,8 +88,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
             holder.mLastingTime.setText(timeToString(lastingTime));
         }
 
-        System.out.println("fetching progression for : " + mAnalyses.get(position).getId());
-
         if (!currentAnalysis.getStatus().equals(FINISHED.name()) && !currentAnalysis.getStatus().equals(
                 CANCELED.name())) {
             fetchAnalysisProgression(holder);
@@ -174,7 +172,6 @@ public class AnalysisListAdapter extends RecyclerView.Adapter<AnalysisListAdapte
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         analysisProgressionTasks.forEach(asyncTask -> asyncTask.cancel(true));
-        System.out.println("OnDetached");
         super.onDetachedFromRecyclerView(recyclerView);
 
     }
