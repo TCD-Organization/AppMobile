@@ -78,7 +78,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onError(Context context, Exception e) {
                 mProgress.dismiss();
-                Toast.makeText(getActivity(), context.getResources().getString(R.string.error, e.getMessage()),
+                Toast.makeText(context, context.getResources().getString(R.string.error, e.getMessage()),
                         Toast.LENGTH_LONG).show();
             }
         });
