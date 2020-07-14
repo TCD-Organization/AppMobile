@@ -93,7 +93,7 @@ public class FetchAnalysisProgressionTask extends AsyncTask<AnalysisListAdapter.
 
                     publishProgress(analysisProgression);
                     if (analysisProgression.getStatus().equals(FINISHED.name()) ||
-                            analysisProgression.getStatus().equals(CANCELED.name())) { // TODO : Replace with
+                            analysisProgression.getStatus().equals(CANCELED.name())) {
                         // status
                         holder.mLastingTime.setText(timeToString(0L));
                         holder.mAnalysisItem.setStatus(analysisProgression.getStatus());
