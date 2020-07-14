@@ -5,18 +5,19 @@ import android.content.Context;
 import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.ResponseHandler;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
+import com.example.pa4al.model.AnalysisDTO;
 
 import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DeleteAnalysis {
-    public static void DeleteAnalysis(@NonNull String analysisId, final Context context,
-                                      final DeleteAnalysisCallBack callBack){
+public class CreateAnalysis {
+    public static void CreateAnalysis(@NonNull String nameAnalysis, @NonNull String doc_id, final Context context,
+                                      final CreateAnalysisCallBack callBack){
         Call<Void> call = RetrofitClient
-                .getInstance().getApi().deleteAnalysis(context.getSharedPreferences("userPrefs",
-                        Context.MODE_PRIVATE).getString("Token",null), analysisId);
+                .getInstance().getApi().createAnalysis(context.getSharedPreferences("userPrefs",
+                        Context.MODE_PRIVATE).getString("Token",null), new AnalysisDTO(nameAnalysis, doc_id));
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -25,7 +26,7 @@ public class DeleteAnalysis {
                     callBack.onSuccess(context);
                 }
                 else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.deleteAnalysisErrors);
+                    ResponseHandler responseHandler = new ResponseHandler(R.array.createAnalysisErrors);
                     String errorMessage = responseHandler.handle(response.code());
                     callBack.onFailure(context, new Exception(errorMessage));
                 }
@@ -38,7 +39,7 @@ public class DeleteAnalysis {
         });
     }
 
-    public interface DeleteAnalysisCallBack {
+    public interface CreateAnalysisCallBack {
         void onSuccess(Context context);
         void onFailure(Context context, Exception e);
     }

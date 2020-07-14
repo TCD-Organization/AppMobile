@@ -136,6 +136,12 @@
         <item name="error_409">Conflit (Erreur Serveur)</item>
         <item name="error_500">Erreur serveur</item>
     </string-array>
+    <string-array name="createAnalysisErrors">
+        <item name="error_403">Non autorisé</item>
+        <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>
+        <item name="error_409">Conflit (Erreur Serveur)</item>
+        <item name="error_500">Erreur serveur</item>
+    </string-array>
     <string-array name="deleteAnalysisErrors">
         <item name="error_403">Non autorisé</item>
         <item name="error_404">Analyse non trouvée (Erreur Serveur)</item>

@@ -134,6 +134,12 @@
         <item name="error_409">Document conflict (Server Error)</item>
         <item name="error_500">Server error</item>
     </string-array>
+    <string-array name="createAnalysisErrors">
+        <item name="error_403">Unauthorized</item>
+        <item name="error_404">Analysis not found (Server Error)</item>
+        <item name="error_409">Analysis conflict (Server Error)</item>
+        <item name="error_500">Server error</item>
+    </string-array>
     <string-array name="deleteAnalysisErrors">
         <item name="error_403">Unauthorized</item>
         <item name="error_404">Analysis not found (Server Error)</item>

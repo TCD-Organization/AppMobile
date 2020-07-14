@@ -21,7 +21,7 @@ public class ResponseHandler {
 
         stringArray = context.getResources().getStringArray(stringArrayId);
         String message = null;
-        System.out.println("Error code : "+error);
+
         if(error==403) {
             message = stringArray[0];
         }

@@ -15,6 +15,7 @@ import com.example.pa4al.R;
 import com.example.pa4al.infrastructure.api.RetrofitClient;
 import com.example.pa4al.model.AnalysisDTO;
 import com.example.pa4al.model.Document;
+import com.example.pa4al.use_case.CreateAnalysis;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,34 +59,17 @@ public class NewAnalysisActivity extends AppCompatActivity {
         String nameAnalysis = mNewAnalysisName.getText().toString();
         String doc_id = document.getId();
 
-        Call<Void> call = RetrofitClient
-                .getInstance().getApi().createAnalysis(userSharedPreferences.getString("Token", null),
-                        new AnalysisDTO(nameAnalysis, doc_id));
-
-        call.enqueue(new Callback<Void>() {
+        CreateAnalysis.CreateAnalysis(nameAnalysis, doc_id, this, new CreateAnalysis.CreateAnalysisCallBack() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-               /*if(response.isSuccessful()){
-                    callBack.onSuccess(context);
-                }
-                else{
-                    ResponseHandler responseHandler = new ResponseHandler(R.array.newAnalysisErrors);
-                    String errorMessage = responseHandler.handle(response.code());
-                    callBack.onFailure(context, new Exception(errorMessage));
-                }*/
-                // TODO: Move into a service
-
-                if(response.code() > 299) {
-                    Toast.makeText(NewAnalysisActivity.this, "Error " + response.code(), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(NewAnalysisActivity.this, R.string.new_analysis_created,
-                            Toast.LENGTH_LONG).show();
-                    finish();
-                }
+            public void onSuccess(Context context) {
+                Toast.makeText(context, R.string.new_analysis_created, Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Context context, Exception e) {
+                Toast.makeText(context, context.getResources().getString(R.string.error, e.getMessage()),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
