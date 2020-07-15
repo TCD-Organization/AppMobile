@@ -14,7 +14,7 @@ public class TimeToStringFormatter {
         return String.format(Locale.FRANCE, "%02d min, %02d sec, %02d mil",
                 TimeUnit.MILLISECONDS.toMinutes(lastingTime),
                 TimeUnit.MILLISECONDS.toSeconds(lastingTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lastingTime)),
-                TimeUnit.MILLISECONDS.toMillis(lastingTime) - TimeUnit.MINUTES.toMillis(TimeUnit.MILLISECONDS.toSeconds(lastingTime))
+                lastingTime%1000
         );
     }
 }
